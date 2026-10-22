@@ -1,0 +1,81 @@
+@startuml Diagrama_Sequencia_Rhyme
+skinparam backgroundColor #050505
+skinparam defaultFontName "Segoe UI", Arial, sans-serif
+skinparam defaultFontSize 12
+skinparam defaultFontColor #FFFFFF
+skinparam TitleFontColor #F97316
+skinparam TitleFontSize 16
+
+skinparam ParticipantBackgroundColor #1A1A1A
+skinparam ParticipantBorderColor #F97316
+skinparam ParticipantFontColor #FFFFFF
+
+skinparam DatabaseBackgroundColor #1A1A1A
+skinparam DatabaseBorderColor #F97316
+skinparam DatabaseFontColor #FFFFFF
+
+skinparam ActorBackgroundColor #F97316
+skinparam ActorBorderColor #FB923C
+skinparam ActorFontColor #FFFFFF
+
+skinparam SequenceLifeLineBorderColor #262626
+skinparam SequenceGroupBackgroundColor #0A0A0A
+skinparam SequenceGroupBorderColor #F97316
+skinparam SequenceGroupHeaderFontColor #FB923C
+
+skinparam ArrowColor #F97316
+skinparam ArrowFontColor #A3A3A3
+
+title Diagrama de Sequência - Atualização de Status e Rastreamento GPS em Tempo Real
+
+actor "Estudante" as E
+participant "PWA Rhyme\n(Interface Aluno)" as AppA
+participant "API Geolocation\n(Navegador)" as GPS
+database "Firebase Firestore\n(Realtime DB)" as DB
+participant "PWA Rhyme\n(Interface Motorista)" as AppM
+actor "Motorista" as M
+
+autonumber
+
+== Alteração de Status pelo Estudante ==
+E -> AppA: Clica em "Liberado da Aula"
+activate AppA
+
+AppA -> GPS: getCurrentPosition()
+activate GPS
+GPS --> AppA: Coordenadas (lat, lng, precisão)
+deactivate GPS
+
+AppA -> DB: updateDoc("trips/{tripId}/students/{id}", { status: "liberado", coords, timestamp })
+activate DB
+DB --> AppA: Confirmação de escrita OK
+deactivate DB
+
+AppA --> E: Exibe confirmação visual no mapa (Ícone Verde)
+deactivate AppA
+
+== Sincronização em Tempo Real (Push Event) ==
+DB -> AppM: onSnapshot() - Notificação de alteração
+activate AppM
+
+AppM -> AppM: Recalcula contagem de alunos liberados por faculdade
+AppM -> AppM: Atualiza marcadores Leaflet no Mapa do Motorista
+
+AppM --> M: Notificação sonora/visual + Atualização do Mapa
+deactivate AppM
+
+== Transmissão de GPS a Bordo (Broadcast Mode) ==
+group Transmissão Contínua a Bordo [Estudante no Ônibus]
+    E -> AppA: Ativa modo "Transmitir GPS da Van"
+    activate AppA
+    loop Cada 5 segundos
+        AppA -> GPS: watchPosition()
+        GPS --> AppA: Localização GPS em movimento
+        AppA -> DB: setDoc("bus_location/active", { lat, lng, speed, heading, updatedAt })
+        DB -> AppM: Broadcast em tempo real
+        AppM -> AppM: Atualiza posição do Ônibus no Mapa Leaflet
+    end
+    deactivate AppA
+end
+
+@enduml

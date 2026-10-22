@@ -1,0 +1,77 @@
+@startuml Diagrama_Modelo_Dados_Firestore
+skinparam backgroundColor #050505
+skinparam defaultFontName "Segoe UI", Arial, sans-serif
+skinparam defaultFontSize 12
+skinparam defaultFontColor #FFFFFF
+skinparam TitleFontColor #F97316
+skinparam TitleFontSize 16
+
+skinparam classBackgroundColor #1A1A1A
+skinparam classBorderColor #F97316
+skinparam classFontColor #FFFFFF
+skinparam classHeaderBackgroundColor #262626
+
+skinparam ArrowColor #F97316
+skinparam ArrowFontColor #A3A3A3
+
+title Modelo de Dados NoSQL - Coleções Cloud Firestore
+
+entity "routes (Coleção)" as routes {
+    * id : string <<PK>>
+    --
+    name : string
+    active : boolean
+    faculties : array<Faculty>
+    createdAt : timestamp
+}
+
+entity "trips (Coleção)" as trips {
+    * tripId : string <<PK>>
+    --
+    routeId : string <<FK>>
+    driverUid : string
+    status : "scheduled" | "in_progress" | "completed"
+    startedAt : timestamp
+    endedAt : timestamp
+}
+
+entity "trips/{tripId}/students (Subcoleção)" as trip_students {
+    * studentUid : string <<PK>>
+    --
+    name : string
+    faculty : string
+    status : "in_class" | "released" | "at_stop" | "boarded"
+    lat : number
+    lng : number
+    updatedAt : timestamp
+}
+
+entity "bus_location (Coleção)" as bus_location {
+    * active : string <<PK>>
+    --
+    tripId : string <<FK>>
+    lat : number
+    lng : number
+    speed : number
+    heading : number
+    broadcasterRole : "driver" | "anchor_student"
+    updatedAt : timestamp
+}
+
+entity "emergencies (Coleção)" as emergencies {
+    * id : string <<PK>>
+    --
+    tripId : string <<FK>>
+    studentUid : string
+    studentName : string
+    faculty : string
+    active : boolean
+    createdAt : timestamp
+}
+
+routes ||--o{ trips : "define trajeto"
+trips ||--o{ trip_students : "contém passageiros"
+trips ||--o| bus_location : "possui telemetria ativa"
+trips ||--o{ emergencies : "registra alertas"
+
+@enduml

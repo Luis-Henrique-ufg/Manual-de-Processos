@@ -1,0 +1,53 @@
+@startuml Diagrama_Componentes_Rhyme
+skinparam backgroundColor #050505
+skinparam defaultFontName "Segoe UI", Arial, sans-serif
+skinparam defaultFontSize 12
+skinparam defaultFontColor #FFFFFF
+skinparam TitleFontColor #F97316
+skinparam TitleFontSize 16
+
+skinparam componentStyle uml2
+skinparam ComponentBackgroundColor #1A1A1A
+skinparam ComponentBorderColor #F97316
+skinparam ComponentFontColor #FFFFFF
+
+skinparam InterfaceBackgroundColor #FB923C
+skinparam InterfaceBorderColor #F97316
+
+skinparam PackageBackgroundColor #0A0A0A
+skinparam PackageBorderColor #262626
+skinparam PackageFontColor #FB923C
+
+skinparam ArrowColor #F97316
+skinparam ArrowFontColor #A3A3A3
+
+title Diagrama de Componentes - Arquitetura do PWA Rhyme
+
+package "Cliente PWA (Browser / Mobile Device)" {
+    [React 19 Core App] as UI
+    [Leaflet Map Engine] as Leaflet
+    [Geolocation Controller] as GeoCtrl
+    [Service Worker (Offline e PWA)] as SW
+    
+    UI --> Leaflet : Renderiza mapa interativo
+    UI --> GeoCtrl : Solicita coordenadas do GPS
+    UI --> SW : Cache de assets e funcionamento offline
+}
+
+package "APIs e Serviços Externos" {
+    [OpenStreetMap Tile Server] as OSM
+    Leaflet --> OSM : Requisições HTTP (Map Tiles)
+}
+
+package "Backend e Cloud Services (Firebase Services)" {
+    [Firebase Authentication] as Auth
+    [Cloud Firestore (Real-time DB)] as Firestore
+    [Firebase Cloud Messaging] as FCM
+}
+
+UI ..> Auth : HTTPS / Auth Tokens (Login Aluno/Motorista)
+UI ..> Firestore : WebSockets / Realtime Listeners (onSnapshot)
+GeoCtrl ..> Firestore : Transmissão de GPS e Status
+SW ..> FCM : Recebe Push Notifications de Geofence
+
+@enduml

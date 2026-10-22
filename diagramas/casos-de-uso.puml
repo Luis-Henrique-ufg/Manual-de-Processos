@@ -1,0 +1,93 @@
+@startuml Diagrama_Casos_de_Uso_Rhyme
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+skinparam backgroundColor #050505
+skinparam defaultFontName "Segoe UI", Arial, sans-serif
+skinparam defaultFontSize 12
+skinparam defaultFontColor #FFFFFF
+skinparam TitleFontColor #F97316
+skinparam TitleFontSize 16
+
+skinparam UseCaseBackgroundColor #1A1A1A
+skinparam UseCaseBorderColor #F97316
+skinparam UseCaseFontColor #FFFFFF
+
+skinparam ActorBackgroundColor #F97316
+skinparam ActorBorderColor #FB923C
+skinparam ActorFontColor #FFFFFF
+
+skinparam RectangleBackgroundColor #0A0A0A
+skinparam RectangleBorderColor #262626
+skinparam RectangleFontColor #F97316
+
+skinparam PackageBackgroundColor #121212
+skinparam PackageBorderColor #262626
+skinparam PackageFontColor #FB923C
+
+skinparam ArrowColor #F97316
+skinparam ArrowFontColor #A3A3A3
+
+title Diagrama de Casos de Uso - Sistema Rhyme (PWA)
+
+left to right direction
+
+actor "Estudante" as aluno
+actor "Motorista" as motorista
+actor "Serviço de GPS\n(Dispositivo)" as gps << System >>
+actor "Firebase Firestore\n(Backend Realtime)" as firebase << System >>
+
+rectangle "Sistema Rhyme (PWA)" {
+
+    package "Autenticação e Perfil" {
+        usecase "UC01 - Autenticar no PWA" as UC01
+        usecase "UC02 - Selecionar Rota e Faculdade" as UC02
+    }
+
+    package "Gestão de Presença e Status" {
+        usecase "UC03 - Informar Status de Liberação\n(Em sala / Liberado / No ponto)" as UC03
+        usecase "UC04 - Confirmar Embarque / Desembarque" as UC04
+    }
+
+    package "Rastreamento e Mapeamento Interativo" {
+        usecase "UC05 - Visualizar Mapa em Tempo Real\n(Ônibus e Alunos)" as UC05
+        usecase "UC06 - Transmitir Localização GPS\n(Broadcast a bordo)" as UC06
+        usecase "UC07 - Consultar Estimativa de Chegada (ETA)" as UC07
+    }
+
+    package "Painel e Operação do Motorista" {
+        usecase "UC08 - Visualizar Concentração de Alunos\npor Campus/Ponto" as UC08
+        usecase "UC09 - Alternar Modos de Rota\n(Modo Campus vs. Rota Direta)" as UC09
+        usecase "UC10 - Receber Alertas de Liberação" as UC10
+    }
+}
+
+' Relacionamentos do Aluno
+aluno --> UC01
+aluno --> UC02
+aluno --> UC03
+aluno --> UC04
+aluno --> UC05
+aluno --> UC06
+aluno --> UC07
+
+' Relacionamentos do Motorista
+motorista --> UC01
+motorista --> UC05
+motorista --> UC08
+motorista --> UC09
+motorista --> UC10
+
+' Inclusões e Extensões
+UC03 ..> UC05 : <<include>>
+UC06 ..> UC05 : <<extend>>
+UC07 ..> UC05 : <<include>>
+
+' Integrações com Sistemas Externos
+UC01 --> firebase
+UC03 --> firebase
+UC06 --> gps
+UC06 --> firebase
+UC08 <-- firebase
+UC10 <-- firebase
+
+@enduml
