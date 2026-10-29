@@ -1,25 +1,4 @@
 @startuml Diagrama_Componentes_Rhyme
-skinparam backgroundColor #050505
-skinparam defaultFontName "Segoe UI", Arial, sans-serif
-skinparam defaultFontSize 12
-skinparam defaultFontColor #FFFFFF
-skinparam TitleFontColor #F97316
-skinparam TitleFontSize 16
-
-skinparam componentStyle uml2
-skinparam ComponentBackgroundColor #1A1A1A
-skinparam ComponentBorderColor #F97316
-skinparam ComponentFontColor #FFFFFF
-
-skinparam InterfaceBackgroundColor #FB923C
-skinparam InterfaceBorderColor #F97316
-
-skinparam PackageBackgroundColor #0A0A0A
-skinparam PackageBorderColor #262626
-skinparam PackageFontColor #FB923C
-
-skinparam ArrowColor #F97316
-skinparam ArrowFontColor #A3A3A3
 
 title Diagrama de Componentes - Arquitetura do PWA Rhyme
 

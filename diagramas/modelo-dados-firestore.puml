@@ -1,18 +1,4 @@
 @startuml Diagrama_Modelo_Dados_Firestore
-skinparam backgroundColor #050505
-skinparam defaultFontName "Segoe UI", Arial, sans-serif
-skinparam defaultFontSize 12
-skinparam defaultFontColor #FFFFFF
-skinparam TitleFontColor #F97316
-skinparam TitleFontSize 16
-
-skinparam classBackgroundColor #1A1A1A
-skinparam classBorderColor #F97316
-skinparam classFontColor #FFFFFF
-skinparam classHeaderBackgroundColor #262626
-
-skinparam ArrowColor #F97316
-skinparam ArrowFontColor #A3A3A3
 
 title Modelo de Dados NoSQL - Coleções Cloud Firestore
 

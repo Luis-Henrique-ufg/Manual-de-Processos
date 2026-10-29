@@ -1,31 +1,4 @@
 @startuml Diagrama_Casos_de_Uso_Rhyme
-skinparam actorStyle awesome
-skinparam packageStyle rectangle
-skinparam backgroundColor #050505
-skinparam defaultFontName "Segoe UI", Arial, sans-serif
-skinparam defaultFontSize 12
-skinparam defaultFontColor #FFFFFF
-skinparam TitleFontColor #F97316
-skinparam TitleFontSize 16
-
-skinparam UseCaseBackgroundColor #1A1A1A
-skinparam UseCaseBorderColor #F97316
-skinparam UseCaseFontColor #FFFFFF
-
-skinparam ActorBackgroundColor #F97316
-skinparam ActorBorderColor #FB923C
-skinparam ActorFontColor #FFFFFF
-
-skinparam RectangleBackgroundColor #0A0A0A
-skinparam RectangleBorderColor #262626
-skinparam RectangleFontColor #F97316
-
-skinparam PackageBackgroundColor #121212
-skinparam PackageBorderColor #262626
-skinparam PackageFontColor #FB923C
-
-skinparam ArrowColor #F97316
-skinparam ArrowFontColor #A3A3A3
 
 title Diagrama de Casos de Uso - Sistema Rhyme (PWA)
 

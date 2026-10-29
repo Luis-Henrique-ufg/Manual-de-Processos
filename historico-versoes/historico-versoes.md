@@ -1,46 +1,43 @@
 # Histórico de Versões — Manual de Processos de Software
 ## Grupo 12 — INF0449 UFG
 
-> Registro formal das versões aprovadas e vigentes do documento de governança de software da equipe.
+> Registro formal das versões aprovadas e vigentes do documento de governança de software da equipe, em conformidade com a norma ISO/IEC/IEEE 12207:2017.
 
 ---
 
-### Tabela de Histórico de Versões
+### Tabela de Histórico de Baselines
 
-| Versão | Data | Descrição das Alterações e Entregáveis |
-|---|---|---|
-| **1.0** | **10/09/2026** | Realização da **Etapa 0**: Apresentação do software Rhyme, premissas, escopo e problema real a ser mitigado. |
-| **2.0** | **17/09/2026** | Realização da **Etapa 1**: Processos de Acordo (ISO/IEC/IEEE 12207:2017 §6.1), Matriz de Fornecedores, SLA e Procedimentos Operacionais. |
-| **3.0** | **17/09/2026** | Realização da **Etapa 2**: Processos Organizacionais Habilitadores (ISO/IEC/IEEE 12207:2017 §6.2), Ciclo de Vida, Competências, Qualidade e Gestão do Conhecimento. |
-| **4.0** | **01/10/2026** | Realização da **Etapa 3**: Processos de Gerenciamento Técnico (ISO/IEC/IEEE 12207:2017 §6.3), EAP/WBS, Análise de Decisão (MDA) e Risk Register. |
-| **5.0** | **01/10/2026** | Realização da **Etapa 4**: Processos Técnicos (ISO/IEC/IEEE 12207:2017 §6.4), Especificação Formal de Requisitos, Arquitetura PWA e Plano de V&V. |
-| **6.0** | **01/10/2026** | Realização da **Etapa 5**: Processos de Sustentação (ISO/IEC/IEEE 12207:2017 §6.4.10–6.4.14), Implantação CI/CD, Manutenção e Plano de Descontinuação. |
-| **7.0** | **22/10/2026** | **Manual de Processos de Software Unificado**: Harmonização integral das Etapas 0 a 5, alinhamento bidirecional EAP x Requisitos SMART x Testes, e Relatório de Avaliação por Pares (Peer Review) com plano CAPA. |
-
----
-
-### Membros da Equipe (Grupo 12)
-
-| Nome do Membro |
-|---|
-| Matheus Marquez de Carvalho Rodrigues |
-| Luis Henrique Oliveira de Jesus |
-| Heitor Gonçalves Costa |
-| Carlos Daniel Lopes de Araújo |
+| Versão | Data | Módulo / Etapa | Descrição das Alterações e Entregáveis |
+|:---:|:---:|:---|:---|
+| **1.0** | 10/09/2026 | Etapa 0 | **Apresentação do Software Rhyme**: Delimitação do escopo, formulação do problema do mundo real, identificação de stakeholders, restrições operacionais e premissas arquiteturais. |
+| **2.0** | 17/09/2026 | Etapa 1 | **Processos de Acordo (ISO 12207 §6.1)**: Matriz de aquisição PaaS/SaaS (*make vs. buy*), cessão gratuita de uso, SLA operacional de 99,9% no horário nobre e POPs normativos (POP-01 a POP-04). |
+| **3.0** | 17/09/2026 | Etapa 2 | **Processos Organizacionais Habilitadores (ISO 12207 §6.2)**: Formalização do ciclo de vida iterativo-incremental (Scrum/Kanban), inventário de infraestrutura, Matriz RACI, plano de métricas de qualidade (QM-01 a QM-04) e gestão do conhecimento. |
+| **4.0** | 01/10/2026 | Etapa 3 | **Processos de Gerenciamento Técnico (ISO 12207 §6.3)**: Elaboração da EAP em 3 níveis hierárquicos, cronograma de sprints S1–S6, Matrizes de Decisão Multicritério e Risk Register com planos de resposta. |
+| **5.0** | 01/10/2026 | Etapa 4 | **Processos Técnicos (ISO 12207 §6.4)**: Especificação formal dos Requisitos SMART (RF01–RF10, RNF01–RNF05), modelos estruturais UML em PlantUML e matriz de rastreabilidade bidirecional preliminar. |
+| **6.0** | 01/10/2026 | Etapa 5 | **Processos de Sustentação (ISO 12207 §6.4.10–6.4.14)**: Planejamento de implantação/handoff, esteira CI/CD GitHub Actions, modalidades de manutenção de software, observabilidade operacional e plano de descontinuação LGPD. |
+| **7.0** | 22/10/2026 | Consolidado | **Manual Unificado Oficial**: Harmonização integral de todos os módulos parciais, alinhamento bidirecional estrito (EAP ↔ Requisitos ↔ Testes CT01–CT10), especificação de modelos de dados Firestore e incorporação do Relatório de Avaliação por Pares (*Peer Review*) com plano CAPA implementado. |
+| **8.0** | **29/10/2026** | **Baseline Vigente** | **Adequação Estrutural e Normativa**: Reestruturação formal do manual em 6 capítulos rigorosamente alinhados à especificação da atividade, formalização dos registros ADR-001 a ADR-004, adoção do Mapbox Free Tier com Leaflet, generalização das rotas municipais e governança por papéis de engenharia. |
 
 ---
 
-### Navegação pelos Módulos do Manual
+### Membros da Equipe (Grupo 12 — Squad Rhyme Core)
 
-- **[Manual Unificado Oficial (ISO 12207)](./Manual.md)**
-- **[Etapa 0 - Apresentação do Software](./etapa-0.md)**
-- **[Etapa 1 - Processos de Acordo](./etapa-1.md)**
-- **[Etapa 2 - Processos Organizacionais Habilitadores](./etapa-2.md)**
-- **[Etapa 3 - Processos de Gerenciamento Técnico](./etapa-3.md)**
-- **[Etapa 4 - Processos Técnicos](./etapa-4.md)**
-- **[Etapa 5 - Processos de Sustentação](./etapa-5.md)**
-- **[Guia de Atividades da Disciplina](./Atividades.md)**
+| Membro | Papel de Referência no Projeto |
+|:---|:---|
+| **Matheus Marquez de Carvalho Rodrigues** | Engenharia de Requisitos e Produto |
+| **Luis Henrique Oliveira de Jesus** | Arquitetura de Software e Frontend |
+| **Heitor Gonçalves Costa** | Infraestrutura, Nuvem e DevOps |
+| **Carlos Daniel Lopes de Araújo** | Garantia da Qualidade (SQA), Verificação e Validação |
 
 ---
 
-*Documento mantido pela equipe Grupo 12 conforme orientações da disciplina INF0449 - Processos de Engenharia de Software - Instituto de Informática, Universidade Federal de Goiás (UFG).*
+### Documentos e Artefatos do Repositório
+
+- [Manual de Processos de Software (Markdown)](../Manual.md)
+- [Manual de Processos de Software (Word - DOCX)](../Manual.docx)
+- [Catálogo de Diagramas PlantUML](../diagramas/README.md)
+- [Documento Histórico de Requisitos v1.0](../requisitos/Requisitos.md)
+
+---
+
+*Manual de Processo de Software — Sistema Rhyme — Instituto de Informática, Universidade Federal de Goiás (UFG).*

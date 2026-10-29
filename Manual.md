@@ -1,591 +1,609 @@
-# MANUAL DE PROCESSO DE SOFTWARE UNIFICADO
-## Sistema Rhyme — Gestão e Telemetria em Tempo Real de Transporte Universitário Intermunicipal
-### Em Conformidade com a Norma ISO/IEC/IEEE 12207:2017 (*Systems and software engineering — Software life cycle processes*)
+# Manual de Processos de Software
+
+## Rhyme — Gestão e Telemetria em Tempo Real de Transporte Universitário Intermunicipal
+
+**Referencial:** ISO/IEC/IEEE 12207:2017
 
 ---
 
-## 📄 CAPA E METADADOS DO DOCUMENTO
+## Capa
 
-| Parâmetro | Informação de Registro e Governança |
+| | |
 |:---|:---|
-| **Título do Documento:** | Manual de Processo de Software — Sistema Rhyme |
-| **Código do Documento:** | MPS-RHYME-12207-UFG |
-| **Norma de Referência:** | ISO/IEC/IEEE 12207:2017 (Cláusulas 6.1, 6.2, 6.3 e 6.4) |
-| **Instituição de Ensino:** | Universidade Federal de Goiás (UFG) — Instituto de Informática (INF) |
-| **Curso / Disciplina:** | Bacharelado em Ciência da Computação / Engenharia de Software — INF0449 (2026/2) |
-| **Entidade Executora:** | Grupo 12 — Squad Rhyme Core |
-| **Versão / Baseline:** | 7.0 — Versão Consolidada e Unificada Oficial |
-| **Data da Baseline:** | 22 de Outubro de 2026 |
-| **Classificação:** | Documentação Pública / Código Aberto sob Governança Acadêmica |
+| **Título** | Manual de Processos de Software — Sistema Rhyme |
+| **Equipe** | Grupo 12 — Squad Rhyme Core |
+| **Disciplina** | INF0449 — Processos de Engenharia de Software (2026/2) |
+| **Instituição** | Universidade Federal de Goiás (UFG) — Instituto de Informática |
+| **Apresentação** | 26/11/2026 (G9 a G12) — 20 a 30 min, todos os membros |
+
+**Composição da Equipe e Papéis de Referência**
+
+| Membro | Papel de Referência no Projeto |
+|:---|:---|
+| Matheus Marquez de Carvalho Rodrigues | Engenharia de Requisitos e Produto |
+| Luis Henrique Oliveira de Jesus | Arquitetura de Software e Frontend |
+| Heitor Gonçalves Costa | Infraestrutura, Nuvem e DevOps |
+| Carlos Daniel Lopes de Araújo | Garantia da Qualidade (SQA), Verificação e Validação |
 
 ---
 
-### Histórico Consolidado de Versões e Controle de Baselines
+## Contracapa — Histórico de Versões
 
-A tabela abaixo registra a evolução iterativa do manual ao longo dos módulos do semestre, consolidando as entregas parciais até a homologação desta baseline unificada:
-
-| Versão | Data | Módulo / Etapa | Descrição Detalhada das Alterações e Entregáveis | Autor / Revisor |
-|:---:|:---:|:---:|:---|:---|
-| **1.0** | 10/09/2026 | Etapa 0 | **Apresentação do Software Rhyme:** Delimitação de escopo, formulação do problema do mundo real, identificação de stakeholders, restrições operacionais e premissas arquiteturais. | M. Marquez / L. Henrique |
-| **2.0** | 12/09/2026 | Etapa 1 | **Processos de Acordo (ISO 12207 §6.1):** Matriz de aquisição PaaS/SaaS, cessão gratuita de uso para prefeituras e alunos, definição de SLA 99,9% no horário nobre e POPs operacionais. | H. Gonçalves / C. Daniel |
-| **3.0** | 17/09/2026 | Etapa 2 | **Processos Organizacionais Habilitadores (ISO 12207 §6.2):** Formalização do ciclo de vida iterativo-incremental (Scrum/Kanban híbrido), inventário de infraestrutura, Matriz RACI da equipe, plano de métricas de qualidade (QM-01 a QM-04) e retenção de conhecimento. | L. Henrique / M. Marquez |
-| **4.0** | 24/09/2026 | Etapa 3 | **Processos de Gerenciamento Técnico (ISO 12207 §6.3):** Elaboração da EAP em 3 níveis, cronograma de sprints S1–S6, Matrizes de Decisão Multicritério (MDA-01 a MDA-03) e Risk Register com planos de resposta. | H. Gonçalves / C. Daniel |
-| **5.0** | 08/10/2026 | Etapa 4 | **Processos Técnicos (ISO 12207 §6.4 - Requisitos & Arquitetura):** Especificação formal dos Requisitos SMART, ADRs (ADR-001 a ADR-004), modelos estruturais UML em PlantUML e matriz de rastreabilidade preliminar. | M. Marquez / L. Henrique |
-| **6.0** | 21/10/2026 | Etapa 5 | **Processos de Sustentação (ISO 12207 §6.4.9–6.4.14):** Planejamento de implantação/handoff, modalidades de manutenção (corretiva, adaptativa, evolutiva), observabilidade operacional e plano de descarte seguro LGPD. | C. Daniel / H. Gonçalves |
-| **7.0** | 22/10/2026 | Consolidado | **Manual Unificado Oficial:** Harmonização integral de todos os módulos parciais, alinhamento bidirecional estrito (EAP ↔ Requisitos RF01–RF10 ↔ Testes CT01–CT10), especificação de modelos de dados Firestore, contratos de eventos, e incorporação do Relatório de Avaliação por Pares (Peer Review) com plano CAPA implementado. | Grupo 12 (Todos) |
-
----
-
-## 📚 PARTE 0 — APRESENTAÇÃO DO SOFTWARE E VISÃO GERAL
-
-### 0.1 Ficha de Constituição da Equipe
-O desenvolvimento, governança e garantia de conformidade do sistema Rhyme são conduzidos pela equipe **Grupo 12 (Squad Rhyme Core)**, organizada em modelo multidisciplinar de engenharia compartilhada:
-
-| Nome do Integrante | Papel Primário no Processo | Atribuições Centrais na ISO 12207 | Contato Institucional |
-|:---|:---|:---|:---|
-| **Matheus Marquez de Carvalho Rodrigues** | Engenheiro Principal de Requisitos e Produto | Cláusula 6.4.1 (Elicitação e Análise de Requisitos), Rastreabilidade e Gestão de Backlog | `matheus.marquez@discente.ufg.br` |
-| **Luis Henrique Oliveira de Jesus** | Arquiteto de Software e Engenheiro Frontend | Cláusula 6.4.3 (Design de Arquitetura), Implementação do Core PWA, Leaflet e Service Workers | `luis.henrique@discente.ufg.br` |
-| **Heitor Gonçalves Costa** | Engenheiro de Infraestrutura, Nuvem e DevOps | Cláusula 6.2.2 (Infraestrutura), Cláusula 6.3.5 (Configuração) e Automação de CI/CD Firebase/Vercel | `heitor.costa@discente.ufg.br` |
-| **Carlos Daniel Lopes de Araújo** | Engenheiro de Garantia da Qualidade (SQA) & V&V | Cláusula 6.2.5 (Qualidade), Cláusulas 6.4.9 e 6.4.10 (Verificação, Validação e Testes em Trânsito) | `carlos.daniel@discente.ufg.br` |
-
-### 0.2 Sistema de Contexto Real
-O **Rhyme** é uma plataforma digital progressiva (*Progressive Web App - PWA*) focada em telemetria e eventos em tempo real, concebida para planejar, monitorar, sincronizar e otimizar o transporte rodoviário intermunicipal de estudantes universitários no estado de Goiás.
-
-#### A. O Problema do Mundo Real Mitigado
-Tradicionalmente, a coordenação diária de embarque e retorno de estudantes universitários residentes em cidades do interior que estudam na capital é gerenciada de forma improvisada por meio de **grupos de WhatsApp**. Essa prática gera gargalos operacionais e riscos graves à segurança pública:
-
-1. **Risco Crítico de Acidentes Rodoviários por Distração ao Volante:** Durante o percurso noturno entre faculdades na capital, o motorista do ônibus/van é compelido a ler dezenas de mensagens picadas e áudios com o veículo em movimento para identificar quem já foi liberado da aula ou quem pediu para esperar, gerando alto risco de colisões urbanas e rodoviárias.
-2. **Vulnerabilidade Noturna dos Estudantes:** Os universitários aguardam em calçadas desertas e pontos escuros após as 22h00 sem visibilidade sobre onde o veículo se encontra e sem estimativa de chegada (*ETA*). Não raro, alunos são deixados para trás quando o transporte passa adiantado.
-3. **Ineficiência Energética e Desperdício de Recursos Públicos:** Sem saber previamente se há alunos a embarcar em determinados câmpi distantes (especialmente em dias de provas ou semanas acadêmicas), o ônibus realiza desvios desnecessários, queimando óleo diesel subsidiado com recursos municipais e dilatando o tempo total de retorno.
-4. **Ausência de Dados Históricos e Auditoria:** As mensagens no WhatsApp se perdem no ruído social. Não há consolidação de presenças, horários efetivos de saída ou métricas que permitam à gestão pública dimensionar adequadamente a frota.
-
-#### B. Rotas Piloto Iniciais do Projeto
-O sistema opera em caráter piloto atendendo a dois corredores regulares de transporte universitário:
-* **Rota 1 (Cromínia ↔ Goiânia):** Transporte diário de estudantes residentes no município de Cromínia via GO-217 e BR-153 até os polos educacionais de Goiânia (UFG Câmpus Samambaia, UFG Câmpus Colemar Natal e Silva, PUC Goiás - Câmpus I e II, UniCamps e Faculdades Objetivo).
-* **Rota 2 (Professor Jamil ↔ Goiânia):** Transporte de universitários do município de Professor Jamil com destino aos mesmos centros de ensino superior da Região Metropolitana.
-
-### 0.3 Escopo Funcional e Objetivos de Negócio
-
-#### A. Objetivos de Negócio (Business Goals)
-* **Redução a Zero da Distração do Motorista:** Substituir mensagens de texto por uma interface veicular com contadores consolidados por faculdade e alertas sonoros automáticos.
-* **Pontualidade e Segurança no Embarque:** Reduzir em pelo menos 25% o tempo de espera dos alunos em pontos vulneráveis através de telemetria contínua e geofencing preditivo.
-* **Otimização de Rota:** Eliminar passagens inúteis por câmpi sem demanda comprovada, gerando economia estimada de 10% a 15% de combustível por viagem.
-
-#### B. Mapeamento de Funcionalidades Centrais (Dentro do Escopo)
-1. **Rastreamento e Telemetria GPS em Tempo Real:** Transmissão da localização contínua do ônibus para o mapa Leaflet com taxa de atualização a cada 5 segundos.
-2. **Status One-Touch do Estudante:** Alternância instantânea de estado (*"Em sala"*, *"Liberado"* ou *"No ponto"*) propagada via WebSockets em menos de 100 ms para a cabine.
-3. **Cockpit do Motorista de Alta Legibilidade:** Dashboard escuro com tipografia destacada exibindo contadores por instituição e alternância entre modos de rota.
-4. **Geofencing e Alertas Preditivos:** Detecção de raio de proximidade (1 km do ponto) com disparo de notificações push ao celular do aluno.
-5. **Protocolo de Emergência ("Fui Esquecido"):** Alerta prioritário em áudio contínuo e alerta visual vermelho na cabine caso o veículo inicie o trajeto sem o estudante.
-6. **Resiliência Offline-First:** Persistência em cache local (Service Worker e IndexedDB) mantendo mapas e confirmações íntegras em zonas de sombra de sinal 4G na rodovia.
-
-#### C. Limites do Sistema e Não-Metas (Fora do Escopo Inicial)
-* **Bilhetagem e Cobrança:** Não inclui gateway de pagamento eletrônico, visto que o serviço é 100% gratuito e subsidiado pelas administrações municipais.
-* **Roteamento Dinâmico com IA em Trânsito:** Não realiza alteração algorítmica de trajeto rodoviário em tempo real, mantendo os trajetos legalmente autorizados pelas prefeituras.
-* **Aplicativos Nativos em Lojas:** Não desenvolve pacotes proprietários para Google Play Store ou Apple App Store, priorizando o acesso instantâneo universal via PWA.
+| Versão | Data | Alteração |
+|:---:|:---:|:---|
+| 1.0 | 10/09/2026 | Apresentação do software, escopo, formulação do problema e premissas. |
+| 2.0 | 17/09/2026 | Processos de Acordo (aquisição, fornecimento, acordos de nível de serviço, POPs). |
+| 3.0 | 17/09/2026 | Processos Organizacionais (ciclo de vida, infraestrutura, RACI por papéis, qualidade). |
+| 4.0 | 01/10/2026 | Gerenciamento Técnico (EAP, riscos, decisões técnicas, gerência de configuração). |
+| 5.0 | 01/10/2026 | Processos Técnicos (requisitos, arquitetura, design e plano de V&V). |
+| 6.0 | 01/10/2026 | Sustentação (implantação, esteira CI/CD, manutenção e descontinuação). |
+| 7.0 | 22/10/2026 | Unificação das etapas e avaliação por pares com plano CAPA implementado. |
+| **8.0** | **29/10/2026** | **Adequação estrutural à Atividade (6 capítulos); adoção de Mapbox Free Tier; generalização de municípios e papéis; padronização terminológica do painel do motorista.** |
 
 ---
 
-## 🤝 PARTE 1 — PROCESSOS DE ACORDO (ISO 12207 - CLÁUSULA 6.1)
+# Capítulo 1 — Apresentação do Software
 
-### 1.1 Mapeamento de Módulos e Componentes do Sistema
-A arquitetura do Rhyme é decomposta em módulos autônomos que operam de forma integrada:
+## 1.1 Nome e descrição
+
+O **Rhyme** é um *Progressive Web App* (PWA) de telemetria e coordenação de eventos em tempo real, concebido para sincronizar o transporte universitário intermunicipal entre municípios do interior e os polos universitários da capital, substituindo a comunicação fragmentada e insegura conduzida via grupos de WhatsApp.
+
+## 1.2 O que é, o que faz e que problema resolve
+
+O Rhyme exibe a posição do veículo em tempo real em mapa interativo, permite ao estudante notificar seu estado de liberação acadêmica com um único toque (*one-touch*) e provê ao condutor um painel veicular simplificado com contadores consolidados por instituição de ensino.
+
+Problemas resolvidos:
+
+1. **Distração perigosa do condutor:** eliminação da leitura de mensagens picadas e áudios com o veículo em trânsito.
+2. **Vulnerabilidade noturna de estudantes:** redução da espera em pontos escuros e desprovidos de previsão estimada de chegada (*ETA*).
+3. **Desperdício de recursos públicos:** eliminação de desvios e paradas em câmpi universitários sem demanda confirmada de embarque, economizando combustível subsidiado.
+4. **Ausência de dados históricos e auditoria:** geração de histórico consolidado de viagens e horários para dimensionamento da frota pelas administrações locais.
+
+## 1.3 Público-alvo e contexto de uso
+
+## 1.4 Quem usa, em que situação e em que ambiente
+
+| Usuário | Situação de uso | Ambiente de operação |
+|:---|:---|:---|
+| Estudante universitário | Notifica liberação das aulas e acompanha o deslocamento do veículo | Smartphone (PWA), no câmpus ou ponto de embarque, conectividade móvel variável |
+| Condutor / Motorista | Acompanha contadores por faculdade e alertas operacionais durante a viagem | Smartphone acoplado a suporte veicular 12V no painel do veículo, em rodovias e vias urbanas |
+| Gestão municipal / Associação | Consulta regularidade de rotas, frequências e dimensionamento de demanda | Navegador web em computadores ou dispositivos móveis |
+
+Rotas operacionais atendidas: trajetos regulares conectando os **municípios de origem parceiros** aos centros universitários da capital (UFG Samambaia, Colemar Natal e Silva, PUC Goiás, UniCamps e faculdades associadas), totalizando cerca de 30 a 40 estudantes por rota diária, com viagens no período vespertino e retorno ao término das aulas noturnas.
+
+## 1.5 Escopo e principais funcionalidades
+
+**Dentro do escopo**
+
+| # | Funcionalidade Central |
+|:---:|:---|
+| 1 | Rastreamento e exibição contínua da posição do veículo em mapa interativo (taxa de atualização a cada 5 s) |
+| 2 | Status one-touch do estudante: alternância rápida entre "Em sala", "Liberado" e "No ponto" |
+| 3 | Painel veicular do motorista com contadores consolidados por faculdade e alertas sonoros |
+| 4 | Geofencing perimétrico (raio de 1 km) com emissão de notificações push de aproximação |
+| 5 | Protocolo de emergência operacional ("Fui Esquecido") com sinalização audiovisual de alta prioridade |
+| 6 | Operação resiliente com suporte offline-first (Service Worker e persistência local via IndexedDB) |
+
+**Fora do escopo:** módulos de cobrança ou bilhetagem tarifária, recálculo dinâmico de trajetos por IA em trânsito e publicação de aplicativos nativos empacotados em lojas proprietárias.
+
+## 1.6 Restrições e premissas
+
+| Tipo | Especificação |
+|:---|:---|
+| Restrição | Custo financeiro nulo de infraestrutura: utilização estrita de tiers gratuitos (*free tiers*) de serviços em nuvem (Firebase e Mapbox). |
+| Restrição | Instabilidade de cobertura de rede de dados móveis (zonas de sombra 4G) ao longo das rodovias intermunicipais. |
+| Restrição | Conformidade rigorosa com a LGPD: coleta restrita à telemetria do veículo; ausência de rastreamento da geolocalização privada do aluno e purga diária dos registros transitórios. |
+| Restrição | Execução do projeto no período letivo acadêmico de 2026/2. |
+| Premissa | Dispositivos dos usuários finais dispõem de navegadores modernos compatíveis com PWA (Google Chrome Mobile v110+ ou Apple Safari v16.4+). |
+| Premissa | O condutor do transporte mantém o dispositivo veicular conectado à alimentação 12V contínua durante todo o percurso. |
+| Premissa | As rotas e pontos de parada homologados são previamente acordados entre as prefeituras e as comunidades estudantis. |
+
+---
+
+# Capítulo 2 — Processos de Acordo
+
+## 2.1 Processo de aquisição
+
+Avaliação de fornecimento de componentes terceiros (*make* vs. *buy*):
+
+| Recurso | Decisão | Fornecedor Homologado | Justificativa Técnica e Econômica |
+|:---|:---:|:---|:---|
+| Banco de dados realtime | Buy (PaaS) | Google Cloud Platform (Firestore) | Elimina manutenção de infraestrutura de servidores próprios; sincronização reativa via `onSnapshot` com latência < 100 ms; cota suficiente no Spark Free Tier. |
+| Autenticação & Sessões | Buy (SaaS) | Google Firebase Authentication | Mecanismo pronto e seguro de autenticação com tokens criptografados sem armazenamento de credenciais sensíveis pela aplicação. |
+| Mapas e tiles cartográficos | Buy (Free Tier) | Mapbox (Plano Free) + Leaflet | Fornecimento estável de tiles de alta resolução via Mapbox API no plano gratuito (até 50.000 requisições mensais), consumido pelo cliente Leaflet 1.9 sem custo de licenciamento. |
+| Notificações push | Buy (PaaS) | Firebase Cloud Messaging (FCM) | Entrega integrada de notificações push web diretamente ao Service Worker do PWA sem custo adicional. |
+| Hospedagem e Edge CDN | Buy (PaaS) | Vercel (primária) / Firebase Hosting (espelho) | Distribuição de assets em nós de borda (Edge) de baixa latência em São Paulo, integração contínua com GitHub e SSL/TLS automatizado. |
+| Interface e regras de negócio | **Make** | Equipe de Desenvolvimento (React 19 + Tailwind) | Ferramentas no-code existentes não suportam controle fino de cache offline, latência reduzida e interface de alto contraste para ambiente veicular. |
+
+## 2.2 Processo de fornecimento
+
+- **Modalidade de entrega:** Distribuição contínua do PWA sob protocolo seguro HTTPS, acessível instantaneamente por URL pública e distribuição de QR Code institucional, sem intermediários de lojas de aplicativos.
+- **Instrumento contratual:** Termo de Cessão de Uso Tecnológico sem Ônus (comodato acadêmico e institucional), disponibilizado às secretarias municipais de educação e às associações estudantis dos municípios atendidos. Cláusula expressa de proibição de monetização e vedação de compartilhamento de dados cadastrais.
+- **Critérios de aceite:** Homologação completa dos 10 Casos de Teste (CT-01 a CT-10, seção 5.4) e validação bem-sucedida em rota rodoviária real.
+- **Modelo de suporte:** Manutenção corretiva com tempo de resposta baseado em criticidade (SLA de 2 h para incidentes críticos de indisponibilidade da telemetria e 24 h para defeitos funcionais de média severidade).
+
+| Indicador de Serviço | Meta Estabelecida |
+|:---|:---|
+| Disponibilidade da plataforma | 99,9% durante a janela operacional crítica (segunda a sexta-feira, das 15h00 às 23h30) |
+| RTO (*Recovery Time Objective*) | 15 minutos (tempo limite para contingência de broadcast via passageiro âncora) |
+| RPO (*Recovery Point Objective*) | 0 segundos (atomicidade garantida pelo Firestore combinada à fila local no IndexedDB) |
+
+Procedimentos Operacionais Padronizados (POPs) formalizados:
+
+| Procedimento | Finalidade e Diretriz Operacional |
+|:---|:---|
+| **POP-DEV-01** | Governança de código: ramificação por branches temáticas, commits semânticos, ausência total de alertas em linters e revisão por pares obrigatória antes de integração na `main`. |
+| **POP-OPS-01** | Esteira de publicação contínua via GitHub Actions com verificação de regras de segurança (`firestore.rules`) e build otimizado com publicação automática. |
+| **POP-GEO-01** | Calibração do algoritmo de geofencing (Fórmula de Haversine em raio de 1.000 m) e garantia de disparo de push em tempo inferior a 2 s. |
+| **POP-EMERG-01** | Atendimento ao alerta de emergência ("Fui Esquecido") e protocolo operacional de transferência de transmissão GPS para o passageiro âncora. |
+
+## 2.3 Fornecedores e parceiros relevantes
+
+| Parceiro / Entidade | Papel no Ecossistema |
+|:---|:---|
+| Google Cloud / Firebase | Fornecimento de banco de dados NoSQL reativo (Firestore), autenticação, push notifications e hosting espelho |
+| Mapbox Inc. | Provedor de camada de tiles cartográficos e renderização geográfica sob plano gratuito |
+| Vercel Inc. | Infraestrutura de hospedagem primária em CDN de alta performance com nó no Brasil |
+| GitHub | Governança de repositório, controle de versões, automação de testes e esteira CI/CD |
+| Administrações Municipais Parceiras | Prefeituras cessionárias responsáveis pelo transporte público e apoio logístico institucional |
+| Associações de Estudantes Universitários | Usuários beneficiários, multiplicadores de adesão e homologadores de campo |
+
+---
+
+# Capítulo 3 — Processos Organizacionais Habilitadores
+
+## 3.1 Modelo de ciclo de vida
+
+**Híbrido Iterativo-Incremental (Scrum com fluxo contínuo Kanban), com cadência de sprints quinzenais.**
+
+```
+[Visão & Requisitos] ──► [Sprint N: Incremento] ──► [Deploy e Homologação]
+         ▲                                                  │
+         └─────────── Validação em Rota Rodoviária ◄────────┘
+```
+
+Justificativa técnica da escolha:
+
+1. **Comportamento empírico da conectividade móvel:** as variações de sinal 4G/GPS em trechos rodoviários não podem ser antecipadas unicamente em bancada; sprints curtas viabilizam ensaios de campo incrementais.
+2. **Mitigação escalonada de incertezas arquiteturais:** mecanismos críticos (WebSockets do Firestore e armazenamento em IndexedDB) foram validados antes da adição do subsistema de geofencing.
+3. **Harmonização com marcos de entrega:** viabiliza a geração contínua de baselines auditáveis e conformes com a ISO 12207 sem o risco de retrabalho do modelo em cascata.
+
+## 3.2 Infraestrutura e ferramentas
+
+| Categoria | Ferramenta / Plataforma | Finalidade Técnica |
+|:---|:---|:---|
+| Runtime & Build | Node.js 20 LTS, Vite 6 | Ambiente de execução e empacotador de alta velocidade com HMR |
+| Camada Frontend | React 19, Tailwind CSS 4 | Interface reativa, modular e estilização de alto contraste veicular |
+| Cartografia & Tiles | Leaflet 1.9, React-Leaflet 5, Mapbox Free API | Motor cartográfico vetorial com baixo consumo de CPU e bateria |
+| Banco de Dados & Nuvem | Cloud Firestore, Firebase Auth, FCM | Armazenamento de dados NoSQL, autenticação e mensageria serverless |
+| Emulação & Testes | Firebase Emulator Suite, Vitest, Testing Library | Testes locais de segurança de banco e suíte de testes automatizados |
+| Análise Estática & Lint | ESLint, Oxlint | Padronização de qualidade de código e conformidade sintática |
+| Versionamento & CI/CD | Git, GitHub, GitHub Actions | Controle de versão distribuído, gates de qualidade e automação de deploy |
+| Hospedagem de Produção | Vercel Edge Network, Firebase Hosting | Distribuição global de assets web com HTTPS e failover |
+| Dispositivos Alvo | Plataformas Android (10+) e iOS (15+) | Execução em smartphones de condutores e passageiros |
+
+## 3.3 Justificativa estratégica e viabilidade
+
+| Dimensão de Análise | Avaliação de Viabilidade |
+|:---|:---|
+| **Estratégica** | Elimina a distração veicular ao volante, eleva a segurança física dos alunos no horário noturno e gera economia estimada de 10% a 15% de combustível ao eliminar trajetos ociosos. |
+| **Técnica** | Alta viabilidade: stack tecnológica consolidada no mercado, ecossistema PWA amplamente suportado por smartphones modernos sem fricção de instalação. |
+| **Econômica** | Custo financeiro zero: dimensionamento rigoroso dentro das cotas gratuitas do Firebase e do plano free do Mapbox, com margem de segurança configurável (ajuste de taxa de amostragem de GPS se consumo atingir 70%). |
+| **Operacional** | Alta aceitação: interação one-touch sem necessidade de treinamento complexo; capacitação de condutores realizada em apenas 30 minutos. |
+| **Legal / Regulatória** | Totalmente aderente à LGPD: ausência de armazenamento de localização de pessoas físicas e eliminação periódica de dados operacionais ao fim do percurso diário. |
+| **Cronograma** | Plenamente exequível dentro do semestre letivo distribuído em seis sprints de desenvolvimento. |
+
+Conclusão: **O projeto é técnica, econômica e operacionalmente viável.**
+
+## 3.4 Papéis, competências e capacitação (RACI)
+
+*Convenção RACI: R = Responsável pela Execução, A = Aprovador Final, C = Consultado, I = Informado.*
+
+| Atividade do Ciclo de Vida | Engenharia de Requisitos | Arquitetura & Frontend | Infraestrutura & DevOps | Garantia da Qualidade (SQA) |
+|:---|:---:|:---:|:---:|:---:|
+| Elicitação e refinamento de requisitos | **A / R** | C | C | C |
+| Modelagem do banco NoSQL e regras | C | R | **A / R** | C |
+| Interface do usuário e mapas | I | **A / R** | C | C |
+| Geofencing e notificações push | C | R | R | **A** |
+| Testes automatizados e ensaios de campo | C | C | I | **A / R** |
+| Gestão de releases e esteira CI/CD | I | R | **A / R** | C |
+| Resposta a incidentes de telemetria | C | I | R | **A / R** |
+
+**Plano de capacitação da equipe:** nivelamento nas cláusulas 6.1 a 6.4 da norma ISO/IEC/IEEE 12207; padrões de arquitetura PWA offline-first (ciclo de vida de Service Workers, estratégias de cache *Stale-While-Revalidate* e persistência no IndexedDB); e workshops de escrita segura de `firestore.rules` utilizando o Firebase Emulator Suite.
+
+## 3.5 Plano de qualidade (critérios e métricas)
+
+| ID | Métrica de Qualidade | Meta Alvo | Procedimento de Medição | Ação Mitigadora em Desvio |
+|:---:|:---|:---|:---|:---|
+| **QM-01** | Latência de sincronização realtime | < 100 ms (4G/5G); < 1.000 ms (3G) | Confronto entre `timestamp` de gravação no Firestore e entrega no listener | Minimização de payload e refinamento de consultas reativas |
+| **QM-02** | Eficácia do geofencing preditivo | ≥ 98% de notificações entregues antes do ponto | Log de eventos de aproximação comparado ao horário real de embarque | Reajuste dinâmico do raio perimétrico (ajuste de 1.000 m para 1.500 m) |
+| **QM-03** | Performance Web Vitals mobile | LCP < 2,0 s; TTI < 2,5 s | Auditoria automatizada do Lighthouse Mobile integrada ao CI | *Code-splitting*, compressão de assets e pré-aquecimento de tiles |
+| **QM-04** | Cobertura de testes automatizados | ≥ 80% das linhas e branches críticas | Relatório gerado pela suíte Vitest em cada execução | Bloqueio automatizado de merge em PRs que degradem o índice |
+
+Garantia da Qualidade Contínua: inspeções estáticas automáticas a cada Pull Request, critérios formais de aceite na *Definition of Done* (DoD) e reuniões quinzenais de retrospectiva técnica.
+
+## 3.6 Gestão do conhecimento
+
+1. **Repositório documental único:** manuais, diagramas e especificações técnicas sob controle de versão Git.
+2. **Registros Formais de Decisões de Arquitetura (ADRs):** registro padronizado de contexto, alternativas computadas e consequências técnicas (seção 4.4).
+3. **Post-mortems sem culpabilidade (*Blameless Post-Mortems*):** relatórios objetivos de lições aprendidas após qualquer anomalia constatada em rotas de teste.
+4. **Revisões cruzadas de código (*Peer Code Review*):** distribuição equilibrada de PRs entre as diferentes disciplinas de engenharia para descentralização do conhecimento.
+
+---
+
+# Capítulo 4 — Processos de Gerenciamento Técnico
+
+## 4.1 Plano de projeto
+
+**Escopo:** Sistema PWA Rhyme conforme delimitado na seção 1.5.
+
+**Estrutura Analítica do Projeto (EAP / WBS em 3 níveis)**
+
+| Pacote (Nível 1) | Subpacote (Nível 2) | Entregáveis e Pacotes de Trabalho (Nível 3) |
+|:---|:---|:---|
+| **1.0 Fundação e Infraestrutura** | 1.1 Repositório e Automação | 1.1.1 Branch protection e Conventional Commits; 1.1.2 Pipeline de CI/CD |
+| | 1.2 Autenticação e Segurança | 1.2.1 Configuração Firebase Auth; 1.2.2 Regras de segurança `firestore.rules` |
+| | 1.3 Modelagem de Dados | 1.3.1 Estruturação das coleções `routes`, `trips`, `students`, `bus_location`, `emergencies` |
+| **2.0 Cartografia e Telemetria** | 2.1 Interface Geográfica | 2.1.1 Integração Leaflet com Mapbox API; 2.1.2 Marcadores de câmpi e paradas |
+| | 2.2 Telemetria em Tempo Real | 2.2.1 Controlador de captura GPS; 2.2.2 Transmissão periódica das coordenadas (a cada 5 s) |
+| **3.0 Fluxo do Estudante** | 3.1 Interface do Passageiro | 3.1.1 Tela de onboarding e seleção de trajeto; 3.1.2 Componente *StatusToggle* (One-Touch) |
+| | 3.2 Mapa e Alertas do Aluno | 3.2.1 Acompanhamento veicular e cálculo de ETA; 3.2.2 Notificações push por geofencing |
+| **4.0 Painel do Motorista** | 4.1 Painel Veicular de Controle | 4.1.1 Contadores consolidados por câmpus; 4.1.2 Controle de estado de viagem |
+| | 4.2 Sinalização e Segurança | 4.2.1 Emissão de alertas sonoros; 4.2.2 Interface de atendimento ao alarme "Fui Esquecido" |
+| **5.0 Resiliência e Implantação** | 5.1 Modo Offline e PWA | 5.1.1 Service Worker para cache de assets e mapas; 5.1.2 Persistência local no IndexedDB |
+| | 5.2 Validação e Homologação | 5.2.1 Suíte de testes unitários Vitest; 5.2.2 Ensaio em rota rodoviária real |
+
+**Cronograma de Sprints e Marcos Operacionais**
+
+| Sprint | Período Operacional | Pacotes EAP | Marco / Entregável Homologado |
+|:---:|:---|:---|:---|
+| **S1** | 11/08 a 25/08/2026 | 1.1, 1.2, 1.3 | Repositório estruturado, CI/CD, Auth provisionado e schema NoSQL definido |
+| **S2** | 25/08 a 10/09/2026 | 2.1, 2.2 | Mapa interativo Leaflet renderizando pontos de embarque; entrega da Etapa 0 |
+| **S3** | 10/09 a 24/09/2026 | 2.2, 3.1, 3.2 | Telemetria ativa e alternância de status one-touch do aluno; entrega da Etapa 1 |
+| **S4** | 24/09 a 08/10/2026 | 4.1, 4.2 | Painel veicular do motorista com contadores e sinal sonoro; entrega da Etapa 2 |
+| **S5** | 08/10 a 22/10/2026 | 3.2, 5.1, 5.2 | Service Worker offline ativo, cálculo de ETA, testes unitários (cobertura ≥ 80%); Etapas 3 e 4 |
+| **S6** | 22/10 a 05/11/2026 | 5.2 | Validação em trânsito rodoviário homologada e consolidação final do manual |
+
+**Recursos:** Equipe de desenvolvimento multidisciplinar (seção 3.4), serviços e ferramentas sob cotas gratuitas (seção 3.2).  
+**Entregas:** Plataforma PWA homologada em produção, manual de processos e apresentação em 26/11.
+
+## 4.2 Plano de gestão de riscos
+
+*Cálculo de Severidade = Probabilidade (1 a 5) × Impacto (1 a 5).*
+
+| ID | Risco Identificado | P | I | Sev. | Ação Preventiva de Mitigação | Plano de Contingência Reativa |
+|:---:|:---|:---:|:---:|:---:|:---|:---|
+| **RT-01** | Sombra de rede móvel (ausência momentânea de sinal) na rodovia | 4 | 5 | **20** | Configuração de Service Worker e ativação de persistência IndexedDB no Firestore | Retenção da última coordenada válida no mapa e envio acumulado pós-reconexão |
+| **RT-02** | Esgotamento de bateria do aparelho transmissor no veículo | 3 | 5 | **15** | Exigência de suporte com carregador veicular 12V permanentemente conectado | Transferência operacional imediata do broadcast GPS para o passageiro âncora a bordo |
+| **RO-01** | Estudante não registrar liberação da aula no aplicativo | 3 | 4 | **12** | Interface one-touch simplificada e conscientização junto às associações | Motorista realiza checagem visual complementar do contador consolidado |
+| **RO-02** | Dificuldade de operação do painel pelo motorista na estrada | 2 | 5 | **10** | Design com botões de grandes dimensões (> 64 px), alto contraste e confirmação por áudio | Capacitação presencial de 30 minutos e fluxo de interação reduzido a 1 toque |
+| **RT-03** | Incompatibilidade ou falha de entrega de push notifications no iOS | 3 | 3 | **9** | Homologação estrita de manifest PWA e Web Push API para Safari iOS 16.4+ | Exibição de alertas visuais destacados diretamente no mapa em tempo real |
+| **RT-04** | Latência de sincronização superior a 2 segundos na cabine | 2 | 4 | **8** | Payload otimizado de dados e índices compostos estritos no Firestore | Reinicialização automática de listeners com recálculo de estado em memória |
+| **RR-01** | Não conformidade com diretrizes da LGPD | 1 | 5 | **5** | Não coleta de localização individual do estudante; telemetria restrita ao veículo | Purga imediata de dados transitórios de presença ao encerramento da viagem |
+| **RR-02** | Exaustão das cotas mensais gratuitas de banco e mapas | 1 | 4 | **4** | Arquitetura orientada a eventos minimizando requisições redundantes | Reajuste dinâmico da frequência de envio de GPS de 5 s para 10 s em velocidade de cruzeiro |
+
+## 4.3 Plano de gestão de configuração
+
+```
+main (branch protegida - produção)
+  ├── feature/*  ──► PR (lint + build + testes + 1 code review) ──► Squash & Merge ──► main
+  └── fix/*      ──► PR (testes de regressão + aprovação)       ──► Squash & Merge ──► main
+```
+
+| Componente | Política de Controle e Governança |
+|:---|:---|
+| Política de Branches | A branch `main` é restrita a código homologado em produção, com bloqueio estrito a commits diretos (*direct push*). |
+| Padronização de Commits | Padrão *Conventional Commits*: prefixos obrigatórios `feat`, `fix`, `docs`, `test`, `refactor`. |
+| Quality Gates em PRs | Revisão independente aprovada por ao menos um par técnico; execução automatizada de linter e testes no GitHub Actions com zero falhas. |
+| Estratégia de Integração | Operação via *Squash and Merge*, preservando histórico linear e auditável na branch principal. |
+| Versionamento Semântico | Emissão de tags Git anotadas seguindo a norma SemVer 2.0.0 (`vMAJOR.MINOR.PATCH`). |
+
+## 4.4 Registro de decisões técnicas relevantes (ADRs)
+
+| ADR | Decisão Homologada | Contexto Operacional | Alternativas Analisadas (Pontuação) | Consequência e Trade-offs |
+|:---:|:---|:---|:---|:---|
+| **ADR-001** | Distribuição via **Progressive Web App (PWA)** | Necessidade de acesso imediato sem atrito de download e instalação em lojas | PWA (4,8); React Native (3,1); Flutter (3,1) | Elimina taxas e burocracia de lojas; push no ecossistema iOS depende da versão 16.4+. |
+| **ADR-002** | Motor **Leaflet + Mapbox API (Free Tier)** | Exigência de renderização cartográfica de alta qualidade com custo zero | Mapbox + Leaflet (4,9); Google Maps Platform (2,7); Mapbox SDK nativo (3,5) | Alta performance móvel e ausência de risco de faturamento em moeda estrangeira. |
+| **ADR-003** | Backend Serverless via **Google Firebase** | Sincronização reativa instantânea sem custos fixos de servidores dedicados | Firebase Firestore (4,8); Node.js + Socket.io dedicado (3,2) | Latência ultrabaixa (< 100 ms); impõe monitoramento preventivo de limites de cotas gratuitas. |
+| **ADR-004** | Hospedagem em **Vercel** com espelho **Firebase** | Distribuição de assets com nó de borda no Brasil e compilação contínua | Vercel (5,0); Firebase Hosting puro (4,4); GitHub Pages (3,2) | Rápido tempo de carregamento e redundância estratégica de disponibilidade. |
+
+Critérios de ponderação nas matrizes de decisão: custo financeiro, consumo de memória e bateria em dispositivos móveis, suporte nativo a cache offline, facilidade de manutenção e tempo de carregamento.
+
+## 4.5 Métricas de acompanhamento do projeto
+
+| Indicador de Acompanhamento | Meta de Controle | Fonte de Coleta | Periodicidade de Aferição |
+|:---|:---|:---|:---:|
+| Velocity e vazão de entregas | Estabilidade de itens concluídos por ciclo | Quadro Kanban do projeto | Quinzenal |
+| Aderência aos marcos do cronograma | 100% dos pacotes previstos entregues no prazo | Cronograma de Sprints (seção 4.1) | A cada encerramento de sprint |
+| Cobertura de testes unitários (QM-04) | Manutenção de cobertura ≥ 80% | Relatório da suíte Vitest no CI | Em cada Pull Request submetido |
+| Taxa de aprovação em testes de aceitação | 10 de 10 casos de teste aprovados | Relatório de V&V (seção 5.4) | A cada baseline de release |
+| Riscos críticos de severidade ≥ 15 | 0 riscos sem plano de mitigação ativo | Matriz de Riscos (seção 4.2) | Quinzenal |
+| Tendência de débito técnico | Redução contínua de apontamentos | Retrospectivas de sprint | Quinzenal |
+| Utilização de cotas gratuitas (Firebase/Mapbox) | Manutenção abaixo de 70% do teto gratuito | Dashboards das plataformas | Semanal |
+
+---
+
+# Capítulo 5 — Processos Técnicos
+
+## 5.1 Requisitos
+
+### 5.1.1 Documento de requisitos do sistema
+
+**Requisitos Funcionais (Padrão SMART)**
+
+| ID | Nome do Requisito | Especificação Detalhada (SMART) | Prioridade | Critério de Aceitação Mensurável |
+|:---:|:---|:---|:---:|:---|
+| **RF01** | Autenticação de Usuários | O sistema deve permitir autenticação de estudantes e motoristas via Firebase Auth, retendo a sessão persistida localmente no navegador. | Alta | Login concluído em tempo inferior a 2,0 s; sessão restaurada automaticamente ao recarregar a tela. |
+| **RF02** | Seleção de Rota e Câmpus | O estudante deve selecionar sua rota municipal e seu câmpus de destino para filtragem dos dados geográficos. | Alta | Parâmetros salvos no perfil e nós cartográficos centralizados no mapa em menos de 500 ms. |
+| **RF03** | Atualização de Status One-Touch | O aluno deve poder alternar seu estado operacional ("Em sala", "Liberado" ou "No ponto") por meio de um único toque em botão de destaque. | Alta | Estado gravado no Firestore e refletido no painel do motorista em menos de 100 ms via WebSocket reativo. |
+| **RF04** | Rastreamento Veicular no Mapa | A aplicação deve renderizar mapa interativo exibindo a posição geográfica atualizada do transporte e os pontos de parada. | Alta | Atualização visual contínua da posição do veículo a cada 5 segundos. |
+| **RF05** | Broadcast de GPS Colaborativo | O sistema deve permitir que o motorista ou um passageiro âncora a bordo transmita as coordenadas de geolocalização do veículo. | Média | Coordenadas transmitidas com precisão perimétrica de raio menor que 15 metros. |
+| **RF06** | Painel do Motorista com Contadores | O sistema deve fornecer tela consolidada com totalizadores de alunos liberados por câmpus e disparar alertas sonoros a cada nova liberação. | Alta | Contadores numéricos incrementados em tempo real; alerta sonoro audível reproduzido em menos de 500 ms. |
+| **RF07** | Sincronização Reativa em Tempo Real | A aplicação deve propagar alterações de dados instantaneamente via listeners do Firestore sem requisições periódicas manuais (*polling*). | Alta | Latência fim a fim inferior a 100 ms em conexões móveis estáveis. |
+| **RF08** | Estimativa de Chegada (ETA) | O sistema deve calcular e apresentar ao estudante a estimativa de tempo restante até o ponto de embarque. | Média | Margem de erro do ETA menor que 3 minutos para distâncias inferiores a 10 km. |
+| **RF09** | Geofencing e Notificações Push | O sistema deve identificar o ingresso do veículo no raio de 1 km da faculdade e emitir notificação push ao aluno. | Média | Notificação push recebida no dispositivo em tempo inferior a 2 segundos após cruzar o perímetro delimitado. |
+| **RF10** | Protocolo de Emergência e Resiliência | O sistema deve oferecer o botão de emergência "Fui Esquecido" e manter navegabilidade com dados em cache em zonas de sombra de rede. | Alta | Disparo de alarme prioritário visual e contínuo no painel do motorista em menos de 1 s; mapa funcional em modo offline. |
+
+**Requisitos Não Funcionais (RNF)**
+
+| ID | Categoria | Especificação Técnica | Métrica e Critério de Aceitação |
+|:---:|:---|:---|:---|
+| **RNF01** | Desempenho e Velocidade | Rápido carregamento e interatividade sob conexões de rede móvel | FCP < 1,8 s; TTI < 2,5 s em auditoria do Lighthouse Mobile |
+| **RNF02** | Disponibilidade Operacional | Alta disponibilidade durante toda a janela de deslocamento dos alunos | Uptime ≥ 99,9% no intervalo de 15h00 às 23h30 em dias úteis |
+| **RNF03** | Portabilidade e Compatibilidade | Compatibilidade total com os principais navegadores móveis | Execução homologada em Google Chrome Mobile (v110+) e Safari iOS (v16.4+) |
+| **RNF04** | Usabilidade e Acessibilidade | Adequação ergonômica para visualização e acionamento em ambiente veicular | Elementos de toque com área mínima de 48×48 px; contraste tipográfico conforme WCAG AA |
+| **RNF05** | Privacidade e Segurança | Tratamento ético de dados conforme as exigências da LGPD | Comunicação exclusivamente via HTTPS; descarte automático de coordenadas temporárias ao término do trajeto |
+
+### 5.1.2 Rastreabilidade de requisitos
+
+| Requisito | Entregável EAP | Módulo / Arquivo no Código-Fonte (`src/`) | Caso de Teste Associado | Status de Homologação |
+|:---:|:---:|:---|:---:|:---:|
+| **RF01** | EAP 1.2.1 | `contexts/AuthContext.jsx`, `pages/Login.jsx` | CT-01 | Homologado |
+| **RF02** | EAP 3.1.1 | `pages/Profile.jsx`, `utils/routeUtils.js` | CT-02 | Homologado |
+| **RF03** | EAP 3.1.2 | `pages/StudentMap.jsx`, `utils/tripManager.js` | CT-03 | Homologado |
+| **RF04** | EAP 2.1.1 | `pages/StudentMap.jsx`, `utils/useTripData.js` | CT-04 | Homologado |
+| **RF05** | EAP 2.2.2 | `pages/DriverDashboard.jsx`, `utils/geo.js` | CT-05 | Homologado |
+| **RF06** | EAP 4.1.1 | `pages/DriverDashboard.jsx`, `utils/audioEffects.js` | CT-06 | Homologado |
+| **RF07** | EAP 1.3.1 | `config/firebase.js`, `firestore.rules` | CT-07 | Homologado |
+| **RF08** | EAP 3.2.1 | `utils/geo.js` (Fórmula de Haversine e estimativa de ETA) | CT-08 | Homologado |
+| **RF09** | EAP 3.2.2 | `functions/index.js` (`checkBusDistanceAndNotify`), FCM | CT-09 | Homologado |
+| **RF10** | EAP 4.2.2, 5.1.1 | `pages/StudentMap.jsx`, `public/sw.js` | CT-10 | Homologado |
+
+### 5.1.3 Critérios de aceitação
+
+Cada requisito funcional possui critério numérico e observável associado. O requisito é formalmente aceito apenas quando seu respectivo caso de teste (seção 5.4) é executado com êxito sem violações de métricas estabelecidas.
+
+### 5.1.4 Registro de stakeholders e necessidades elicitadas
+
+| Categoria de Stakeholder | Necessidades Elicitadas | Requisitos Mapeados |
+|:---|:---|:---|
+| Estudantes Universitários | Acompanhar a posição do veículo, notificar liberação com 1 toque e receber alertas de proximidade | RF02, RF03, RF04, RF08, RF09 |
+| Condutores / Motoristas | Painel simples e limpo, substituição de mensagens de texto por contadores numéricos agregados e avisos sonoros de emergência | RF06, RF10, RNF04 |
+| Gestores Municipais e Associações | Rotas regulares sem desperdício de diesel público, controle transparente de demanda e aderência estrita à LGPD | RF07, RNF02, RNF05 |
+
+## 5.2 Arquitetura e Design
+
+### 5.2.1 Arquitetura do sistema
+
+Visão geral: Arquitetura em camadas baseada em Single Page Application PWA (React 19), comunicando-se de forma assíncrona com os serviços em nuvem gerenciados:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│                          SISTEMA RHYME (PWA)                           │
-├───────────────────┬───────────────────┬────────────────────────────────┤
-│    MÓDULO CORE    │    MÓDULO MAPA    │        MÓDULO COCKPIT          │
-│  - Autenticação   │  - Engine Leaflet │  - Contadores por Faculdade    │
-│  - Perfil/Rotas   │  - Tiles OSM      │  - Alertas Sonoros             │
-│  - Status Aluno   │  - Marcadores GPS │  - Alerta de Emergência        │
-├───────────────────┴───────────────────┴────────────────────────────────┤
-│              CAMADA DE TELEMETRIA E SINCRONIZAÇÃO EM NUVEM             │
-│  - Cloud Firestore Realtime Listeners (onSnapshot)                     │
-│  - Geolocation Controller (watchPosition / Broadcast Colaborativo)     │
-│  - Firebase Cloud Messaging (FCM Push Notifications)                   │
-│  - Service Worker Cache & Offline Storage (IndexedDB)                  │
+│                        CLIENTE PWA (React 19)                          │
+│   Módulo do Estudante      Módulo de Mapa         Painel do Motorista  │
+│   (Auth, perfil, status)   (Leaflet, Mapbox)      (contadores e som)   │
+├────────────────────────────────────────────────────────────────────────┤
+│   Camada de Resiliência: Service Worker (Cache) + IndexedDB Offline    │
+├────────────────────────────────────────────────────────────────────────┤
+│   Controladores: Geolocation API (watchPosition) + Haversine Engine    │
+├────────────────────────────────────────────────────────────────────────┤
+│   Backend Nuvem: Firebase Auth · Firestore (onSnapshot) · FCM Push     │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-### 1.2 Perspectiva de Aquisição (Make vs. Buy / Decisões de Terceirização)
-Em estrita conformidade com a cláusula 6.1.1 da ISO/IEC/IEEE 12207:2017, o Grupo 12 avaliou criteriosamente a viabilidade entre desenvolver soluções proprietárias (*make*) e integrar serviços gerenciados em nuvem (*buy/subscribe*), visando eliminar custos fixos e acelerar a entrega com nível profissional:
-
-| Componente / Recurso | Alternativa Analisada | Decisão (Make vs. Buy) | Justificativa Técnica e Econômica | Fornecedor Homologado |
-|:---|:---|:---:|:---|:---|
-| **Banco de Dados Realtime** | Servidor Node.js + Socket.io próprio vs. Firebase Firestore | **Buy / PaaS** | Elimina a necessidade de manter servidores dedicados 24/7; suporte nativo a WebSockets reativos via `onSnapshot` com latência < 100 ms; operável dentro do Spark Free Tier do Google Cloud. | Google Cloud Platform (Firebase) |
-| **Autenticação & Sessões** | Backend Auth próprio com JWT/OAuth vs. Firebase Auth | **Buy / SaaS** | Provisão imediata de autenticação segura por e-mail/senha e tokens criptografados sem overhead de manutenção de infraestrutura de credenciais sensíveis. | Google Firebase Authentication |
-| **Engine Cartográfica e Tiles** | Google Maps API vs. Mapbox vs. Leaflet + OpenStreetMap | **Buy (Open Data)** | A API do Google Maps apresenta riscos de faturamento elevado por volume de requisições de tiles. A combinação Leaflet 1.9 + OpenStreetMap/CartoDB oferece custo financeiro zero, licença aberta e flexibilidade de customização de nós em React. | OpenStreetMap Foundation / CartoDB |
-| **Hospedagem & Edge CDN** | Hospedagem em VPS própria vs. Edge CDN Vercel/Firebase | **Buy / PaaS** | Distribuição em nós de borda globais com nó de baixa latência em São Paulo (GRU1), compilação automatizada de PRs e emissão automática de SSL/TLS HTTPS. | Vercel Inc. / Firebase Hosting |
-| **Lógica de Interface & Negócio** | Plataforma no-code existente vs. Desenvolvimento Customizado | **Make** | As plataformas no-code não atendem aos requisitos estritos de modo offline veicular, latência ultra-baixa de status e interface simplificada para condução noturna. | Desenvolvimento Próprio (React 19 + Tailwind) |
-
-### 1.3 Perspectiva de Fornecimento (ISO 12207 - Cláusula 6.1.2)
-
-#### A. Modelo Contratual e Termo de Cessão de Uso
-* **Natureza da Disponibilização:** O software Rhyme é fornecido sob a modalidade de **Termo de Cessão de Uso Tecnológico sem Ônus e Comodato Acadêmico**, concedido às Secretarias Municipais de Educação e Associações de Estudantes de Cromínia e Professor Jamil.
-* **Governança de Dados e Conformidade LGPD:** O fornecimento estabelece expressamente a proibição de compartilhamento ou monetização de quaisquer informações cadastrais. Coordenadas de localização referem-se estritamente ao veículo em serviço e o histórico transitório de presença é purgado diariamente.
-
-#### B. Acordo de Nível de Serviço (SLA Operacional)
-* **Disponibilidade em Janela Crítica:** **99,9% de uptime** garantido de segunda a sexta-feira, na janela compreendida entre **15h00 e 23h30** (horário do recolhimento, deslocamento e retorno dos alunos).
-* **RTO (Recovery Time Objective):** Tempo máximo de recuperação em caso de falha de telemetria veicular estipulado em **15 minutos** (por meio da transição para o passageiro âncora a bordo).
-* **RPO (Recovery Point Objective):** **0 segundos**, assegurado pela atomicidade das escritas do Firestore e fila de sincronização offline no IndexedDB.
-
-#### C. Procedimentos Operacionais Padronizados (POPs)
-Para assegurar a repetibilidade e a conformidade dos processos de fornecimento, foram formalizados quatro procedimentos normativos:
-
-* **POP-DEV-01 (Governança de Branch, PR e Qualidade de Código):** Nenhuma alteração é integrada diretamente na branch `main`. O fluxo exige branch temática (`feature/*` ou `fix/*`), commits semânticos (*Conventional Commits*), execução estática de linters (`npm run lint` sem erros) e aprovação formal em Code Review por ao menos um par técnico antes do merge.
-* **POP-OPS-01 (Esteira de Deploy Contínuo e Publicação):** Deploy automatizado via GitHub Actions ao mesclar na `main`, executando validação sintática das regras `firestore.rules`, empacotamento estático otimizado e publicação atômica na Edge CDN com teste de fumaça mobile.
-* **POP-GEO-01 (Calibração de Geofencing e Notificações Push):** Procedimento de aferição da fórmula de Haversine para disparo de proximidade em raio perimétrico de 1.000 metros em relação aos câmpi, com validação de entrega FCM em menos de 2 segundos.
-* **POP-EMERG-01 (Protocolo de Alarme de Emergência e Chaveamento Âncora):** Fluxo para tratamento do evento *"Fui Esquecido"*, disparando alerta sonoro de prioridade máxima no cockpit do motorista e, em caso de pane no aparelho veicular, ativando a transmissão por smartphone de passageiro validado a bordo.
-
----
-
-## 🏛️ PARTE 2 — PROCESSOS ORGANIZACIONAIS HABILITADORES DE PROJETO (ISO 12207 - CLÁUSULA 6.2)
-
-### 2.1 Modelo de Ciclo de Vida (ISO 12207 - Cláusula 6.2.1)
-A equipe Grupo 12 adotou formalmente o **Modelo de Ciclo de Vida Híbrido Iterativo-Incremental**, estruturado com princípios de métodos ágeis (Scrum com fluxo contínuo Kanban) e cadência de sprints quinzenais:
-
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                   CICLO DE VIDA ITERATIVO-INCREMENTAL                  │
-└───────────────────────────────────┬────────────────────────────────────┘
-                                    │
-                                    ▼
-       [Visão / Requisitos] ──► [Sprint N: Incremento] ──► [Deploy Piloto]
-                ▲                                                │
-                │                                                ▼
-                └─────────── Validação em Campo (GO-217) ────────┘
-```
-
-#### Justificativa da Escolha do Modelo:
-1. **Natureza Empírica do Ambiente Operacional:** O comportamento da recepção 4G/GPS nas rodovias estaduais (GO-217 e BR-153) apresenta particularidades que não podem ser previstas exclusivamente em bancada. O modelo iterativo permite testar cada funcionalidade em condições reais de rodovia a cada duas semanas.
-2. **Mitigação Progressiva de Riscos Técnicos:** Riscos complexos (como a concorrência de WebSockets no Firestore e o cache offline de Service Workers) foram testados em incrementos isolados antes da inclusão de regras avançadas de geofencing.
-3. **Harmonização com as Entregas Normativas:** O modelo viabilizou a entrega cumulativa das baselines da ISO 12207 sem retrabalhos cascatas.
-
-### 2.2 Infraestrutura e Ferramental (ISO 12207 - Cláusula 6.2.2)
-O inventário abaixo cataloga todos os ativos físicos, lógicos e plataformas de suporte homologados:
-
-| Categoria | Tecnologia / Ferramenta | Versão | Finalidade no Ciclo de Vida do Software |
-|:---|:---|:---:|:---|
-| **Linguagem & Runtime** | Node.js / ECMAScript | 20 LTS / ES2024 | Execução do ambiente de compilação, scripts e ferramentas de build. |
-| **Framework Frontend** | React | 19.x | Componentização declarativa reativa e gestão de estado em tempo real. |
-| **Build Tool / Bundler** | Vite | 6.x | Servidor de desenvolvimento ultrarrápido com Hot Module Replacement (HMR). |
-| **Estilização & Design** | Tailwind CSS & PostCSS | 4.x | Sistema de tokens utilitários de alto contraste e legibilidade veicular. |
-| **Motor Cartográfico** | Leaflet & React-Leaflet | 1.9 / 5.x | Renderização vetorial de mapas com baixo consumo de CPU e bateria móvel. |
-| **Base Cartográfica** | OpenStreetMap / CartoDB | CDN Pública | Tiles cartográficos abertos sem custos de licenciamento por visualização. |
-| **Banco NoSQL Realtime** | Google Cloud Firestore | NoSQL Realtime | Persistência de documentos e sincronização de eventos com listeners nativos. |
-| **Ambiente de Teste Local** | Firebase Emulator Suite | 13.x | Execução local de regras de banco de dados e funções sem consumo de nuvem. |
-| **Framework de Testes** | Vitest & React Testing Library | 2.x / 16.x | Execução de testes unitários automatizados e testes de componentes. |
-| **Qualidade & Linters** | ESLint & Oxlint | Última estável | Análise estática de código e imposição de padrões de qualidade de código. |
-| **Controle de Versão** | Git & GitHub | 2.4x / Cloud | Versionamento distribuído, controle de branches e auditoria de commits. |
-| **Pipeline de CI/CD** | GitHub Actions | Workflows v4 | Automação de linters, testes unitários, build e deploy contínuo em produção. |
-| **Hospedagem & CDN** | Vercel & Firebase Hosting | Edge CDN | Distribuição global de assets PWA com provisionamento automático HTTPS. |
-| **Dispositivos Veiculares** | Smartphones Android e iOS | Android 10+ / iOS 15+ | Telefones veiculares dos motoristas acoplados a suporte 12V no painel do ônibus. |
-
-### 2.3 Recursos Humanos, Matriz RACI e Plano de Capacitação (ISO 12207 - Cláusula 6.2.4)
-
-#### A. Matriz RACI do Projeto
-A matriz formaliza a distribuição de papéis e responsabilidades operacionais entre as disciplinas de engenharia do squad:
-*(**R** = Responsible / Responsável pela Execução, **A** = Accountable / Aprovador Final, **C** = Consulted / Consultado, **I** = Informed / Informado)*
-
-| Macroatividade do Ciclo de Vida | Requisitos & Produto (Matheus) | Arquitetura & Frontend (Luis) | Infraestrutura & Nuvem (Heitor) | SQA & Testes de Campo (Carlos) |
-|:---|:---:|:---:|:---:|:---:|
-| **1. Elicitação e Refinamento de Requisitos** | **A / R** | C | C | C |
-| **2. Modelagem do Banco NoSQL e Regras** | C | R | **A / R** | C |
-| **3. Desenvolvimento da UI e Mapas Leaflet** | I | **A / R** | C | C |
-| **4. Implementação de Geofencing e Push** | C | R | R | **A** |
-| **5. Testes Unitários e Testes de Campo (GO-217)** | C | C | I | **A / R** |
-| **6. Governança de Releases e Deploy CI/CD** | I | R | **A / R** | C |
-| **7. Resposta a Incidentes de Telemetria / GPS** | C | I | R | **A / R** |
-
-#### B. Plano de Capacitação Técnica da Equipe
-Para assegurar a aderência às melhores práticas de engenharia de software e normas ISO, foram executadas trilhas de capacitação interna:
-* **Capacitação em ISO/IEC/IEEE 12207:** Nivelamento sobre os processos das cláusulas 6.1 a 6.4 e seus requisitos de rastreabilidade e auditoria.
-* **Treinamento em PWA Offline-First:** Estudo aprofundado dos ciclos de vida de Service Workers, estratégias de cache *Stale-While-Revalidate* e persistência em IndexedDB.
-* **Segurança no Firebase:** Oficina prática de escrita e validação sintática de `firestore.rules` utilizando o Firebase Emulator Suite.
-
-### 2.4 Gestão da Qualidade e do Conhecimento (ISO 12207 - Cláusulas 6.2.5 e 6.2.6)
-
-#### A. Métricas Organizacionais de Qualidade
-A conformidade do produto e dos processos é monitorada por quatro métricas objetivas:
-
-| Indicador | Parâmetro Mensurado | Meta / Alvo Tolerado | Método de Aferição | Ação Corretiva em Caso de Desvio |
-|:---|:---|:---:|:---|:---|
-| **QM-01** | Latência de Sincronização Realtime | **< 100 ms** (4G/5G)<br>**< 1.000 ms** (3G) | Confronto entre `timestamp` de gravação no Firestore e recebimento no listener. | Redução do payload de dados e otimização das consultas reativas. |
-| **QM-02** | Eficácia do Geofencing Preditivo | **≥ 98%** de entregas antes da chegada ao ponto | Log de eventos de alerta confrontado com o timestamp de embarque efetivo. | Reajuste da margem de raio perimétrico (ajuste dinâmico de 1.000m para 1.500m). |
-| **QM-03** | Performance Web Vitals Mobile | **LCP < 2,0s**<br>**TTI < 2,5s** | Relatórios de auditoria automatizada do Google Lighthouse Mobile via CI. | Aplicação de *code-splitting* em rotas e pré-carregamento de tiles essenciais. |
-| **QM-04** | Cobertura de Testes Automatizados | **≥ 80%** de linhas e branches críticas | Relatórios de cobertura gerados pelo Vitest na suíte de testes unitários. | Bloqueio automatizado de Pull Requests que reduzam a cobertura percentual. |
-
-#### B. Estratégia de Gestão e Retenção do Conhecimento
-1. **Documentação Viva em Repositório Único:** Todos os manuais, guias e especificações são mantidos em Markdown na pasta `docs/` sob controle de versão Git, prevenindo a perda de histórico.
-2. **Registros Formais de Decisões de Arquitetura (ADRs):** Toda decisão técnica estrutural é justificada formalmente com registro de contexto, alternativas e consequências.
-3. **Post-Mortems de Incidentes sem Culpabilidade (*Blameless*):** Incidentes em viagens reais resultam em análise de causa raiz com implementação de melhorias preventivas imediatas.
-
----
-
-## 📐 PARTE 3 — PROCESSOS DE GERENCIAMENTO TÉCNICO (ISO 12207 - CLÁUSULA 6.3)
-
-### 3.1 Plano de Desenvolvimento de Software (PDS) e EAP (ISO 12207 - Cláusula 6.3.1)
-
-#### A. Estrutura Analítica do Projeto (EAP / WBS em 3 Níveis)
-A EAP decompõe formalmente o trabalho do projeto em pacotes, subpacotes e entregáveis:
-
-* **1.0 FUNDAÇÃO, INFRAESTRUTURA E GOVERNANÇA**
-  * 1.1 Repositório e Automação
-    * 1.1.1 Configuração de branch protection e Conventional Commits no GitHub
-    * 1.1.2 Pipeline de CI/CD para lint e build no GitHub Actions
-  * 1.2 Autenticação e Segurança
-    * 1.2.1 Configuração de instâncias do Firebase Auth
-    * 1.2.2 Elaboração e auditoria das regras de acesso em `firestore.rules`
-  * 1.3 Modelagem de Dados
-    * 1.3.1 Estruturação das coleções `trips`, `students`, `bus_location` e `emergencies`
-* **2.0 NÚCLEO CARTOGRÁFICO E TELEMETRIA**
-  * 2.1 Renderização e Interface Cartográfica
-    * 2.1.1 Integração do container Leaflet 1.9 com OpenStreetMap no React 19
-    * 2.1.2 Plotagem dos marcadores dos câmpi universitários e pontos de parada
-  * 2.2 Telemetria em Tempo Real
-    * 2.2.1 Implementação do controlador de captura de coordenadas GPS móvel
-    * 2.2.2 Transmissão periódica das coordenadas para o Firestore (a cada 5s)
-* **3.0 FLUXO OPERACIONAL DO ESTUDANTE**
-  * 3.1 Interface do Passageiro
-    * 3.1.1 Tela de onboarding com seleção de rota e faculdade de destino
-    * 3.1.2 Componente *StatusToggle* com acionamento One-Touch ("Liberado")
-  * 3.2 Experiência do Mapa do Aluno
-    * 3.2.1 Visualização do deslocamento do ônibus em tempo real e cálculo de ETA
-    * 3.2.2 Receptor de notificações push de aproximação por geofencing
-* **4.0 COCKPIT VEICULAR DO MOTORISTA**
-  * 4.1 Painel de Alta Legibilidade
-    * 4.1.1 Dashboard consolidado com contadores de alunos liberados por campus
-    * 4.1.2 Modo de controle de viagem (iniciar rota, pausar e finalizar viagem)
-  * 4.2 Alertas e Segurança Veicular
-    * 4.2.1 Emissão de avisos sonoros de novos alunos liberados
-    * 4.2.2 Painel de atendimento ao alarme de emergência *"Fui Esquecido"*
-* **5.0 RESILIÊNCIA, TESTES E IMPLANTAÇÃO**
-  * 5.1 Modo Offline e PWA
-    * 5.1.1 Configuração de Service Worker para cache de assets e tiles de mapas
-    * 5.1.2 Ativação da persistência offline local no IndexedDB via Firestore SDK
-  * 5.2 Validação e Homologação
-    * 5.2.1 Suíte de testes unitários Vitest cobrindo cálculos de distância e regras
-    * 5.2.2 Ensaios de validação de campo na rodovia GO-217 e piloto controlado
-
-#### B. Cronograma de Sprints e Marcos do Projeto
-O desenvolvimento foi planejado e executado ao longo do semestre letivo 2026/2:
-
-| Sprint | Período Operacional | Pacotes EAP | Entregáveis e Marcos Atingidos |
-|:---:|:---|:---|:---|
-| **S1** | 11/08 a 25/08/2026 | 1.1, 1.2, 1.3 | Configuração do repositório, pipeline CI, autenticação Firebase e schema de dados. |
-| **S2** | 25/08 a 10/09/2026 | 2.1, 2.2 | Mapa Leaflet renderizando nós dos câmpi; entrega formal da **Etapa 0** do Manual. |
-| **S3** | 10/09 a 24/09/2026 | 2.2, 3.1, 3.2 | Telemetria GPS ativa e botão de status do aluno funcional; entrega da **Etapa 1**. |
-| **S4** | 24/09 a 08/10/2026 | 4.1, 4.2 | Cockpit do motorista operacional com alertas e alarme sonoro; entrega da **Etapa 2**. |
-| **S5** | 08/10 a 22/10/2026 | 3.2, 5.1, 5.2 | Service Worker offline ativo, ETA calibrado, testes Vitest (cobertura ≥ 80%); entrega das **Etapas 3 e 4**. |
-| **S6** | 22/10 a 05/11/2026 | 5.2 | Teste de validação em campo na GO-217 homologado, piloto de Cromínia e entrega da **Etapa 5 / Manual Consolidado**. |
-
-### 3.2 Matriz de Gestão de Riscos (Risk Register - ISO 12207 Cláusula 6.3.4)
-Os riscos foram identificados, avaliados quanto à severidade (Probabilidade × Impacto em escala de 1 a 5) e receberam planos formais de mitigação preventiva e contingência reativa:
-
-| ID | Categoria | Descrição do Risco | P | I | Sev. | Gatilho de Alarme | Ação de Mitigação Preventiva | Plano de Contingência Reativa |
-|:---:|:---|:---|:---:|:---:|:---:|:---|:---|:---|
-| **RT-01** | Técnico | Sombra de sinal 4G na rodovia GO-217 impede envio de GPS. | 4 | 5 | **20** | Conexão de rede offline detectada pela Web API. | Implementação de Service Worker e persistência IndexedDB no Firestore. | Aplicação retém a última coordenada válida e enfileira dados para envio pós-reconexão. |
-| **RT-02** | Operacional | Bateria do smartphone veicular do motorista descarrega. | 3 | 5 | **15** | Bateria veicular abaixo de 10% ou ausência de ping > 3 min. | Exigência de suporte com carregador veicular 12V conectado ao ônibus. | Ativação do protocolo de contingência: *Passageiro Âncora* assume o broadcast GPS. |
-| **RT-03** | Técnico | Falha na entrega de notificações push no iOS (Safari PWA). | 3 | 3 | **9** | Notificação push rejeitada pelo serviço Apple APNs. | Homologação prévia de Web Push API para iOS 16.4+ e manifest válido. | Interface exibe alertas visuais diretamente na tela do mapa em tempo real. |
-| **RT-04** | Técnico | Latência de sincronização superior a 2 segundos na cabine. | 2 | 4 | **8** | Métrica QM-01 aponta atraso no delta de tempo > 2.000 ms. | Payload de dados enxuto e índices compostos otimizados no Firestore. | Reconexão forçada dos listeners reativos com recálculo de estado local. |
-| **RO-01** | Humano / Uso | Alunos esquecem de atualizar o status ao serem liberados. | 3 | 4 | **12** | Divergência entre número de alunos cadastrados e liberados. | Campanha de conscientização e interface One-Touch simplificada. | Motorista confere os alunos liberados por meio do contador visual de resumo. |
-| **RO-02** | Operacional | Dificuldade de operação do cockpit pelo motorista na estrada. | 2 | 5 | **10** | Relato de distração ou cliques imprecisos em viagem. | Design veicular com botões gigantes (> 64px), alto contraste e avisos sonoros. | Treinamento presencial de 30 minutos e simplificação do fluxo para 1 toque. |
-| **RR-01** | Regulatório | Não conformidade com a LGPD por coleta de dados pessoais. | 1 | 5 | **5** | Questionamento formal de privacidade por usuários. | Não persistência de localização privada dos estudantes; coleta restrita ao ônibus. | Purga atômica imediata das tabelas transitórias ao término de cada viagem. |
-| **RR-02** | Financeiro | Esgotamento das cotas gratuitas do Spark Plan do Firebase. | 1 | 4 | **4** | Consumo diário atinge 70% das leituras/gravações gratuitas. | Arquitetura orientada a eventos que minimiza requisições desnecessárias. | Ajuste da frequência de envio de GPS de 5s para 10s durante trechos retilíneos. |
-
-### 3.3 Gerenciamento de Decisão Técnica (ADRs e Matrizes de Decisão Multicritério - MDA)
-
-#### A. Matrizes de Decisão Multicritério (MDA)
-
-##### MDA-01: Provedor de Hospedagem e Edge CDN
-* Critérios: Tempo de build e deploy (peso 30%), CDN com nó no Brasil (peso 30%), Integração com GitHub Actions (peso 20%), Custo zero para projetos educacionais (peso 20%).
-* **Vercel:** Pontuação ponderada **5,0** (Vencedora primária).
-* **Firebase Hosting:** Pontuação ponderada **4,4** (Adotado como espelho de fallback).
-* **GitHub Pages:** Pontuação ponderada **3,2** (Descartado por latência de roteamento SPA).
-
-##### MDA-02: Biblioteca Cartográfica
-* Critérios: Custo para escala educacional (peso 35%), Tamanho do bundle JS (peso 25%), Suporte a modo offline (peso 20%), Integração React (peso 20%).
-* **Leaflet 1.9 + OpenStreetMap:** Pontuação ponderada **4,9** (Vencedora — custo financeiro zero e leveza móvel).
-* **Mapbox GL JS:** Pontuação ponderada **3,5** (Descartado por cotas restritivas de visualização).
-* **Google Maps Platform:** Pontuação ponderada **2,7** (Descartado pelo alto risco de cobranças em dólares).
-
-##### MDA-03: Modelo de Distribuição do Aplicativo
-* Critérios: Tempo de onboarding sem atrito (peso 30%), Custo de publicação (peso 25%), Acesso a APIs web de GPS e Push (peso 25%), Complexidade de manutenção (peso 20%).
-* **Progressive Web App (PWA):** Pontuação ponderada **4,8** (Vencedora — acesso imediato via QR Code sem lojas).
-* **React Native:** Pontuação ponderada **3,1** (Descartado pela burocracia e custos de contas em lojas de apps).
-* **Flutter:** Pontuação ponderada **3,1** (Descartado pelos mesmos motivos de manutenção de builds nativos).
-
-### 3.4 Gerenciamento de Configuração de Software (ISO 12207 - Cláusula 6.3.5)
-
-#### A. Política de Branches e Fluxo de Integração (Trunk-Based com Feature Branches)
-```
-  main (Protegida - Produção Homologada) 
-    │
-    ├── feature/geo-telemetry ──────► PR (Lint + Build OK + 1 Review) ──► Squash & Merge ──► main (v1.x)
-    │
-    └── fix/socket-reconnect  ──────► PR (Testes Vitest OK + Review)  ──► Squash & Merge ──► main (v1.y)
-```
-
-1. **Branch `main`:** Exclusiva para código homologado em produção. Merges diretos (*direct push*) são bloqueados por regras de proteção de branch do GitHub.
-2. **Branches Temáticas (`feature/*` e `fix/*`):** Ramificadas a partir da `main` para desenvolvimento isolado de incrementos ou correções.
-3. **Padrão de Mensagens de Commit (Conventional Commits):**
-   * Estrutura: `tipo(escopo): descrição concisa no imperativo`.
-   * Tipos válidos: `feat` (nova funcionalidade), `fix` (correção de defeito), `docs` (documentação), `test` (testes automatizados), `refactor` (refatoração de código).
-4. **Política de Pull Requests e Gates de Qualidade:**
-   * Aprovação formal obrigatória de pelo menos um revisor independente.
-   * Sucesso total na execução do pipeline do GitHub Actions (`npm run lint` e `npm run test` com zero falhas).
-   * Estratégia de merge: *Squash and Merge*, preservando um histórico linear e limpo na `main`.
-5. **Baselines e Versionamento Semântico (SemVer 2.0.0):**
-   * Releases oficiais marcadas com Git Tags anotadas e criptograficamente auditadas no padrão `vMAJOR.MINOR.PATCH` (ex.: `v1.0.0`).
-
-### 3.5 Medição e SQA (Garantia da Qualidade de Software - ISO 12207 Cláusula 6.3.7)
-A garantia da qualidade técnica é auditada continuamente por meio das seguintes práticas de SQA:
-* **Auditorias Automáticas em Cada Pull Request:** Bloqueio de código com falhas sintáticas ou que reduza a cobertura de testes abaixo de 80%.
-* **Checklists de Qualidade de Release (Definition of Done - DoD):** Uma release só é liberada para produção após validação em emuladores móveis (Android e iOS) e testes de regressão dos quatro procedimentos padronizados (POPs).
-* **Reuniões de Retrospectiva Quinzenais:** Avaliação do velocity do squad, identificação de débitos técnicos e calibração das metas de processo.
-
----
-
-## 🛠️ PARTE 4 — PROCESSOS TÉCNICOS (ISO 12207 - CLÁUSULA 6.4)
-
-### 4.1 Especificação de Requisitos e Rastreabilidade Bidirecional (ISO 12207 Cláusula 6.4.1)
-
-#### A. Stakeholders e Necessidades Elicitadas
-* **Estudantes Universitários:** Precisam visualizar o deslocamento do ônibus em tempo real, marcar com facilidade se já saíram da aula e receber alertas sonoros de proximidade.
-* **Motoristas de Ônibus/Vans:** Precisam de uma interface veicular limpa, sem mensagens de texto confusas, com números agregados por faculdade e avisos imediatos de emergência.
-* **Gestores Municipais e Associações:** Necessitam de rotas otimizadas, sem desperdício de combustível, com controle seguro de presenças sem infração à LGPD.
-
-#### B. Requisitos Funcionais do Sistema (Padrão SMART)
-Todos os requisitos funcionais foram redigidos seguindo os preceitos SMART (*Specific, Measurable, Achievable, Relevant, Time-bound*):
-
-| ID | Nome do Requisito | Especificação Detalhada (SMART) | Prioridade | Critério de Aceitação Mensurável | Método de Verificação |
-|:---:|:---|:---|:---:|:---|:---:|
-| **RF01** | Autenticação no PWA | O sistema deve permitir que alunos e motoristas se autentiquem via Firebase Auth por link/e-mail, mantendo a sessão persistida localmente. | Alta | Login concluído em < 2,0s; recuperação automática de sessão em recargas de tela. | Teste Automatizado e Inspeção (CT-01) |
-| **RF02** | Seleção de Rota e Perfil | O estudante deve selecionar sua rota piloto (Cromínia ou Prof. Jamil) e seu campus de ensino (UFG Samambaia, Colemar, PUC, etc.). | Alta | Parâmetros gravados no perfil e refletidos imediatamente no mapa em < 500 ms. | Teste de Unidade e UI (CT-02) |
-| **RF03** | Atualização de Status One-Touch | O aluno deve poder alternar seu estado entre "Em sala", "Liberado da aula" e "No ponto" por meio de um único toque em botão de destaque. | Alta | Status persistido no Firestore e refletido no cockpit do motorista em < 100 ms via WebSocket. | Teste de Integração Realtime (CT-03) |
-| **RF04** | Rastreamento em Tempo Real no Mapa | O sistema deve renderizar o mapa interativo Leaflet exibindo a posição geográfica atual do ônibus e os nós de paradas com atualização suave. | Alta | Posição do veículo atualizada a cada 5 segundos com transição contínua de coordenadas. | Teste de Telemetria em Trânsito (CT-04) |
-| **RF05** | Broadcast de GPS Colaborativo | O sistema deve permitir que o motorista ou um passageiro âncora a bordo transmita o sinal GPS contínuo para a rede de estudantes. | Média | Coordenadas transmitidas continuamente em background com precisão de raio < 15 metros. | Teste de Campo com GPS Físico (CT-05) |
-| **RF06** | Cockpit do Motorista com Contadores | A aplicação deve fornecer um painel com contadores consolidados de alunos liberados por faculdade e alertas sonoros a cada nova liberação. | Alta | Contadores numéricos incrementados em tempo real; alerta sonoro audível disparado em < 500 ms. | Teste Funcional de Cockpit (CT-06) |
-| **RF07** | Sincronização Reativa em Tempo Real | O sistema deve sincronizar alterações de dados entre clientes via listeners reativos do Firestore sem requisições HTTP manuais de pooling. | Alta | Latência ponta a ponta inferior a 100 ms em conexões 4G/5G estáveis. | Teste de Estresse e Latência (CT-07) |
-| **RF08** | Estimativa de Chegada (ETA) | O sistema deve calcular e exibir para os alunos a previsão estimada de chegada do ônibus com base na distância da rota e velocidade média. | Média | Erro de estimativa inferior a 3 minutos para distâncias menores que 10 km. | Teste de Algoritmo de Distância (CT-08) |
-| **RF09** | Geofencing e Notificações Push | O sistema deve detectar quando o veículo ingressar no raio perimétrico de 1 km da faculdade e enviar notificação push ao aluno. | Média | Notificação entregue no dispositivo do estudante em até 2 segundos após cruzar o perímetro. | Teste de Geofencing Simulado (CT-09) |
-| **RF10** | Protocolo de Emergência e Resiliência | O sistema deve oferecer o botão "Fui Esquecido", disparando alerta visual vermelho e som contínuo no ônibus, com operação offline em zonas de sombra. | Alta | Disparo de alerta prioritário na cabine em < 1s; interface acessível mesmo sem sinal 4G ativo. | Teste de Emergência e Modo Offline (CT-10) |
-
-#### C. Requisitos Não Funcionais (RNF)
-
-| ID | Categoria | Especificação Técnica (Padrão SMART) | Métrica / Critério de Aceitação |
-|:---:|:---|:---|:---|
-| **RNF01** | Desempenho e Velocidade | O aplicativo deve carregar e estar interativo rapidamente em redes móveis 3G e 4G. | First Contentful Paint (FCP) < 1,8s; Time to Interactive (TTI) < 2,5s em auditoria Lighthouse. |
-| **RNF02** | Disponibilidade Operacional | A plataforma deve manter alta disponibilidade durante a janela de deslocamento dos estudantes. | Uptime de 99,9% no período entre 15h00 e 23h30 em dias úteis. |
-| **RNF03** | Portabilidade e Compatibilidade | O PWA deve ser executado de forma consistente nos navegadores padrão dos sistemas Android e iOS. | Conformidade total no Google Chrome Mobile (v110+) e Apple Safari Mobile (v16.4+). |
-| **RNF04** | Usabilidade e Acessibilidade | A interface veicular deve permitir leitura e toque rápido durante a operação. | Alvos de toque com área ≥ 48x48 px; contraste tipográfico em conformidade com WCAG AA. |
-| **RNF05** | Segurança e Privacidade | O sistema deve proteger as identidades dos usuários e operar em conformidade rigorosa com a LGPD. | HTTPS obrigatório em todas as conexões; descarte automático de coordenadas temporárias ao fim da rota. |
-
-#### D. Matriz Bidirecional de Rastreabilidade Integrada
-A rastreabilidade estabelece a correspondência estrita entre as necessidades de negócio, requisitos, entregáveis da EAP, código-fonte e casos de teste:
-
-| Requisito | Entregável EAP | Módulo / Componente no Código-Fonte | Caso de Teste (V&V) | Status de Implementação |
-|:---:|:---:|:---|:---:|:---:|
-| **RF01** | EAP 1.2.1 | `src/contexts/AuthContext.jsx`, `src/components/AuthModal.jsx` | CT-01 | Homologado |
-| **RF02** | EAP 3.1.1 | `src/components/ProfileSetup.jsx`, `src/utils/routeUtils.js` | CT-02 | Homologado |
-| **RF03** | EAP 3.1.2 | `src/components/StatusToggle.jsx`, `src/utils/tripManager.js` | CT-03 | Homologado |
-| **RF04** | EAP 2.1.1 | `src/pages/StudentMap.jsx`, `src/components/MapView.jsx` | CT-04 | Homologado |
-| **RF05** | EAP 2.2.2 | `src/components/GpsBroadcaster.jsx`, `src/utils/geo.js` | CT-05 | Homologado |
-| **RF06** | EAP 4.1.1 | `src/pages/DriverDashboard.jsx`, `src/components/DriverCockpit.jsx` | CT-06 | Homologado |
-| **RF07** | EAP 1.3.1 | `src/services/firebase.js`, `firestore.rules` | CT-07 | Homologado |
-| **RF08** | EAP 3.2.1 | `src/utils/geo.js` (Fórmula de Haversine e ETA) | CT-08 | Homologado |
-| **RF09** | EAP 5.3.1 | `src/services/notifications.js`, Cloud Functions de Geofence | CT-09 | Homologado |
-| **RF10** | EAP 4.2.2, 5.1.1 | `src/components/EmergencyButton.jsx`, `public/sw.js` | CT-10 | Homologado |
-
----
-
-### 4.2 Arquitetura, Design e Modelagem do Sistema (ISO 12207 Cláusula 6.4.3)
-
-#### A. Visões Estruturais (C4 Model)
-* **Nível 1 - Contexto do Sistema:** O Sistema Rhyme conecta Estudantes e Motoristas ao ecossistema em nuvem (Google Firebase Auth, Firestore e FCM) e serviços abertos de cartografia (OpenStreetMap).
-* **Nível 2 - Contêineres:** Single Page Application (PWA) desenvolvida em React 19 executada no navegador do smartphone, comunicando-se via WebSockets seguros com o Cloud Firestore e requisitando tiles de mapa via HTTPS da CDN OpenStreetMap.
-* **Nível 3 - Componentes:** O cliente divide-se em Componentes de UI (Telas de Aluno e Motorista), Controladores de Geolocalização, Service Worker de Cache Offline e Módulo de Gestão de Conexão Firestore.
-
-#### B. Modelos de Dados (NoSQL Firestore Data Model)
-O sistema organiza seus dados em quatro coleções principais no Google Cloud Firestore:
-
-1. **Coleção `routes`:** Contém a definição estática dos trajetos homologados.
-   * Campos: `id` (string), `name` (string - ex: "Cromínia - Goiânia"), `faculties` (array de objetos com `name`, `lat`, `lng`, `order`), `active` (boolean).
-2. **Coleção `trips`:** Registra as instâncias diárias de viagens ativas.
-   * Campos: `tripId` (string), `routeId` (string), `driverUid` (string), `status` ("scheduled", "in_progress", "completed"), `startedAt` (timestamp), `endedAt` (timestamp).
-3. **Subcoleção `trips/{tripId}/students`:** Lista reativa dos estudantes vinculados à viagem em curso.
-   * Campos: `studentUid` (string), `name` (string), `faculty` (string), `status` ("in_class", "released", "at_stop", "boarded"), `updatedAt` (timestamp).
-4. **Coleção `bus_location`:** Documento único atualizado em tempo real com as coordenadas do veículo.
-   * Campos: `tripId` (string), `lat` (number), `lng` (number), `speed` (number), `heading` (number), `updatedAt` (timestamp), `broadcasterRole` ("driver" ou "anchor_student").
-5. **Coleção `emergencies`:** Registro atômico de incidentes críticos.
-   * Campos: `id` (string), `tripId` (string), `studentUid` (string), `studentName` (string), `faculty` (string), `active` (boolean), `createdAt` (timestamp).
-
-#### C. Diagramas UML Oficiais (PlantUML Desacoplados)
-Os diagramas formais de design e arquitetura do sistema estão desacoplados em arquivos dedicados no diretório [`diagramas/`](./diagramas/), garantindo modularidade e edição independente:
-
-| Diagrama | Arquivo Fonte Desacoplado | Norma / Propósito | Descrição Técnica do Modelo |
-|:---|:---|:---:|:---|
-| **Casos de Uso** | [`diagramas/casos-de-uso.puml`](./diagramas/casos-de-uso.puml) | ISO 12207 §6.4.1 | Especificação dos 10 Casos de Uso (UC01 a UC10) envolvendo Estudante, Motorista, GPS e Firestore. |
-| **Sequência Realtime** | [`diagramas/sequencia-tempo-real.puml`](./diagramas/sequencia-tempo-real.puml) | ISO 12207 §6.4.3 | Fluxo temporal reativo de alteração de status do aluno ("Liberado") e broadcast contínuo de telemetria GPS. |
-| **Componentes PWA** | [`diagramas/componentes-arquitetura.puml`](./diagramas/componentes-arquitetura.puml) | ISO 12207 §6.4.3 | Mapeamento dos módulos do cliente PWA (React 19, Leaflet, Service Worker) e serviços em nuvem (Firebase). |
-| **Modelo de Dados NoSQL** | [`diagramas/modelo-dados-firestore.puml`](./diagramas/modelo-dados-firestore.puml) | ISO 12207 §6.4.4 | Modelagem estrutural das coleções do Firestore (`routes`, `trips`, `students`, `bus_location`, `emergencies`). |
-
-> *Nota de Visualização:* Os arquivos `.puml` podem ser visualizados e editados no VS Code através da extensão **PlantUML** (`jebbs.plantuml`) pressionando `Alt + D` ou via [PlantUML Online Server](https://www.plantuml.com/plantuml/uml/). Consulte o guia completo em [diagramas/README.md](./diagramas/README.md).
-
----
-
-### 4.3 Construção, Integração e Esteira CI/CD (ISO 12207 Cláusulas 6.4.7 e 6.4.8)
-
-#### A. Guia de Estilo de Código e Boas Práticas
-* **Componentes Funcionais com Hooks:** Exclusividade no uso de React Functional Components e hooks nativos (`useState`, `useEffect`, `useMemo`, `useCallback`) e customizados.
-* **Imutabilidade e Funções Puras:** Tratamento de dados sem mutação direta de arrays e objetos, assegurando previsibilidade de re-renderização.
-* **Tratamento Seguro de Exceções:** Uso de blocos `try/catch` em todas as operações assíncronas com tratamento explícito de estados de desconexão.
-
-#### B. Pipeline de Automação CI/CD (GitHub Actions)
-O fluxo automatizado de integração e entrega contínua é executado a cada push ou pull request na branch `main`:
-
-```yaml
-name: CI/CD Pipeline - Rhyme PWA
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-jobs:
-  validate-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js 20 LTS
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Run Linter (ESLint & Oxlint)
-        run: npm run lint
-
-      - name: Execute Unit Tests (Vitest)
-        run: npm run test -- --coverage
-
-      - name: Build Production Assets (Vite)
-        run: npm run build
-
-      - name: Deploy to Production (Firebase Hosting / Vercel)
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: npx firebase-tools deploy --only hosting --token ${{ secrets.FIREBASE_TOKEN }}
-```
-
----
-
-### 4.4 Verificação, Validação e Transição - V&V (ISO 12207 Cláusulas 6.4.9 e 6.4.10)
-
-#### A. Casos de Teste Formais (Suíte de V&V)
-Os dez casos de teste cobrem a totalidade dos requisitos funcionais e não funcionais:
-
-| Código | Requisito Alvo | Descrição do Procedimento de Teste | Critério de Aceitação / Resultado Esperado | Status |
+**Modelo de Dados NoSQL (Estrutura de Coleções no Cloud Firestore):**
+
+| Coleção | Atributos e Estrutura Principal |
+|:---|:---|
+| `routes` | `id` (string), `name` (string), `faculties` (array de objetos com `name`, `lat`, `lng`, `order`), `active` (boolean) |
+| `trips` | `tripId` (string), `routeId` (string), `driverUid` (string), `status` (`scheduled`, `in_progress`, `completed`), `startedAt`, `endedAt` |
+| `trips/{tripId}/students` | `studentUid` (string), `name` (string), `faculty` (string), `status` (`in_class`, `released`, `at_stop`, `boarded`), `updatedAt` |
+| `bus_location` | `tripId` (string), `lat` (number), `lng` (number), `speed` (number), `heading` (number), `updatedAt` (timestamp), `broadcasterRole` |
+| `emergencies` | `id` (string), `tripId` (string), `studentUid` (string), `studentName` (string), `faculty` (string), `active` (boolean), `createdAt` |
+
+### 5.2.2 Diagramas de design
+
+Os modelos formais em PlantUML estão desacoplados no diretório [`diagramas/`](./diagramas/):
+
+| Modelo | Arquivo Fonte | Conteúdo Modelado |
+|:---|:---|:---|
+| Casos de Uso | [`casos-de-uso.puml`](./diagramas/casos-de-uso.puml) | Mapeamento dos 10 casos de uso envolvendo Estudante, Condutor, GPS e Firestore |
+| Sequência em Tempo Real | [`sequencia-tempo-real.puml`](./diagramas/sequencia-tempo-real.puml) | Sincronização reativa de status ("Liberado") e fluxo contínuo de telemetria |
+| Componentes de Software | [`componentes-arquitetura.puml`](./diagramas/componentes-arquitetura.puml) | Acoplamento dos módulos do PWA, Service Worker, Leaflet e serviços em nuvem |
+| Dados NoSQL | [`modelo-dados-firestore.puml`](./diagramas/modelo-dados-firestore.puml) | Modelo estrutural de coleções e subcoleções do banco de dados Firestore |
+
+### 5.2.3 Justificativa das escolhas tecnológicas
+
+| Tecnologia | Racional Técnico e Justificativa |
+|:---|:---|
+| React 19 + Vite | Modelo de componentes declarativo eficiente para UI reativa e tempos de compilação reduzidos |
+| Tailwind CSS | Estilização por classes utilitárias que garantem paleta consistente de alto contraste para visibilidade noturna veicular |
+| Leaflet + Mapbox API | Camada cartográfica com baixo consumo de memória e tiles gratuitos de alto desempenho |
+| Firebase Platform | Baixo esforço de manutenção de infraestrutura, com WebSockets nativos e escalabilidade transparente |
+| PWA Web Standards | Ausência de barreiras de download em lojas e suporte universal a smartphones via navegador web |
+| Vitest | Integração transparente com o empacotador Vite, com rápida execução de testes e relatórios de cobertura nativos |
+
+## 5.3 Implementação e Integração
+
+### 5.3.1 Padrões de codificação adotados
+
+- Exclusividade no uso de componentes funcionais em React com hooks nativos e customizados.
+- Imutabilidade rigorosa em alterações de estado local e estruturas de dados em memória.
+- Tratamento preventivo de exceções em todas as chamadas assíncronas via blocos `try/catch`, exibindo feedback de desconexão.
+- Conformidade obrigatória com as regras do ESLint e Oxlint, sem supressão arbitrária de avisos.
+
+### 5.3.2 Plano de integração entre componentes
+
+| Sequência | Etapa de Integração | Critério de Validação |
+|:---:|:---|:---|
+| 1 | Autenticação via Firebase Auth com recuperação de perfil e sessão | CT-01 e CT-02 |
+| 2 | Vinculação do motor Leaflet/Mapbox com a coleção de telemetria veicular | CT-04 |
+| 3 | Sincronização reativa entre o botão de liberação do aluno e o painel do motorista | CT-03, CT-06 e CT-07 |
+| 4 | Captura de coordenadas GPS do aparelho condutor com envio atômico ao banco | CT-05 |
+| 5 | Gatilho de cálculo de geofencing com disparo de mensagens via FCM | CT-09 |
+| 6 | Acoplamento de cache via Service Worker e fila offline via IndexedDB | CT-10 |
+
+### 5.3.3 Registro de testes unitários e de integração
+
+| Categoria | Foco de Teste | Ferramental | Casos Associados |
+|:---|:---|:---|:---|
+| Testes Unitários de Algoritmo | Precisão da fórmula de Haversine e estimativa de ETA | Vitest | CT-08 e CT-09 |
+| Testes Unitários de Componente | Renderização e alternância de estado no `StatusToggle` | Vitest + RTL | CT-01 e CT-03 |
+| Testes de Integração de Nuvem | Validação de regras em `firestore.rules` sob concorrência | Firebase Emulator Suite | CT-03 e CT-07 |
+| Testes de Resiliência e Offline | Interrupção simulada de rede móvel e acionamento de emergência | Emulador e ensaio manual | CT-10 |
+
+Meta de controle: manutenção de cobertura de código ≥ 80% (QM-04).
+
+### 5.3.4 Rastreabilidade entre código e requisitos
+
+A correspondência formal entre cada requisito especificado, componente de implementação e caso de teste encontra-se detalhada na matriz da seção 5.1.2.
+
+## 5.4 Verificação, Validação e Transição
+
+### 5.4.1 Plano de verificação e validação
+
+| Atividade de V&V | Responsável | Frequência de Execução |
+|:---|:---|:---|
+| Verificação Estática e Testes Unitários no CI | Garantia da Qualidade (SQA) / DevOps | A cada Pull Request submetido |
+| Revisão Cruzada de Código (*Peer Review*) | Equipe de Desenvolvimento (Pares) | Em todas as alterações destinadas à `main` |
+| Validação de Casos de Aceitação (CT-01 a CT-10) | Garantia da Qualidade (SQA) | A cada baseline de release |
+| Ensaios em Rota Rodoviária Real | Equipe de Desenvolvimento + Condutor | Marcos pré-determinados em cronograma (Sprint S6) |
+
+### 5.4.2 Critérios de aceitação por stakeholder
+
+| Stakeholder | Critério de Aceitação Mensurável |
+|:---|:---|
+| Estudante Universitário | Capacidade de sinalizar saída da aula com 1 toque e visualizar o deslocamento do veículo no mapa (RF03, RF04). |
+| Condutor do Transporte | Visualização dos contadores consolidados por instituição e alerta sonoro emitido em menos de 500 ms (RF06); alarme prioritário de emergência em < 1 s (RF10). |
+| Gestão Municipal | Inexistência de retenção de localização de pessoas físicas e garantia de descarte periódico ao término da viagem (RNF05). |
+
+### 5.4.3 Relatório de testes de aceitação
+
+| Código | Requisito Alvo | Procedimento Executado | Resultado Esperado | Status |
 |:---:|:---:|:---|:---|:---:|
-| **CT-01** | RF01 | Autenticação com credencial cadastrada e recarregamento da página. | Sessão persistida sem logout involuntário; login < 2s. | **Aprovado** |
-| **CT-02** | RF02 | Seleção da Rota Cromínia e alteração de campus para UFG Samambaia. | Perfil persistido; mapa centraliza o marcador no campus correto. | **Aprovado** |
-| **CT-03** | RF03, RF07 | Aluno clica no botão "Liberado da Aula" em smartphone 4G. | Painel do motorista atualiza contador em < 100 ms via WebSocket. | **Aprovado** |
-| **CT-04** | RF04 | Deslocamento veicular com envio de coordenadas a cada 5s. | Marcador do ônibus transita suavemente no mapa dos passageiros. | **Aprovado** |
-| **CT-05** | RF05 | Chaveamento do broadcast de GPS para smartphone de passageiro âncora. | Transmissão mantida com precisão < 15m sem interrupção de rota. | **Aprovado** |
-| **CT-06** | RF06 | Aluno marca liberação enquanto cockpit do motorista está ativo. | Contagem de liberados incrementa e aviso sonoro é emitido. | **Aprovado** |
-| **CT-07** | RF07 | Teste de estresse com 50 escritas concorrentes no Firestore. | Zero perda de pacotes; latência média mantida < 150 ms. | **Aprovado** |
-| **CT-08** | RF08 | Cálculo de estimativa de chegada (ETA) a 5 km da faculdade. | Previsão de chegada precisa com margem de erro < 2 minutos. | **Aprovado** |
-| **CT-09** | RF09 | Simulação de aproximação do ônibus no raio de 1.000m do campus. | Notificação push entregue no smartphone do aluno em < 2s. | **Aprovado** |
-| **CT-10** | RF10, RNF03 | Acionamento de botão de emergência e simulação de perda de 4G. | Alarme contínuo no motorista; mapa permanece navegável offline. | **Aprovado** |
+| **CT-01** | RF01 | Autenticação com credencial cadastrada e recarregamento forçado de página | Sessão persistida sem logout involuntário; autenticação em < 2 s | **Aprovado** |
+| **CT-02** | RF02 | Seleção da rota municipal de origem e escolha de campus universitário | Perfil salvo; mapa centraliza o marcador no câmpus em < 500 ms | **Aprovado** |
+| **CT-03** | RF03, RF07 | Estudante clica no botão "Liberado da Aula" sob rede móvel 4G | Painel do motorista incrementa contador em menos de 100 ms | **Aprovado** |
+| **CT-04** | RF04 | Deslocamento veicular com emissão contínua de coordenadas a cada 5 s | Marcador do veículo se desloca com suavidade na tela dos passageiros | **Aprovado** |
+| **CT-05** | RF05 | Transferência do broadcast GPS para aparelho de passageiro âncora a bordo | Telemetria mantida ativa com margem de erro < 15 m sem queda de sinal | **Aprovado** |
+| **CT-06** | RF06 | Aluno sinaliza liberação com o painel do motorista aberto e em foco | Contador numérico incrementado e alerta sonoro reproduzido em < 500 ms | **Aprovado** |
+| **CT-07** | RF07 | Teste de carga simulando 50 escritas simultâneas de presença no Firestore | Nenhuma perda de pacote; latência média mantida abaixo de 150 ms | **Aprovado** |
+| **CT-08** | RF08 | Cálculo algorítmico de previsão de chegada a 5 km do ponto de embarque | Previsão de chegada precisa com desvio menor que 2 minutos | **Aprovado** |
+| **CT-09** | RF09 | Simulação de aproximação do veículo no raio delimitado de 1.000 m do câmpus | Notificação push recebida no dispositivo do aluno em até 2 segundos | **Aprovado** |
+| **CT-10** | RF10, RNF03 | Acionamento do botão "Fui Esquecido" sob simulação de ausência de 4G | Alarme sonoro contínuo no condutor; mapa permanece navegável offline | **Aprovado** |
 
-#### B. Roteiro de Testes de Aceitação do Usuário (UAT em Campo Rodoviário)
-A validação final foi conduzida em ambiente real de rodovia:
-1. **Condições do Ensaio:** Ônibus escolar trafegando na GO-217 com destino a Goiânia no horário regular das 16h30 às 22h45.
-2. **Amostragem:** 1 motorista profissional e 15 estudantes universitários voluntários.
-3. **Evidência Colhida:** 100% dos eventos de liberação foram recebidos na cabine; nos trechos de ausência momentânea de 4G na rodovia, a persistência IndexedDB evitou travamentos de tela e transmitiu as posições acumuladas assim que o sinal foi restabelecido.
+**Ensaio de Validação em Rota Real:** Conduzido em viagem regular noturna com transporte escolar intermunicipal entre os municípios de origem e os câmpi da capital. O ensaio contou com condutor voluntário e amostragem de estudantes; 100% das confirmações foram refletidas no painel do motorista e o suporte offline via IndexedDB garantiu a integridade das informações nos trechos com oscilação de sinal móvel.
 
----
+### 5.4.4 Plano de transição e implantação do sistema
 
-### 4.5 Sustentação, Operação e Descontinuação (ISO 12207 Cláusulas 6.4.11 a 6.4.14)
+| Fase de Transição | Ação Operacional |
+|:---:|:---|
+| **Fase 1: Homologação** | Publicação da versão de produção estável na Vercel (com espelho no Firebase Hosting) após aprovação de todos os testes de V&V. |
+| **Fase 2: Piloto Controlado** | Implantação em rota piloto monitorada com suporte direto da equipe técnica. |
+| **Fase 3: Treinamento e Adesão** | Condução de treinamento presencial com os motoristas (30 minutos) e distribuição de material com QR Code aos estudantes. |
+| **Fase 4: Expansão Operacional** | Disponibilização do serviço para as demais rotas dos municípios participantes. |
+| **Fase 5: Handoff Institucional** | Entrega da governança operacional às associações estudantis e secretarias locais com documentação completa. |
 
-#### A. Categorias de Manutenção de Software
-* **Manutenção Corretiva:** Resolução de bugs e desvios de telemetria com SLA formal de atendimento (Incidentes Críticos resolvidos em ≤ 2 horas; Incidentes Altos em ≤ 24 horas).
-* **Manutenção Adaptativa:** Ajustes decorrentes de atualizações no calendário das universidades, mudanças de percurso rodoviário por obras na GO-217 ou alterações nos navegadores móveis.
-* **Manutenção Perfectiva / Evolutiva:** Otimização de consumo de bateria em chamadas de GPS móvel e desenvolvimento de histórico consolidado para relatórios municipais.
-* **Manutenção Preventiva:** Auditoria quinzenal das dependências npm via `npm audit` e atualização periódica das bibliotecas de segurança do Firebase SDK.
+Procedimento de Reversão (*Rollback*): reversão instantânea de versão pela plataforma Vercel para a tag anotada anterior em caso de anomalia impeditiva.
 
-#### B. Processo Formal de Descontinuação e Descarte Seguro (ISO 12207 Cláusula 6.4.14)
-Caso a plataforma encerre seu ciclo de vida útil ou seja substituída por solução institucional municipal, aplica-se o seguinte protocolo de quatro fases:
-1. **Fase 1 (Comunicação Prévia - 90 dias antes):** Notificação formal às Secretarias Municipais e às Associações Estudantis.
-2. **Fase 2 (Exportação de Dados - 60 dias antes):** Extração de logs agregados de frequência em arquivos abertos CSV/JSON e entrega formal aos gestores públicos para fins de arquivo de contas.
-3. **Fase 3 (Encerramento Progressivo - 30 dias antes):** Bloqueio de novos cadastros e exibição de banner informativo no PWA.
-4. **Fase 4 (Purga Criptográfica e Conformidade LGPD):** Exclusão irreversível de todas as bases de dados pessoais no Firestore, revogação de tokens de autenticação, encerramento de instâncias serverless e arquivamento do repositório no GitHub como referência aberta.
+## 5.5 Operação, Manutenção e Descontinuação
 
----
+### 5.5.1 Procedimentos de operação e monitoramento
 
-## 🔍 ANEXO — RELATÓRIO DE AVALIAÇÃO POR PARES (PEER REVIEW)
-### Auditoria de Conformidade e Harmonização Normativa ISO/IEC/IEEE 12207:2017
+| Parâmetro Monitorado | Mecanismo de Aferição | Limiar de Alarme |
+|:---|:---|:---|
+| Disponibilidade da aplicação | Verificação automatizada de status HTTP e console da CDN | Interrupção superior a 15 min (violação de RTO) |
+| Latência de comunicação (QM-01) | Registro do tempo delta entre escrita e recebimento nos listeners | Atraso superior a 2.000 ms (risco RT-04) |
+| Consumo de cotas gratuitas | Painéis de faturamento Google Cloud e Mapbox | Consumo atingindo 70% do teto mensal gratuito |
+| Frequência de telemetria do veículo | Verificação de atualização do campo `updatedAt` em `bus_location` | Ausência de novos pontos por mais de 3 min (risco RT-02) |
+| Entrega de notificações push | Relatórios de entrega do Firebase Cloud Messaging | Taxa de falhas consecutivas de push (risco RT-03) |
+| Incidentes operacionais em rota | Registro formal de ocorrências e condução de post-mortems técnicos | Qualquer anomalia reportada por condutor ou aluno |
 
----
+### 5.5.2 Plano de manutenção de software
 
-### 1. Dados da Auditoria e Equipe de Revisão Independente
-* **Tipo de Avaliação:** Simulação de Auditoria Técnica de Processos e Avaliação por Pares (*Peer Review*)
-* **Norma de Referência:** ISO/IEC/IEEE 12207:2017
-* **Comitê Revisor Independente:** Equipe de Pares Técnicos da Disciplina INF0449 (UFG 2026/2)
-* **Objeto Auditado:** Documentação Parcial das Etapas 0 a 5 e Código-Fonte do PWA Rhyme
-* **Objetivo:** Avaliar a completude, consistência de nomenclatura, rastreabilidade bidirecional e alinhamento normativo antes da homologação da Baseline 7.0.
+| Modalidade de Manutenção | Escopo de Atuação | Prazos e Periodicidade |
+|:---|:---|:---|
+| **Corretiva** | Resolução de falhas de telemetria, erros em regras de segurança ou bugs de interface | Incidentes críticos em até 2 h; defeitos de média gravidade em até 24 h |
+| **Preventiva** | Varreduras de vulnerabilidades de dependências (`npm audit`) e atualização de SDKs | Execução quinzenal |
+| **Adaptativa** | Adequação a alterações em calendários acadêmicos, mudanças viárias ou atualizações de navegadores | Atendimento sob demanda de órgãos públicos |
+| **Evolutiva** | Otimização de consumo de bateria e emissão de relatórios consolidados de frequência para prefeituras | Implementação orientada ao backlog de produto |
 
----
+### 5.5.3 Estratégia de descontinuação e migração de dados
 
-### 2. Checklist Normativo de Auditoria por Cláusula
-
-| Cláusula Auditada | Critério de Avaliação | Constatação do Comitê de Revisores | Grau de Conformidade |
-|:---|:---|:---|:---:|
-| **§6.1 (Acordo)** | Avaliação formal de aquisição (Make vs. Buy), SLAs e Termo de Cessão de Uso. | Matriz de aquisição detalhada; SLA de 99,9% no horário nobre bem definido; POPs documentados. | **Conforme** |
-| **§6.2 (Organizacional)** | Modelo de ciclo de vida justificado, infraestrutura inventariada e Matriz RACI. | Ciclo iterativo ágil alinhado; RACI clara sem sobreposição de autoridade; métricas QM-01 a QM-04 mensuráveis. | **Conforme** |
-| **§6.3 (Gerenciamento)** | EAP em 3 níveis, cronograma com marcos, Risk Register com severidade e MDAs. | EAP formalizada; riscos avaliados com probabilidade e impacto; MDAs com pesos justificados. | **Conforme** |
-| **§6.4 (Técnico)** | Requisitos no padrão SMART, modelos estruturais UML, rastreabilidade e V&V. | 10 Requisitos Funcionais mapeados; diagramas em PlantUML completos; 10 Casos de Teste auditados. | **Conforme** |
+| Etapa Temporal | Momento de Ação | Procedimento Executado |
+|:---:|:---|:---|
+| **1. Notificação** | 90 dias antes do encerramento | Comunicação formal às secretarias municipais de educação e diretorias das associações de estudantes. |
+| **2. Exportação de Dados** | 60 dias antes do encerramento | Geração de relatórios agregados de frequência em formatos abertos (CSV e JSON) entregues aos órgãos públicos para prestação de contas. |
+| **3. Bloqueio Progressivo** | 30 dias antes do encerramento | Desativação de novos cadastros e fixação de banner informativo de descontinuação no PWA. |
+| **4. Purga e Encerramento** | Marco final de encerramento | Exclusão definitiva de todas as coleções do Firestore, revogação de tokens de autenticação, desativação de instâncias e arquivamento do repositório Git em conformidade estrita com a LGPD. |
 
 ---
 
-### 3. Matriz de Não-Conformidades e Oportunidades de Melhoria Identificadas
+# Capítulo 6 — Avaliação e Melhoria dos Processos de Software
 
-Durante a análise dos relatórios parciais, o comitê auditor apontou as seguintes não-conformidades (NC) e oportunidades de melhoria (OM):
+## 6.1 Referencial e recorte
 
-| Código | Cláusula | Descrição do Apontamento dos Auditores | Severidade | Impacto Técnico |
-|:---:|:---:|:---|:---:|:---|
-| **NC-01** | §6.4.1 | Existência de requisitos com numerações divergentes entre os documentos `Requisitos.md` (RF01 a RF10) e `etapa-4.md` (RF01 a RF06). | Alta | Risco de quebra na rastreabilidade entre requisitos e código-fonte. |
-| **NC-02** | §6.3.1 | A EAP do relatório parcial etapa-3 apresentava apenas dois níveis em alguns subpacotes. | Média | Insuficiência de granularidade técnica para auditorias formais. |
-| **NC-03** | §6.4.3 | Ausência de detalhamento explícito das coleções NoSQL do Firestore no corpo do manual. | Alta | Dificuldade de compreensão do modelo de persistência reativa por novos engenheiros. |
-| **NC-04** | §6.2.5 | Métrica QM-04 (Qualidade) focava apenas em cobertura de rotas, sem meta para cobertura de testes unitários. | Média | Falta de garantia automatizada de cobertura de código em pipeline CI/CD. |
-| **OM-01** | §6.1.2 | O procedimento de contingência veicular (Passageiro Âncora) constava no POP-EMERG-01 mas não estava listado formalmente na matriz de riscos. | Baixa | Oportunidade de enriquecer o Risk Register com a contingência RT-02. |
-| **OM-02** | §6.4.14 | O plano de descontinuação inicial não detalhava o prazo escalonado de 90/60/30 dias nem as etapas de purga LGPD. | Média | Oportunidade de elevar o rigor de governança de descarte de dados. |
+- **Referencial normativo:** Cláusulas 6.1 a 6.4 da norma internacional ISO/IEC/IEEE 12207:2017.
+- **Recorte metodológico de avaliação:** Foco na **consistência terminológica, completude técnica e rastreabilidade bidirecional de processos**. Avaliou-se o alinhamento estrito entre necessidades dos stakeholders, requisitos no padrão SMART, pacotes da EAP, código-fonte e casos de teste formais, garantindo a auditabilidade completa do manual.
 
----
+## 6.2 Diagnóstico do manual
 
-### 4. Plano de Ação Corretiva e Preventiva (CAPA) e Status de Implementação
+Apontamentos consolidados a partir da auditoria técnica por pares e da revisão interna de qualidade:
 
-Todas as constatações emitidas pelo comitê auditor foram integralmente tratadas e resolvidas na presente versão unificada (Baseline 7.0), conforme atesta o plano CAPA abaixo:
-
-| Ref. | Ação Corretiva e Preventiva Executada na Baseline 7.0 | Evidência Documental no Manual | Status Final |
+| ID | Constatação Identificada | Origem do Apontamento | Gravidade Técnica |
 |:---:|:---|:---|:---:|
-| **NC-01** | Unificação da especificação de requisitos no formato SMART contemplando a numeração padrão **RF01 a RF10**, harmonizando a matriz bidirecional com os testes CT-01 a CT-10. | Seção 4.1.B e 4.1.D | **Resolvido** |
-| **NC-02** | Reestruturação completa da EAP / WBS para o padrão estrito de **3 níveis hierárquicos** (Pacote -> Subpacote -> Entregável/Atividade). | Seção 3.1.A | **Resolvido** |
-| **NC-03** | Inclusão da especificação técnica completa dos esquemas e coleções do banco NoSQL Firestore (`routes`, `trips`, `students`, `bus_location`, `emergencies`). | Seção 4.2.B | **Resolvido** |
-| **NC-04** | Readequação do indicador QM-04, estipulando meta obrigatória de **cobertura de testes unitários ≥ 80%** com bloqueio automatizado no GitHub Actions. | Seção 2.4.A e Seção 4.3.B | **Resolvido** |
-| **OM-01** | Atualização do Risk Register incorporando o risco operacional RT-02 com mitigação pelo protocolo veicular de *Passageiro Âncora*. | Seção 3.2 (RT-02) | **Resolvido** |
-| **OM-02** | Estruturação detalhada do roteiro de descontinuação em quatro fases temporais (90, 60, 30 dias e encerramento com purga criptográfica LGPD). | Seção 4.5.B | **Resolvido** |
+| **D-01** | Divergência na numeração de requisitos entre documentos históricos (`Requisitos.md` inicial vs. versão consolidada do manual). | Avaliação por Pares (NC-01) | Alta |
+| **D-02** | Estrutura Analítica do Projeto (EAP) com granularidade irregular em subpacotes técnicos. | Avaliação por Pares (NC-02) | Média |
+| **D-03** | Ausência de descrição formal das coleções NoSQL do Firestore no corpo do texto do manual. | Avaliação por Pares (NC-03) | Alta |
+| **D-04** | Métrica de qualidade QM-04 sem critério quantitativo para cobertura de testes automatizados. | Avaliação por Pares (NC-04) | Média |
+| **D-05** | Plano de descontinuação sem detalhamento de etapas temporais de purga conforme a LGPD. | Avaliação por Pares (OM-02) | Média |
+| **D-06** | Referência quebrada na matriz de rastreabilidade (requisito RF09 associado a pacote EAP inexistente). | Revisão Interna v8.0 | Alta |
+| **D-07** | Inconsistência textual na quantidade declarada de coleções no banco NoSQL. | Revisão Interna v8.0 | Baixa |
+| **D-08** | Decisões Técnicas de Arquitetura (ADRs) citadas no texto sem respectivo registro documental padronizado. | Revisão Interna v8.0 | Alta |
+| **D-09** | Termos com conotação inadequada ("cockpit") e vinculação nominal de pessoas físicas a tarefas na governança. | Revisão Interna v8.0 | Média |
+
+## 6.3 Plano de uma melhoria
+
+**Iniciativa de Melhoria Homologada:** *Harmonização terminológica, completude documental de decisões e garantia de rastreabilidade bidirecional ponta a ponta sem referências quebradas.*
+
+| Elemento do Plano | Detalhamento da Ação |
+|:---|:---|
+| **Objetivo** | Eliminar 100% das referências quebradas e inconsistências de nomenclatura, instituir governança baseada em papéis de engenharia e formalizar os registros técnicos ausentes. |
+| **Ações Programadas** | (1) Consolidar a numeração SMART RF01–RF10 como especificação oficial única; (2) corrigir a correspondência EAP do requisito RF09 para o pacote 3.2.2; (3) documentar integralmente os registros ADR-001 a ADR-004 com notas de decisão multicritério; (4) padronizar o termo "painel do motorista" e generalizar os papéis na matriz RACI e no plano de V&V; (5) atualizar o fornecedor cartográfico para Mapbox Free Tier. |
+| **Responsabilidade** | Engenharia de Requisitos (condução e elaboração), Garantia da Qualidade (verificação e auditoria). |
+| **Indicador de Eficácia** | 100% dos requisitos com rastreabilidade válida e zero inconformidades terminológicas ativas no manual. |
+
+## 6.4 Atualização e verificação
+
+| Item | Ação de Melhoria Executada | Método de Verificação | Situação |
+|:---:|:---|:---|:---:|
+| 1 | Padronização e unificação do catálogo oficial de requisitos SMART (RF01 a RF10) | Confronto com a matriz de requisitos e testes | **Conforme** |
+| 2 | Correção da correlação EAP do RF09 para o subpacote 3.2.2 | Validação estrutural cruzada com a EAP | **Conforme** |
+| 3 | Registro formal e justificado das decisões arquiteturais ADR-001 a ADR-004 | Verificação da completude das matrizes de decisão | **Conforme** |
+| 4 | Atualização do provedor cartográfico para Mapbox API no Free Tier com Leaflet | Conferência de viabilidade econômica e stack | **Conforme** |
+| 5 | Substituição do termo "cockpit" por "painel do motorista" e generalização de municípios e papéis | Inspeção textual completa em todos os capítulos | **Conforme** |
+| 6 | Validação cruzada da árvore de arquivos e suíte de testes com o repositório Rhyme | Inspeção técnica contra o código-fonte | **Conforme** |
+
+## 6.5 Acompanhamento da execução
+
+| Marco Temporal | Atividade Prevista | Papel Responsável | Situação Operacional |
+|:---:|:---|:---|:---:|
+| **29/10/2026** | Publicação da Baseline v8.0 do Manual de Processos de Software | Arquitetura e Engenharia de Requisitos | **Concluída** |
+| **Até 05/11/2026** | Homologação final dos relatórios de testes automatizados e evidências de código | Garantia da Qualidade (SQA) e DevOps | Em andamento |
+| **Até 12/11/2026** | Ensaio geral cronometrado da apresentação oral em sala de aula | Equipe de Desenvolvimento (Todos os membros) | Planejada |
+| **26/11/2026** | Apresentação oficial do trabalho perante a banca acadêmica (Grupo 12) | Equipe de Desenvolvimento (Todos os membros) | Planejada |
+| **Pós-Entrega** | Auditoria das métricas operacionais e retroalimentação do processo de software | Garantia da Qualidade (SQA) | Planejada |
 
 ---
 
-### 5. Parecer Conclusivo da Auditoria
-> **PARECER FINAL:** O **Manual de Processo de Software Unificado do Sistema Rhyme** atende integralmente aos requisitos normativos estabelecidos pela norma **ISO/IEC/IEEE 12207:2017** nas cláusulas 6.1 (Acordo), 6.2 (Organizacional), 6.3 (Gerenciamento Técnico) e 6.4 (Técnico). O documento apresenta consistência terminológica, eliminação de duplicidades, rastreabilidade bidirecional ponta a ponta e governança rigorosa de engenharia, sendo considerado **APROVADO E HOMOLOGADO PARA PUBLICAÇÃO FORMAL**.
-
----
-
-*Manual de Processo de Software Unificado — Grupo 12 (Squad Rhyme Core) — INF0449 — Instituto de Informática, Universidade Federal de Goiás (UFG).*
+**FIM DO MANUAL**
