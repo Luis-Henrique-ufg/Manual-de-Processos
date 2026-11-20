@@ -1,36 +1,38 @@
 @startuml Diagrama_Casos_de_Uso_Rhyme
 
 title Diagrama de Casos de Uso - Sistema Rhyme (PWA)
+caption Alinhamento Direto com Requisitos Funcionais (RF01 a RF10) e Diretrizes LGPD
 
 left to right direction
 
 actor "Estudante" as aluno
 actor "Motorista" as motorista
-actor "Serviço de GPS\n(Dispositivo)" as gps << System >>
+actor "Serviço de GPS\n(Dispositivo Veicular / Âncora)" as gps << System >>
 actor "Firebase Firestore\n(Backend Realtime)" as firebase << System >>
+actor "Firebase Cloud Messaging\n(FCM Push)" as fcm << System >>
 
 rectangle "Sistema Rhyme (PWA)" {
 
-    package "Autenticação e Perfil" {
-        usecase "UC01 - Autenticar no PWA" as UC01
-        usecase "UC02 - Selecionar Rota e Faculdade" as UC02
+    package "Painel Veicular e Protocolo de Segurança" {
+        usecase "UC06 - Monitorar Contadores e Alertas Sonoros\n(Painel do Motorista - RF06)" as UC06
+        usecase "UC09 - Acionar Emergência 'Fui Esquecido'\n(Sinalização Audiovisual Prioritária - RF10)" as UC09
+    }
+
+    package "Rastreamento Cartográfico e Notificações" {
+        usecase "UC04 - Visualizar Ônibus e Paradas no Mapa\n(Telemetria e Mapbox - RF04)" as UC04
+        usecase "UC05 - Transmitir Localização GPS do Ônibus\n(Motorista / Passageiro Âncora - RF05)" as UC05
+        usecase "UC07 - Consultar Estimativa de Chegada (ETA)\n(Cálculo Haversine - RF08)" as UC07
+        usecase "UC08 - Receber Alertas Push de Geofencing\n(Raio de 1 km - RF09)" as UC08
     }
 
     package "Gestão de Presença e Status" {
-        usecase "UC03 - Informar Status de Liberação\n(Em sala / Liberado / No ponto)" as UC03
-        usecase "UC04 - Confirmar Embarque / Desembarque" as UC04
+        usecase "UC03 - Informar Status One-Touch\n(Em sala / Liberado / No ponto - RF03)" as UC03
+        usecase "UC10 - Confirmar Embarque no Veículo\n(Transição para 'boarded' - RF03)" as UC10
     }
 
-    package "Rastreamento e Mapeamento Interativo" {
-        usecase "UC05 - Visualizar Mapa em Tempo Real\n(Ônibus e Alunos)" as UC05
-        usecase "UC06 - Transmitir Localização GPS\n(Broadcast a bordo)" as UC06
-        usecase "UC07 - Consultar Estimativa de Chegada (ETA)" as UC07
-    }
-
-    package "Painel e Operação do Motorista" {
-        usecase "UC08 - Visualizar Concentração de Alunos\npor Campus/Ponto" as UC08
-        usecase "UC09 - Alternar Modos de Rota\n(Modo Campus vs. Rota Direta)" as UC09
-        usecase "UC10 - Receber Alertas de Liberação" as UC10
+    package "Autenticação e Perfil" {
+        usecase "UC01 - Autenticar no PWA\n(RF01)" as UC01
+        usecase "UC02 - Selecionar Rota e Faculdade\n(RF02)" as UC02
     }
 }
 
@@ -39,28 +41,33 @@ aluno --> UC01
 aluno --> UC02
 aluno --> UC03
 aluno --> UC04
-aluno --> UC05
-aluno --> UC06
+aluno --> UC05 : (Quando assume papel\nde passageiro âncora)
 aluno --> UC07
+aluno --> UC08
+aluno --> UC09
+aluno --> UC10
 
 ' Relacionamentos do Motorista
 motorista --> UC01
-motorista --> UC05
-motorista --> UC08
-motorista --> UC09
+motorista --> UC04
+motorista --> UC05 : (Transmissor primário\nconectado ao 12V)
+motorista --> UC06
+motorista --> UC09 : (Recebe alarme sonoro\ne visual contínuo)
 motorista --> UC10
 
 ' Inclusões e Extensões
-UC03 ..> UC05 : <<include>>
-UC06 ..> UC05 : <<extend>>
-UC07 ..> UC05 : <<include>>
+UC03 ..> UC04 : <<extend>>
+UC07 ..> UC04 : <<include>>
+UC09 ..> UC06 : <<include>>
 
 ' Integrações com Sistemas Externos
-UC01 --> firebase
-UC03 --> firebase
-UC06 --> gps
-UC06 --> firebase
-UC08 <-- firebase
-UC10 <-- firebase
+UC01 --> firebase : Autenticação segura
+UC03 --> firebase : Atualiza status ("released")
+UC05 --> gps : Coleta coordenadas do veículo
+UC05 --> firebase : Grava em bus_location
+UC06 <-- firebase : Sincroniza listeners em tempo real
+UC08 <-- fcm : Entrega push notifications
+UC09 --> firebase : Grava alerta em emergencies
+UC10 --> firebase : Registra presença na viagem
 
 @enduml

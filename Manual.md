@@ -61,6 +61,8 @@ Problemas resolvidos:
 
 ## 1.3 Público-alvo e contexto de uso
 
+O sistema atende universitários de municípios do interior de Goiás que se deslocam diariamente para Goiânia, os motoristas das rotas intermunicipais e os gestores municipais ou associações estudantis responsáveis pela frota.
+
 ## 1.4 Quem usa, em que situação e em que ambiente
 
 | Usuário | Situação de uso | Ambiente |
@@ -119,7 +121,7 @@ O que a equipe contrata ou adota de terceiros (decisão *make* vs. *buy*):
 
 - **Entrega:** PWA publicado em URL HTTPS, acessado por QR Code (sem lojas de apps).
 - **Contrato:** Termo de Cessão de Uso sem ônus (comodato acadêmico) às secretarias municipais de transporte dos municípios parceiros conveniados e às associações de estudantes. Proíbe monetização e compartilhamento de dados cadastrais.
-- **Critérios de aceite:** casos de teste CT-01 a CT-10 aprovados (seção 5.4) e validação em campo na GO-217.
+- **Critérios de aceite:** casos de teste CT-01 a CT-10 aprovados (seção 5.4) e validação em campo na rota rodoviária piloto.
 - **Suporte:** corretivo com SLA de 2 h (crítico) e 24 h (alto).
 
 | Indicador de serviço | Meta |
@@ -159,7 +161,7 @@ Procedimentos operacionais padronizados:
 ```
 [Visão / Requisitos] ──► [Sprint N: incremento] ──► [Deploy piloto]
         ▲                                                │
-        └────────── Validação em campo (GO-217) ◄────────┘
+        └────────── Validação em campo (rodovia piloto) ◄┘
 ```
 
 Justificativa:
@@ -199,7 +201,7 @@ Conclusão: **projeto viável**, com os maiores riscos em conectividade e adoç�
 
 *R = executa, A = aprova, C = consultado, I = informado.*
 
-| Atividade | Luis (Req.) | Carlos (Arq.) | Matheus (Infra) | Heitor (SQA) |
+| Atividade | Requisitos & Produto | Arquitetura & Front-end | DevOps & Nuvem | Qualidade (SQA) & V&V |
 |:---|:---:|:---:|:---:|:---:|
 | Elicitação de requisitos | A/R | C | C | C |
 | Modelagem do banco e regras | C | R | A/R | C |
@@ -244,14 +246,14 @@ Práticas: auditoria automática em cada PR, *Definition of Done* (emuladores An
 | **1.0 Fundação** | 1.1 Repositório e automação | 1.1.1 Branch protection e Conventional Commits; 1.1.2 CI/CD |
 | | 1.2 Autenticação e segurança | 1.2.1 Firebase Auth; 1.2.2 `firestore.rules` |
 | | 1.3 Modelagem de dados | 1.3.1 Coleções `routes`, `trips`, `students`, `bus_location`, `emergencies` |
-| **2.0 Mapa e telemetria** | 2.1 Interface cartográfica | 2.1.1 Leaflet + OSM; 2.1.2 Marcadores de câmpus |
+| **2.0 Mapa e telemetria** | 2.1 Interface cartográfica | 2.1.1 Leaflet + Mapbox API (Free Tier); 2.1.2 Marcadores de câmpus |
 | | 2.2 Telemetria | 2.2.1 Captura GPS; 2.2.2 Envio a cada 5 s |
 | **3.0 Fluxo do estudante** | 3.1 Interface do passageiro | 3.1.1 Onboarding; 3.1.2 `StatusToggle` |
 | | 3.2 Mapa do aluno | 3.2.1 Posição e ETA; 3.2.2 Push por geofencing |
 | **4.0 Painel do motorista** | 4.1 Painel | 4.1.1 Contadores por câmpus; 4.1.2 Controle de viagem |
 | | 4.2 Alertas | 4.2.1 Avisos sonoros; 4.2.2 Painel "Fui Esquecido" |
 | **5.0 Resiliência e implantação** | 5.1 Offline/PWA | 5.1.1 Service Worker; 5.1.2 IndexedDB |
-| | 5.2 Validação | 5.2.1 Testes Vitest; 5.2.2 Ensaio em campo na GO-217 |
+| | 5.2 Validação | 5.2.1 Testes Vitest; 5.2.2 Ensaio em campo na rota rodoviária piloto |
 
 **Cronograma**
 
@@ -273,7 +275,7 @@ Práticas: auditoria automática em cada PR, *Definition of Done* (emuladores An
 
 | ID | Risco | P | I | Sev. | Resposta preventiva | Contingência |
 |:---:|:---|:---:|:---:|:---:|:---|:---|
-| RT-01 | Sombra de 4G na GO-217 impede envio de GPS | 4 | 5 | **20** | Service Worker e persistência IndexedDB | Retém última coordenada e envia após reconexão |
+| RT-01 | Sombra de 4G na rodovia piloto impede envio de GPS | 4 | 5 | **20** | Service Worker e persistência IndexedDB | Retém última coordenada e envia após reconexão |
 | RT-02 | Bateria do celular do motorista acaba | 3 | 5 | **15** | Carregador 12V obrigatório | Passageiro âncora assume o GPS |
 | RO-01 | Aluno esquece de atualizar o status | 3 | 4 | **12** | Interface one-touch e campanha | Motorista confere pelo contador |
 | RO-02 | Painel do motorista difícil de operar na estrada | 2 | 5 | **10** | Botões > 64 px, alto contraste, som | Treinamento de 30 min |
@@ -358,20 +360,20 @@ Critérios das matrizes de decisão: custo, tamanho de bundle, suporte offline, 
 
 ### 5.1.2 Rastreabilidade de requisitos
 
-| Requisito | EAP | Código-fonte | Teste |
-|:---:|:---:|:---|:---:|
-| RF01 | 1.2.1 | `AuthContext.jsx`, `AuthModal.jsx` | CT-01 |
-| RF02 | 3.1.1 | `ProfileSetup.jsx`, `routeUtils.js` | CT-02 |
-| RF03 | 3.1.2 | `StatusToggle.jsx`, `tripManager.js` | CT-03 |
-| RF04 | 2.1.1 | `StudentMap.jsx`, `MapView.jsx` | CT-04 |
-| RF05 | 2.2.2 | `GpsBroadcaster.jsx`, `geo.js` | CT-05 |
-| RF06 | 4.1.1 | `DriverDashboard.jsx`, `DriverBottomBar.jsx` | CT-06 |
-| RF07 | 1.3.1 | `firebase.js`, `firestore.rules` | CT-07 |
-| RF08 | 3.2.1 | `geo.js` (Haversine e ETA) | CT-08 |
-| RF09 | 3.2.2 | `notifications.js`, Cloud Functions de geofence | CT-09 |
-| RF10 | 4.2.2, 5.1.1 | `EmergencyButton.jsx`, `public/sw.js` | CT-10 |
+| Requisito | Caso de Uso (Diagrama 5.2.2) | Componente Arquitetural (5.2.2) | EAP | Teste |
+|:---:|:---|:---|:---:|:---:|
+| RF01 | UC01 — Autenticar no PWA | React 19 Core App · Firebase Auth | 1.2.1 | CT-01 |
+| RF02 | UC02 — Selecionar Rota e Faculdade | React 19 Core App · Cloud Firestore | 3.1.1 | CT-02 |
+| RF03 | UC03 / UC10 — Status One-Touch e Embarque | React 19 Core App · Cloud Firestore | 3.1.2 | CT-03 |
+| RF04 | UC04 — Visualizar Ônibus e Paradas no Mapa | Leaflet Map Engine · Mapbox API | 2.1.1 | CT-04 |
+| RF05 | UC05 — Transmitir Localização GPS | Geolocation Controller · Cloud Firestore | 2.2.2 | CT-05 |
+| RF06 | UC06 — Monitorar Contadores e Alertas | React 19 Core App · Cloud Firestore | 4.1.1 | CT-06 |
+| RF07 | UC03 / UC05 / UC06 — Sincronização Realtime | Cloud Firestore (`onSnapshot`) | 1.3.1 | CT-07 |
+| RF08 | UC07 — Consultar Estimativa (ETA) | Geolocation Controller · Leaflet Map Engine | 3.2.1 | CT-08 |
+| RF09 | UC08 — Alertas Push de Geofencing | Service Worker · Firebase Cloud Messaging | 3.2.2 | CT-09 |
+| RF10 | UC09 — Emergência "Fui Esquecido" | React 19 Core App · Service Worker (Offline) | 4.2.2, 5.1.1 | CT-10 |
 
-*Todos os arquivos em `src/` do repositório Rhyme (`src/services/` para `firebase.js` e `notifications.js`; `src/utils/` para `geo.js`, `routeUtils.js` e `tripManager.js`).*
+*Rastreabilidade ponta a ponta conectando cada requisito funcional aos diagramas de Casos de Uso e Componentes (seção 5.2.2), à EAP (seção 4.1) e aos casos de teste planejados (seção 5.4.3).*
 
 ### 5.1.3 Critérios de aceitação
 
@@ -425,9 +427,7 @@ Fontes PlantUML na pasta [`diagramas/`](./diagramas/) (visualização: extensão
 | Diagrama | Arquivo | O que mostra |
 |:---|:---|:---|
 | Casos de uso | [casos-de-uso.puml](./diagramas/casos-de-uso.puml) | 10 casos de uso alinhados aos RFs (inclui telemetria, push e emergência "Fui Esquecido") |
-| Sequência em tempo real | [sequencia-tempo-real.puml](./diagramas/sequencia-tempo-real.puml) | Liberação one-touch (LGPD compliant, sem GPS do aluno) e broadcast GPS a bordo |
 | Componentes | [componentes-arquitetura.puml](./diagramas/componentes-arquitetura.puml) | PWA, Leaflet, Mapbox API (Free Tier), Service Worker e Firebase |
-| Modelo de dados | [modelo-dados-firestore.puml](./diagramas/modelo-dados-firestore.puml) | Coleções NoSQL do Firestore com proteção de dados e telemetria veicular |
 
 ### 5.2.3 Justificativa das escolhas tecnológicas
 
@@ -481,12 +481,12 @@ Ver tabela da seção 5.1.2 (requisito → EAP → arquivo → teste).
 
 ### 5.4.1 Plano de verificação e validação
 
-| Atividade | Responsável | Quando |
+| Atividade | Papel responsável | Quando |
 |:---|:---|:---|
-| **Verificação:** lint, testes unitários e de integração no CI | Heitor / Matheus | A cada PR |
-| **Verificação:** revisão de código por par | Todos | A cada PR |
-| **Validação:** testes de aceitação CT-01 a CT-10 | Heitor | Por release |
-| **Validação:** ensaio em campo na GO-217 | Equipe + motorista | Sprint S6 |
+| **Verificação:** lint, testes unitários e de integração no CI | Qualidade (SQA) & DevOps | A cada PR |
+| **Verificação:** revisão de código por par | Toda a equipe | A cada PR |
+| **Validação:** testes de aceitação CT-01 a CT-10 | Qualidade (SQA) & V&V | Por release |
+| **Validação:** ensaio em campo na rota rodoviária piloto | Equipe + motorista | Sprint S6 |
 
 ### 5.4.2 Critérios de aceitação por stakeholder
 
@@ -496,22 +496,22 @@ Ver tabela da seção 5.1.2 (requisito → EAP → arquivo → teste).
 | Motorista | Vê contador por faculdade e ouve alerta em < 500 ms (RF06); alarme de emergência em < 1 s (RF10). |
 | Gestor municipal | Sem localização individual persistida e descarte ao fim da viagem (RNF05). |
 
-### 5.4.3 Relatório de testes de aceitação
+### 5.4.3 Especificação dos 10 casos de teste de aceitação
 
-| Código | Requisito | Procedimento | Resultado esperado | Status |
+| Código | Requisito | Procedimento planejado | Resultado esperado | Status |
 |:---:|:---:|:---|:---|:---:|
-| CT-01 | RF01 | Login e recarga da página | Sessão mantida; login < 2 s | Aprovado |
-| CT-02 | RF02 | Escolher rota piloto intermunicipal e câmpus UFG Samambaia | Perfil salvo; mapa centraliza o campus | Aprovado |
-| CT-03 | RF03, RF07 | Aluno toca "Liberado" em 4G | Painel do motorista atualiza em < 100 ms | Aprovado |
-| CT-04 | RF04 | Deslocamento com GPS a cada 5 s | Marcador anda suavemente | Aprovado |
-| CT-05 | RF05 | Passar broadcast ao passageiro âncora | Precisão < 15 m sem interrupção | Aprovado |
-| CT-06 | RF06 | Liberação com painel de bordo ativo | Contador sobe e som toca | Aprovado |
-| CT-07 | RF07 | 50 escritas concorrentes | Sem perda; média < 150 ms | Aprovado |
-| CT-08 | RF08 | ETA a 5 km | Erro < 2 min | Aprovado |
-| CT-09 | RF09 | Aproximação a 1.000 m | Push em < 2 s | Aprovado |
-| CT-10 | RF10 | "Fui Esquecido" com perda de 4G | Alarme contínuo; mapa navegável offline | Aprovado |
+| CT-01 | RF01 | Login e recarga da página | Sessão mantida; login < 2 s | Planejado |
+| CT-02 | RF02 | Escolher rota piloto intermunicipal e câmpus UFG Samambaia | Perfil salvo; mapa centraliza o campus | Planejado |
+| CT-03 | RF03, RF07 | Aluno toca "Liberado" em 4G | Painel do motorista atualiza em < 100 ms | Planejado |
+| CT-04 | RF04 | Deslocamento com GPS a cada 5 s | Marcador anda suavemente | Planejado |
+| CT-05 | RF05 | Passar broadcast ao passageiro âncora | Precisão < 15 m sem interrupção | Planejado |
+| CT-06 | RF06 | Liberação com painel de bordo ativo | Contador sobe e som toca | Planejado |
+| CT-07 | RF07 | 50 escritas concorrentes | Sem perda; média esperada < 150 ms | Planejado |
+| CT-08 | RF08 | ETA a 5 km | Erro < 2 min | Planejado |
+| CT-09 | RF09 | Aproximação a 1.000 m | Push em < 2 s | Planejado |
+| CT-10 | RF10 | "Fui Esquecido" com perda de 4G | Alarme contínuo; mapa navegável offline | Planejado |
 
-**Ensaio em campo (GO-217, 16h30–22h45):** 1 motorista e 15 estudantes; 100% das liberações chegaram à cabine, e a persistência IndexedDB evitou travamentos nos trechos sem 4G.
+**Protocolo de ensaio em campo (planejado pós-implementação — rota rodoviária piloto, janela estimada 16h30–22h45):** previsto para ser executado após a codificação e aprovação nos testes de bancada, com 1 motorista profissional e 15 estudantes voluntários, visando validar a entrega de 100% das liberações à cabine, a retenção offline via IndexedDB nos trechos sem 4G e a usabilidade/contraste do painel de bordo com alertas sonoros.
 
 ### 5.4.4 Plano de transição e implantação
 
@@ -544,7 +544,7 @@ Reversão: reimplantar a tag anterior pela Vercel.
 |:---|:---|:---|
 | Corretiva | Bugs e desvios de telemetria | Crítico ≤ 2 h; alto ≤ 24 h |
 | Preventiva | `npm audit` e atualização do Firebase SDK | Quinzenal |
-| Adaptativa | Mudança no calendário, obras na GO-217, novos navegadores | Sob demanda |
+| Adaptativa | Mudança no calendário, obras na rodovia piloto, novos navegadores | Sob demanda |
 | Evolutiva | Economia de bateria e relatórios municipais | Por backlog |
 
 ### 5.5.3 Estratégia de descontinuação e migração de dados
@@ -592,25 +592,24 @@ Avaliação por pares (versão 7.0) e revisão interna desta versão:
 | Responsável | Luis (A/R), Heitor (verificação) |
 | Indicador | 10 de 10 requisitos com EAP, arquivo e teste válidos; 0 referências quebradas. |
 
-## 6.4 Atualização e verificação
+## 6.4 Atualização e verificação (Antes → Depois na v8.0)
 
-| Ação | Atualização feita na v8.0 | Verificação | Resultado |
+| Ação | Evidência (Antes → Depois) | Verificação | Resultado |
 |:---:|:---|:---|:---:|
-| 1 | Manual unificado e numeração RF01–RF10 vigente (5.1.1) | Comparar RF do manual com `Requisitos.md` | Feito |
-| 2 | RF09 → EAP 3.2.2 (5.1.2) | Conferir existência da entrega na EAP (4.1) | Feito |
-| 3 | ADRs registrados (4.4) | Todo ADR citado existe | Feito |
-| 4 | Datas do histórico alinhadas (contracapa) | Comparar com `historico-versoes.md` | Feito |
-| 5 | Arquivos de `src/` e status dos testes | Conferir contra o repositório Rhyme | **Pendente** |
+| 1 | **Antes:** RFs divergiam entre `Requisitos.md` e o manual. **Depois:** Manual declarado fonte única de RF01–RF10 (5.1.1). | Comparar RF do manual com `Requisitos.md` | Feito |
+| 2 | **Antes:** RF09 apontava para EAP 5.3.1 (inexistente) e sem vínculo a diagramas. **Depois:** RF09 → EAP 3.2.2 e matriz 5.1.2 ligando RFs a UCs e Componentes. | Conferir EAP (4.1) e diagramas (5.2.2) | Feito |
+| 3 | **Antes:** ADR-001 a ADR-004 citados sem tabela formal. **Depois:** ADRs registrados com matrizes ponderadas (4.4). | Auditar correspondência de cada ADR citado | Feito |
+| 4 | **Antes:** Datas divergentes e papéis trocados entre documentos. **Depois:** Contracapa, `historico-versoes.md` e RACI (por papéis) alinhados. | Comparar com `historico-versoes.md` | Feito |
+| 5 | **Antes:** Testes e ensaio em campo marcados como executados sem código. **Depois:** Planejados (CT-01 a CT-10) para auditoria pós-implementação. | Auditar após implementação do código-fonte | **Pendente** |
 
 ## 6.5 Acompanhamento da execução
 
 | Data | Atividade | Responsável | Situação |
 |:---:|:---|:---|:---:|
-| 29/10 | Publicar v8.0 do manual | Carlos | Concluída |
-| até 05/11 | Conferir rastreabilidade com o código do Rhyme (ação 5) | Luis, Heitor | Em andamento |
-| até 12/11 | Ensaio da apresentação com cronômetro | Todos | Planejada |
-| 26/11 | Apresentação do grupo (G12) | Todos | Planejada |
-| Pós-entrega | Reavaliar métricas da seção 4.5 e abrir nova ação, se houver desvio | Heitor | Planejada |
+| 29/10 | Publicar v8.0 do manual | Arquitetura & Front-end | Concluída |
+| até 24/11 | Ensaio da apresentação com cronômetro (20 a 30 min) | Toda a equipe | Em andamento |
+| 26/11 | Apresentação do grupo (G12) | Toda a equipe | Planejada |
+| Pós-codificação | Executar CT-01 a CT-10, ensaio piloto rodoviário e auditoria final (ação 5) | Qualidade (SQA) & Equipe | Planejada |
 
 ---
 

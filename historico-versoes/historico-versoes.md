@@ -24,10 +24,10 @@
 
 | Membro | Papel de Referência no Projeto |
 |:---|:---|
-| **Matheus Marquez de Carvalho Rodrigues** | Engenharia de Requisitos e Produto |
-| **Luis Henrique Oliveira de Jesus** | Arquitetura de Software e Frontend |
-| **Heitor Gonçalves Costa** | Infraestrutura, Nuvem e DevOps |
-| **Carlos Daniel Lopes de Araújo** | Garantia da Qualidade (SQA), Verificação e Validação |
+| **Carlos Daniel Lopes de Araújo** | Arquitetura de Software e Frontend |
+| **Luis Henrique Oliveira de Jesus** | Engenharia de Requisitos e Produto |
+| **Heitor Gonçalves Costa** | Garantia da Qualidade (SQA), Verificação e Validação |
+| **Matheus Marquez de Carvalho Rodrigues** | Infraestrutura, Nuvem e DevOps |
 
 ---
 

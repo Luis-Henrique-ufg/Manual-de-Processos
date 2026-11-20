@@ -14,8 +14,8 @@ package "Cliente PWA (Browser / Mobile Device)" {
 }
 
 package "APIs e Serviços Externos" {
-    [OpenStreetMap Tile Server] as OSM
-    Leaflet --> OSM : Requisições HTTP (Map Tiles)
+    [Mapbox API (Free Tier)] as Mapbox
+    Leaflet --> Mapbox : Requisições HTTPS (Map Tiles)
 }
 
 package "Backend e Cloud Services (Firebase Services)" {
