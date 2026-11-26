@@ -11,12 +11,10 @@ Todos os diagramas são mantidos desacoplados em arquivos-fonte `.puml`, permiti
 
 ## Modelos Arquiteturais Disponíveis
 
-| Arquivo Fonte | Tipo de Modelo | Cláusula ISO | Descrição Técnica |
-|:---|:---|:---:|:---|
-| [casos-de-uso.puml](./casos-de-uso.puml) | Diagrama de Casos de Uso UML | §6.4.1 | Especificação dos 10 Casos de Uso (UC01 a UC10) envolvendo Estudantes, Condutores, Telemetria GPS e Cloud Firestore. |
-| [sequencia-tempo-real.puml](./sequencia-tempo-real.puml) | Diagrama de Sequência UML | §6.4.3 | Fluxo temporal reativo de notificação de status acadêmico ("Liberado") e broadcast contínuo de coordenadas do veículo. |
-| [componentes-arquitetura.puml](./componentes-arquitetura.puml) | Diagrama de Componentes UML | §6.4.3 | Arquitetura do cliente PWA (React 19, Leaflet, Mapbox API, Service Worker de cache) e integração serverless com o Google Firebase. |
-| [modelo-dados-firestore.puml](./modelo-dados-firestore.puml) | Modelo Entidade-Relacionamento NoSQL | §6.4.4 | Estrutura de coleções e subcoleções do Cloud Firestore (`routes`, `trips`, `students`, `bus_location`, `emergencies`). |
+| Arquivo Fonte | Exportações | Tipo de Modelo | Cláusula ISO | Descrição Técnica |
+|:---|:---|:---|:---:|:---|
+| [casos-de-uso.puml](./casos-de-uso.puml) | [SVG](./casos-de-uso.svg) · [PNG](./casos-de-uso.png) | Diagrama de Casos de Uso UML | §6.4.1 | Especificação dos 10 Casos de Uso (UC01 a UC10) envolvendo Estudantes, Condutores, Telemetria GPS, FCM e Cloud Firestore. |
+| [componentes-arquitetura.puml](./componentes-arquitetura.puml) | [SVG](./componentes-arquitetura.svg) · [PNG](./componentes-arquitetura.png) | Diagrama de Componentes UML | §6.4.3 | Arquitetura do cliente PWA (React 19, Leaflet, Mapbox API, Service Worker de cache) e integração serverless com o Google Firebase. |
 
 ---
 

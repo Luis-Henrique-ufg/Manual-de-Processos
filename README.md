@@ -98,12 +98,10 @@ O manual está organizado em conformidade com as cláusulas fundamentais da **IS
 
 Os diagramas de arquitetura e design estão versionados no diretório [`diagramas/`](./diagramas/):
 
-| Diagrama | Arquivo Fonte | Cláusula | Descrição |
+| Diagrama | Arquivos | Cláusula | Descrição |
 |:---|:---|:---:|:---|
-| **Casos de Uso** | [`casos-de-uso.puml`](./diagramas/casos-de-uso.puml) | ISO 12207 §6.4.1 | 10 casos de uso detalhando interações de Estudantes, Condutores, Telemetria GPS e Firestore. |
-| **Sequência em Tempo Real** | [`sequencia-tempo-real.puml`](./diagramas/sequencia-tempo-real.puml) | ISO 12207 §6.4.3 | Fluxo assíncrono de notificação de liberação (*one-touch*) e telemetria contínua do veículo. |
-| **Componentes de Software** | [`componentes-arquitetura.puml`](./diagramas/componentes-arquitetura.puml) | ISO 12207 §6.4.3 | Módulos do PWA React 19, Service Worker de cache offline, Leaflet/Mapbox e serviços Firebase. |
-| **Modelo de Dados NoSQL** | [`modelo-dados-firestore.puml`](./diagramas/modelo-dados-firestore.puml) | ISO 12207 §6.4.4 | Estrutura de coleções (`routes`, `trips`, `students`, `bus_location`, `emergencies`). |
+| **Casos de Uso** | [`casos-de-uso.puml`](./diagramas/casos-de-uso.puml) · [SVG](./diagramas/casos-de-uso.svg) · [PNG](./diagramas/casos-de-uso.png) | ISO 12207 §6.4.1 | 10 casos de uso detalhando interações de Estudantes, Condutores, Telemetria GPS, FCM e Firestore. |
+| **Componentes de Software** | [`componentes-arquitetura.puml`](./diagramas/componentes-arquitetura.puml) · [SVG](./diagramas/componentes-arquitetura.svg) · [PNG](./diagramas/componentes-arquitetura.png) | ISO 12207 §6.4.3 | Módulos do PWA React 19, Service Worker de cache offline, Leaflet/Mapbox e serviços Firebase. |
 
 > [!TIP]
 > Consulte o guia detalhado em [diagramas/README.md](./diagramas/README.md) para orientações sobre como renderizar os modelos no VS Code via extensão PlantUML ou online.

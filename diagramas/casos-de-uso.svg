@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1420 910" width="1420" height="910" preserveAspectRatio="xMidYMid meet" style="max-width: 100%; height: auto; display: block; margin: 0 auto;" role="img" aria-label="Diagrama de Casos de Uso - Sistema Rhyme (PWA)">
+                  <defs>
+                    <marker id="uc-arrow-motorista" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#007A72" />
+                    </marker>
+                    <marker id="uc-arrow-estudante" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#D9531E" />
+                    </marker>
+                    <marker id="uc-arrow-rel" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                      <path d="M 0 1.5 L 10 5 L 0 8.5" fill="none" stroke="#663399" stroke-width="1.6" />
+                    </marker>
+                    <marker id="uc-arrow-sys" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#534B46" />
+                    </marker>
+                    <filter id="uc-shadow" x="-8%" y="-8%" width="116%" height="120%">
+                      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#030607" flood-opacity="0.08" />
+                    </filter>
+                  </defs>
+
+                  <style>
+                    .uc-title { font-family: 'GOL Sans Display', system-ui, sans-serif; font-size: 18px; font-weight: 700; fill: #030607; }
+                    .uc-subtitle { font-family: 'GOL Sans Text', system-ui, sans-serif; font-size: 12px; fill: #6D5E55; }
+                    .uc-sys-title { font-family: 'GOL Sans Display', system-ui, sans-serif; font-size: 14px; font-weight: 700; fill: #322D2A; }
+                    .uc-pkg-title { font-family: 'GOL Sans Display', system-ui, sans-serif; font-size: 12.5px; font-weight: 700; fill: #322D2A; }
+                    .uc-label-main { font-family: 'GOL Sans Text', system-ui, sans-serif; font-size: 12px; font-weight: 600; fill: #1A1A1A; }
+                    .uc-label-sub { font-family: 'GOL Sans Text', system-ui, sans-serif; font-size: 10.5px; fill: #6D5E55; }
+                    .uc-actor-name { font-family: 'GOL Sans Display', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #1A1A1A; }
+                    .uc-actor-sub { font-family: 'GOL Sans Text', system-ui, sans-serif; font-size: 10.5px; fill: #534B46; }
+                    .uc-stereo { font-family: 'GOL Sans Text', system-ui, sans-serif; font-size: 11px; font-style: italic; fill: #6D5E55; }
+                    .uc-edge-txt { font-family: 'GOL Sans Text', system-ui, sans-serif; font-size: 10.5px; fill: #322D2A; }
+                    .uc-rel-txt { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; font-weight: 600; fill: #663399; }
+                    .uc-legend-txt { font-family: 'GOL Sans Text', system-ui, sans-serif; font-size: 11.5px; fill: #534B46; }
+                  </style>
+
+                  <!-- Fundo branco limpo -->
+                  <rect x="0" y="0" width="1420" height="910" fill="#FFFFFF" />
+
+                  <!-- Título e Legenda Superior -->
+                  <text x="710" y="30" text-anchor="middle" class="uc-title">Diagrama de Casos de Uso — Sistema Rhyme (PWA)</text>
+                  <text x="710" y="50" text-anchor="middle" class="uc-subtitle">Alinhamento Direto com Requisitos Funcionais (RF01 a RF10) e Diretrizes LGPD</text>
+
+                  <!-- Fronteira do Sistema -->
+                  <rect x="215" y="68" width="820" height="764" rx="14" fill="#FCF9F8" stroke="#322D2A" stroke-width="1.8" />
+                  <text x="625" y="92" text-anchor="middle" class="uc-sys-title">Sistema Rhyme (PWA)</text>
+
+                  <!-- ============================================================
+                       PACOTES UML (4 MÓDULOS ALINHADOS)
+                       ============================================================ -->
+                  <!-- Pacote 1: Painel Veicular e Protocolo de Segurança -->
+                  <g>
+                    <path d="M 235,112 L 515,112 L 523,134 L 1015,134 L 1015,238 L 235,238 Z" fill="#FFFFFF" stroke="#C2AEA3" stroke-width="1.3" filter="url(#uc-shadow)" />
+                    <line x1="235" y1="134" x2="523" y2="134" stroke="#C2AEA3" stroke-width="1.3" />
+                    <text x="246" y="128" class="uc-pkg-title">Painel Veicular e Protocolo de Segurança</text>
+                  </g>
+
+                  <!-- Pacote 2: Rastreamento Cartográfico e Notificações -->
+                  <g>
+                    <path d="M 235,264 L 535,264 L 543,286 L 1015,286 L 1015,492 L 235,492 Z" fill="#FFFFFF" stroke="#C2AEA3" stroke-width="1.3" filter="url(#uc-shadow)" />
+                    <line x1="235" y1="286" x2="543" y2="286" stroke="#C2AEA3" stroke-width="1.3" />
+                    <text x="246" y="280" class="uc-pkg-title">Rastreamento Cartográfico e Notificações</text>
+                  </g>
+
+                  <!-- Pacote 3: Gestão de Presença e Status -->
+                  <g>
+                    <path d="M 235,518 L 450,518 L 458,540 L 1015,540 L 1015,642 L 235,642 Z" fill="#FFFFFF" stroke="#C2AEA3" stroke-width="1.3" filter="url(#uc-shadow)" />
+                    <line x1="235" y1="540" x2="458" y2="540" stroke="#C2AEA3" stroke-width="1.3" />
+                    <text x="246" y="534" class="uc-pkg-title">Gestão de Presença e Status</text>
+                  </g>
+
+                  <!-- Pacote 4: Autenticação e Perfil -->
+                  <g>
+                    <path d="M 235,668 L 405,668 L 413,690 L 1015,690 L 1015,792 L 235,792 Z" fill="#FFFFFF" stroke="#C2AEA3" stroke-width="1.3" filter="url(#uc-shadow)" />
+                    <line x1="235" y1="690" x2="413" y2="690" stroke="#C2AEA3" stroke-width="1.3" />
+                    <text x="246" y="684" class="uc-pkg-title">Autenticação e Perfil</text>
+                  </g>
+
+                  <!-- ============================================================
+                       CONEXÕES — CAMADA INFERIOR (ATRÁS DAS ELIPSES E LABELS)
+                       ============================================================ -->
+                  <!-- Associações do Motorista (#007A72) -->
+                  <g fill="none" stroke="#007A72" stroke-width="1.4">
+                    <path d="M 82,190 L 140,103 L 840,103 L 840,152" marker-end="url(#uc-arrow-motorista)" />
+                    <path d="M 90,210 L 165,184 L 252,184" marker-end="url(#uc-arrow-motorista)" />
+                    <path d="M 90,224 L 165,250 L 790,250 L 810,302" marker-end="url(#uc-arrow-motorista)" />
+                    <path d="M 88,236 L 150,328 L 252,328" marker-end="url(#uc-arrow-motorista)" />
+                    <path d="M 80,248 L 130,506 L 785,506 L 810,558" marker-end="url(#uc-arrow-motorista)" />
+                    <path d="M 72,256 L 116,656 L 785,656 L 810,708" marker-end="url(#uc-arrow-motorista)" />
+                  </g>
+
+                  <!-- Associações do Estudante (#D9531E) -->
+                  <g fill="none" stroke="#D9531E" stroke-width="1.4">
+                    <path d="M 76,544 L 176,198 L 252,198" marker-end="url(#uc-arrow-estudante)" />
+                    <path d="M 82,554 L 186,346 L 252,346" marker-end="url(#uc-arrow-estudante)" />
+                    <path d="M 86,562 L 196,390 L 745,390 L 780,366" marker-end="url(#uc-arrow-estudante)" />
+                    <path d="M 90,572 L 176,440 L 252,440" marker-end="url(#uc-arrow-estudante)" />
+                    <path d="M 90,582 L 198,498 L 775,498 L 800,473" marker-end="url(#uc-arrow-estudante)" />
+                    <path d="M 90,592 L 252,592" marker-end="url(#uc-arrow-estudante)" />
+                    <path d="M 88,602 L 198,648 L 775,648 L 800,625" marker-end="url(#uc-arrow-estudante)" />
+                    <path d="M 82,612 L 166,742 L 252,742" marker-end="url(#uc-arrow-estudante)" />
+                    <path d="M 74,622 L 146,812 L 840,812 L 840,776" marker-end="url(#uc-arrow-estudante)" />
+                  </g>
+
+                  <!-- Relacionamentos <<include>> e <<extend>> (#663399) -->
+                  <g fill="none" stroke="#663399" stroke-width="1.5" stroke-dasharray="6,4">
+                    <path d="M 564,188 L 682,188" marker-end="url(#uc-arrow-rel)" />
+                    <path d="M 408,407 L 408,371" marker-end="url(#uc-arrow-rel)" />
+                    <path d="M 518,566 L 624,522 L 624,368 L 542,354" marker-end="url(#uc-arrow-rel)" />
+                  </g>
+
+                  <!-- Integrações com Sistemas Externos (#534B46) -->
+                  <g fill="none" stroke="#534B46" stroke-width="1.35">
+                    <path d="M 485,156 L 510,98 L 1192,98 L 1192,620 L 1264,648" marker-end="url(#uc-arrow-sys)" />
+                    <path d="M 1264,658 L 1162,630 L 1162,188 L 998,188" marker-end="url(#uc-arrow-sys)" />
+                    <path d="M 996,326 L 1264,316" marker-end="url(#uc-arrow-sys)" />
+                    <path d="M 996,348 L 1122,348 L 1122,642 L 1264,666" marker-end="url(#uc-arrow-sys)" />
+                    <path d="M 1264,452 L 998,442" marker-end="url(#uc-arrow-sys)" />
+                    <path d="M 996,592 L 1096,592 L 1264,676" marker-end="url(#uc-arrow-sys)" />
+                    <path d="M 472,625 L 496,656 L 1096,656 L 1264,686" marker-end="url(#uc-arrow-sys)" />
+                    <path d="M 996,742 L 1136,742 L 1264,700" marker-end="url(#uc-arrow-sys)" />
+                  </g>
+
+                  <!-- ============================================================
+                       ELIPSES DOS 10 CASOS DE USO (UC01 A UC10)
+                       ============================================================ -->
+                  <g filter="url(#uc-shadow)">
+                    <ellipse cx="408" cy="188" rx="155" ry="33" fill="#FFF8F3" stroke="#A80036" stroke-width="1.5" />
+                    <text x="408" y="184" text-anchor="middle" class="uc-label-main">UC09 - Acionar Emergência 'Fui Esquecido'</text>
+                    <text x="408" y="200" text-anchor="middle" class="uc-label-sub">(Sinalização Audiovisual Prioritária · RF10)</text>
+                  </g>
+
+                  <g filter="url(#uc-shadow)">
+                    <ellipse cx="840" cy="188" rx="155" ry="33" fill="#FFF8F3" stroke="#A80036" stroke-width="1.5" />
+                    <text x="840" y="184" text-anchor="middle" class="uc-label-main">UC06 - Monitorar Contadores e Alertas</text>
+                    <text x="840" y="200" text-anchor="middle" class="uc-label-sub">(Painel do Motorista · RF06)</text>
+                  </g>
+
+                  <g filter="url(#uc-shadow)">
+                    <ellipse cx="408" cy="336" rx="155" ry="33" fill="#FFF8F3" stroke="#A80036" stroke-width="1.5" />
+                    <text x="408" y="332" text-anchor="middle" class="uc-label-main">UC04 - Visualizar Ônibus e Paradas</text>
+                    <text x="408" y="348" text-anchor="middle" class="uc-label-sub">(Mapa Telemetria e Mapbox · RF04)</text>
+                  </g>
+
+                  <g filter="url(#uc-shadow)">
+                    <ellipse cx="840" cy="336" rx="155" ry="33" fill="#FFF8F3" stroke="#A80036" stroke-width="1.5" />
+                    <text x="840" y="332" text-anchor="middle" class="uc-label-main">UC05 - Transmitir Localização GPS</text>
+                    <text x="840" y="348" text-anchor="middle" class="uc-label-sub">(Motorista / Passageiro Âncora · RF05)</text>
+                  </g>
+
+                  <g filter="url(#uc-shadow)">
+                    <ellipse cx="408" cy="442" rx="155" ry="33" fill="#FFF8F3" stroke="#A80036" stroke-width="1.5" />
+                    <text x="408" y="438" text-anchor="middle" class="uc-label-main">UC07 - Consultar Estimativa (ETA)</text>
+                    <text x="408" y="454" text-anchor="middle" class="uc-label-sub">(Cálculo Haversine · RF08)</text>
+                  </g>
+
+                  <g filter="url(#uc-shadow)">
+                    <ellipse cx="840" cy="442" rx="155" ry="33" fill="#FFF8F3" stroke="#A80036" stroke-width="1.5" />
+                    <text x="840" y="438" text-anchor="middle" class="uc-label-main">UC08 - Receber Alertas Push Geofencing</text>
+                    <text x="840" y="454" text-anchor="middle" class="uc-label-sub">(Raio de 1 km · RF09)</text>
+                  </g>
+
+                  <g filter="url(#uc-shadow)">
+                    <ellipse cx="408" cy="592" rx="155" ry="33" fill="#FFF8F3" stroke="#A80036" stroke-width="1.5" />
+                    <text x="408" y="588" text-anchor="middle" class="uc-label-main">UC03 - Informar Status One-Touch</text>
+                    <text x="408" y="604" text-anchor="middle" class="uc-label-sub">(Em sala / Liberado / No ponto · RF03)</text>
+                  </g>
+
+                  <g filter="url(#uc-shadow)">
+                    <ellipse cx="840" cy="592" rx="155" ry="33" fill="#FFF8F3" stroke="#A80036" stroke-width="1.5" />
+                    <text x="840" y="588" text-anchor="middle" class="uc-label-main">UC10 - Confirmar Embarque no Veículo</text>
+                    <text x="840" y="604" text-anchor="middle" class="uc-label-sub">(Transição para 'boarded' · RF03)</text>
+                  </g>
+
+                  <g filter="url(#uc-shadow)">
+                    <ellipse cx="408" cy="742" rx="155" ry="33" fill="#FFF8F3" stroke="#A80036" stroke-width="1.5" />
+                    <text x="408" y="738" text-anchor="middle" class="uc-label-main">UC02 - Selecionar Rota e Faculdade</text>
+                    <text x="408" y="754" text-anchor="middle" class="uc-label-sub">(RF02)</text>
+                  </g>
+
+                  <g filter="url(#uc-shadow)">
+                    <ellipse cx="840" cy="742" rx="155" ry="33" fill="#FFF8F3" stroke="#A80036" stroke-width="1.5" />
+                    <text x="840" y="738" text-anchor="middle" class="uc-label-main">UC01 - Autenticar no PWA</text>
+                    <text x="840" y="754" text-anchor="middle" class="uc-label-sub">(RF01)</text>
+                  </g>
+
+                  <!-- ============================================================
+                       RÓTULOS DAS ARESTAS (COM FUNDO PILL PARA ZERO SOBREPOSIÇÃO)
+                       ============================================================ -->
+                  <rect x="586" y="177" width="74" height="18" rx="4" fill="#FFFFFF" stroke="#E5DDD8" stroke-width="0.8" />
+                  <text x="623" y="190" text-anchor="middle" class="uc-rel-txt">«include»</text>
+
+                  <rect x="371" y="379" width="74" height="18" rx="4" fill="#FFFFFF" stroke="#E5DDD8" stroke-width="0.8" />
+                  <text x="408" y="392" text-anchor="middle" class="uc-rel-txt">«include»</text>
+
+                  <rect x="588" y="432" width="72" height="18" rx="4" fill="#FFFFFF" stroke="#E5DDD8" stroke-width="0.8" />
+                  <text x="624" y="445" text-anchor="middle" class="uc-rel-txt">«extend»</text>
+
+                  <rect x="122" y="161" width="118" height="18" rx="4" fill="#FFFFFF" stroke="#E5DDD8" stroke-width="0.8" />
+                  <text x="181" y="174" text-anchor="middle" class="uc-edge-txt" fill="#007A72">Alarme sonoro/visual</text>
+
+                  <rect x="548" y="241" width="164" height="18" rx="4" fill="#FFFFFF" stroke="#E5DDD8" stroke-width="0.8" />
+                  <text x="630" y="254" text-anchor="middle" class="uc-edge-txt" fill="#007A72">Transmissor primário (12V)</text>
+
+                  <rect x="556" y="381" width="136" height="18" rx="4" fill="#FFFFFF" stroke="#E5DDD8" stroke-width="0.8" />
+                  <text x="624" y="394" text-anchor="middle" class="uc-edge-txt" fill="#D9531E">Passageiro âncora</text>
+
+                  <rect x="1048" y="89" width="142" height="18" rx="4" fill="#FFFFFF" stroke="#E5DDD8" stroke-width="0.8" />
+                  <text x="1119" y="102" text-anchor="middle" class="uc-edge-txt">Grava alerta (emergencies)</text>
+
+                  <rect x="1012" y="179" width="144" height="18" rx="4" fill="#FFFFFF" stroke="#E5DDD8" stroke-width="0.8" />
+                  <text x="1084" y="192" text-anchor="middle" class="uc-edge-txt">Sincroniza listeners realtime</text>
+
+                  <rect x="1046" y="308" width="164" height="18" rx="4" fill="#FFFFFF" stroke="#E5DDD8" stroke-width="0.8" />
+                  <text x="1128" y="321" text-anchor="middle" class="uc-edge-txt">Coleta coordenadas do veículo</text>
+
+                  <rect x="1048" y="374" width="134" height="18" rx="4" fill="#FFFFFF" stroke="#E5DDD8" stroke-width="0.8" />
+                  <text x="1115" y="387" text-anchor="middle" class="uc-edge-txt">Grava em bus_location</text>
+
+                  <rect x="1052" y="438" width="146" height="18" rx="4" fill="#FFFFFF" stroke="#E5DDD8" stroke-width="0.8" />
+                  <text x="1125" y="451" text-anchor="middle" class="uc-edge-txt">Entrega push notifications</text>
+
+                  <rect x="1046" y="583" width="148" height="18" rx="4" fill="#FFFFFF" stroke="#E5DDD8" stroke-width="0.8" />
+                  <text x="1120" y="596" text-anchor="middle" class="uc-edge-txt">Registra presença na viagem</text>
+
+                  <rect x="1046" y="647" width="138" height="18" rx="4" fill="#FFFFFF" stroke="#E5DDD8" stroke-width="0.8" />
+                  <text x="1115" y="660" text-anchor="middle" class="uc-edge-txt">Atualiza status (&quot;released&quot;)</text>
+
+                  <rect x="1048" y="733" width="118" height="18" rx="4" fill="#FFFFFF" stroke="#E5DDD8" stroke-width="0.8" />
+                  <text x="1107" y="746" text-anchor="middle" class="uc-edge-txt">Autenticação segura</text>
+
+                  <!-- ============================================================
+                       ATORES PRIMÁRIOS (ESQUERDA)
+                       ============================================================ -->
+                  <g transform="translate(58, 195)">
+                    <circle cx="0" cy="0" r="10" fill="#E6F7F5" stroke="#007A72" stroke-width="1.8" />
+                    <path d="M 0,10 L 0,38 M -16,20 L 16,20 M 0,38 L -14,56 M 0,38 L 14,56" fill="none" stroke="#007A72" stroke-width="1.8" stroke-linecap="round" />
+                    <text x="0" y="74" text-anchor="middle" class="uc-actor-name" fill="#007A72">Motorista</text>
+                  </g>
+
+                  <g transform="translate(58, 560)">
+                    <circle cx="0" cy="0" r="10" fill="#FFF1E8" stroke="#D9531E" stroke-width="1.8" />
+                    <path d="M 0,10 L 0,38 M -16,20 L 16,20 M 0,38 L -14,56 M 0,38 L 14,56" fill="none" stroke="#D9531E" stroke-width="1.8" stroke-linecap="round" />
+                    <text x="0" y="74" text-anchor="middle" class="uc-actor-name" fill="#D9531E">Estudante</text>
+                  </g>
+
+                  <!-- ============================================================
+                       ATORES SECUNDÁRIOS / SISTEMAS EXTERNOS (DIREITA)
+                       ============================================================ -->
+                  <g transform="translate(1322, 290)">
+                    <text x="0" y="-16" text-anchor="middle" class="uc-stereo">«System»</text>
+                    <circle cx="0" cy="0" r="10" fill="#F4EFEB" stroke="#534B46" stroke-width="1.8" />
+                    <path d="M 0,10 L 0,38 M -16,20 L 16,20 M 0,38 L -14,56 M 0,38 L 14,56" fill="none" stroke="#534B46" stroke-width="1.8" stroke-linecap="round" />
+                    <text x="0" y="74" text-anchor="middle" class="uc-actor-name">Serviço de GPS</text>
+                    <text x="0" y="89" text-anchor="middle" class="uc-actor-sub">(Veicular / Âncora)</text>
+                  </g>
+
+                  <g transform="translate(1322, 430)">
+                    <text x="0" y="-16" text-anchor="middle" class="uc-stereo">«System»</text>
+                    <circle cx="0" cy="0" r="10" fill="#F4EFEB" stroke="#534B46" stroke-width="1.8" />
+                    <path d="M 0,10 L 0,38 M -16,20 L 16,20 M 0,38 L -14,56 M 0,38 L 14,56" fill="none" stroke="#534B46" stroke-width="1.8" stroke-linecap="round" />
+                    <text x="0" y="74" text-anchor="middle" class="uc-actor-name">Firebase Cloud</text>
+                    <text x="0" y="89" text-anchor="middle" class="uc-actor-sub">Messaging (FCM Push)</text>
+                  </g>
+
+                  <g transform="translate(1322, 650)">
+                    <text x="0" y="-16" text-anchor="middle" class="uc-stereo">«System»</text>
+                    <circle cx="0" cy="0" r="10" fill="#F4EFEB" stroke="#534B46" stroke-width="1.8" />
+                    <path d="M 0,10 L 0,38 M -16,20 L 16,20 M 0,38 L -14,56 M 0,38 L 14,56" fill="none" stroke="#534B46" stroke-width="1.8" stroke-linecap="round" />
+                    <text x="0" y="74" text-anchor="middle" class="uc-actor-name">Firebase Firestore</text>
+                    <text x="0" y="89" text-anchor="middle" class="uc-actor-sub">(Backend Realtime)</text>
+                  </g>
+
+                  <!-- ============================================================
+                       LEGENDA VISUAL INFERIOR
+                       ============================================================ -->
+                  <g transform="translate(215, 856)">
+                    <rect x="0" y="0" width="820" height="36" rx="10" fill="#FCF9F8" stroke="#E5DDD8" stroke-width="1" />
+                    <line x1="24" y1="18" x2="52" y2="18" stroke="#007A72" stroke-width="2" />
+                    <text x="60" y="22" class="uc-legend-txt">Motorista</text>
+
+                    <line x1="146" y1="18" x2="174" y2="18" stroke="#D9531E" stroke-width="2" />
+                    <text x="182" y="22" class="uc-legend-txt">Estudante</text>
+
+                    <line x1="272" y1="18" x2="304" y2="18" stroke="#663399" stroke-width="2" stroke-dasharray="5,3" />
+                    <text x="312" y="22" class="uc-legend-txt">Dependências «include» / «extend»</text>
+
+                    <line x1="548" y1="18" x2="578" y2="18" stroke="#534B46" stroke-width="2" />
+                    <text x="586" y="22" class="uc-legend-txt">Integrações com Sistemas Externos («System»)</text>
+                  </g>
+                </svg>
