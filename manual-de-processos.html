@@ -690,32 +690,286 @@
         opacity: 0.16;
       }
 
-      /* Print & PDF Layout Rules */
+      /* Print-only helper (hidden on screen, shown in PDF/print) */
+      .print-only {
+        display: none;
+      }
+
+      /* ==========================================================================
+         PRINT & PDF LAYOUT RULES (TANGERINA EDITORIAL A4)
+         ========================================================================== */
       @media print {
         @page {
           size: A4 portrait;
-          margin: 1.5cm 1.2cm 1.5cm 1.2cm;
+          margin: 13mm 11mm 15mm 11mm;
+          @top-left { content: ""; }
+          @top-center { content: ""; }
+          @top-right { content: ""; }
+          @bottom-left {
+            content: "Manual de Processos de Software — Sistema Rhyme (v8.0 Oficial)";
+            font-family: "GOL Sans Text", system-ui, sans-serif;
+            font-size: 7.5pt;
+            color: #6D5E55;
+          }
+          @bottom-center { content: ""; }
+          @bottom-right {
+            content: "Pág. " counter(page) " / " counter(pages);
+            font-family: "IBM Plex Mono", monospace;
+            font-size: 7.5pt;
+            color: #6D5E55;
+          }
         }
+        @page :first {
+          margin: 11mm 11mm 12mm 11mm;
+          @bottom-left { content: ""; }
+          @bottom-right { content: ""; }
+        }
+
+        /* Force exact Tangerina colors, surfaces, badges, dark cards & SVGs in PDF */
+        *,
+        *::before,
+        *::after {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
+        }
+
+        /* Always use high-contrast Tangerina Light tokens in PDF even if Dark Mode is active */
+        :root,
+        [data-color-mode="dark"] {
+          --ds-bg: #FCF9F8;
+          --ds-bg-alt: #F4ECE0;
+          --ds-card-bg: #F4EFEB;
+          --ds-surface-elevated: #FFFFFF;
+          --ds-border: #DCCEC6;
+          --ds-border-strong: #C2AEA3;
+          --ds-text: #030607;
+          --ds-body-text: #322D2A;
+          --ds-muted-text: #534B46;
+          --ds-table-head: #F4ECE0;
+          --ds-table-hover: #F4ECE0;
+        }
+
+        html,
         body {
-          background: #ffffff !important;
+          background-color: #FCF9F8 !important;
           color: #030607 !important;
-          font-size: 10pt !important;
+          font-size: 9.2pt !important;
           line-height: 1.45 !important;
+          overflow: visible !important;
         }
+
+        /* Reset dark-mode utility overrides when printing */
+        [data-color-mode="dark"] .bg-white { background-color: #FFFFFF !important; }
+        [data-color-mode="dark"] .bg-stone-50 { background-color: #FCF9F8 !important; }
+        [data-color-mode="dark"] .bg-stone-100 { background-color: #F4EFEB !important; }
+        [data-color-mode="dark"] .text-stone-900,
+        [data-color-mode="dark"] .text-stone-950,
+        [data-color-mode="dark"] .text-stone-800 { color: #030607 !important; }
+        [data-color-mode="dark"] .text-stone-700,
+        [data-color-mode="dark"] .text-stone-600 { color: #322D2A !important; }
+        [data-color-mode="dark"] .text-stone-500 { color: #534B46 !important; }
+        [data-color-mode="dark"] .ds-solid-badge--ink { background: #030607 !important; color: #FCF9F8 !important; }
+
+        /* Never dim sections if a presenter filter was active on screen */
+        [data-presenter] {
+          opacity: 1 !important;
+        }
+
+        /* Hide web-only chrome & interactive controls */
         .ds-nav,
         #readingProgress,
+        #searchModal,
+        #presenterFilterBar,
+        #guia-apresentacao,
         .no-print {
           display: none !important;
         }
+
+        .print-only {
+          display: block !important;
+        }
+
         .print-container {
           max-width: 100% !important;
+          width: 100% !important;
           padding: 0 !important;
+          margin: 0 !important;
         }
-        .ds-card,
-        .editorial-table {
-          box-shadow: none !important;
+
+        /* Cover page: compact editorial fit on Page 1 with decorative SVG preserved */
+        #capa {
+          padding-top: 0 !important;
+          padding-bottom: 1rem !important;
+          border-bottom: none !important;
+          break-after: page !important;
+          page-break-after: always !important;
+        }
+        #capa .tangerina-hero-decor {
+          opacity: 0.28 !important;
+          width: 420px !important;
+          height: 420px !important;
+          top: -30px !important;
+          right: -40px !important;
+        }
+        #capa h1 {
+          font-size: 3.1rem !important;
+          line-height: 1.02 !important;
+          margin-bottom: 0.9rem !important;
+        }
+        #capa .my-12 {
+          margin-top: 1.4rem !important;
+          margin-bottom: 1.4rem !important;
+          gap: 1.5rem !important;
+        }
+        #capa .grid.lg\:grid-cols-12 {
+          display: grid !important;
+          grid-template-columns: 7fr 5fr !important;
+          align-items: center !important;
+        }
+        #capa .grid.grid-cols-2.lg\:grid-cols-4 {
+          display: grid !important;
+          grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+          gap: 0.65rem !important;
+        }
+
+        /* Major chapters start cleanly on a new page */
+        .ds-section {
+          padding-top: 0.75rem !important;
+          padding-bottom: 1.25rem !important;
+        }
+        #historico,
+        #sec1,
+        #sec2,
+        #sec3,
+        #sec4,
+        #sec5,
+        #sec6,
+        #referencias {
+          break-before: page !important;
+          page-break-before: always !important;
+        }
+
+        /* Compact vertical spacing so pages look balanced and intentional */
+        .ds-section .mb-14,
+        .ds-section .mb-12 {
+          margin-bottom: 1.25rem !important;
+        }
+        .ds-section .mb-10 {
+          margin-bottom: 1rem !important;
+        }
+        .ds-card {
+          background-color: #F4EFEB !important;
           border: 1px solid #DCCEC6 !important;
-          page-break-inside: avoid;
+          box-shadow: none !important;
+          padding: 1rem 1.15rem !important;
+          border-radius: 0.9rem !important;
+          transform: none !important;
+        }
+
+        /* Preserve vibrant editorial table styling & prevent awkward row splits */
+        .overflow-x-auto {
+          overflow: visible !important;
+        }
+        .editorial-table {
+          border: 1px solid #DCCEC6 !important;
+          border-radius: 0.65rem !important;
+          box-shadow: none !important;
+          background-color: #FFFFFF !important;
+          font-size: 8.2pt !important;
+        }
+        .editorial-table thead {
+          display: table-header-group;
+        }
+        .editorial-table th {
+          background-color: #F4ECE0 !important;
+          color: #030607 !important;
+          padding: 0.5rem 0.65rem !important;
+          font-size: 7.2pt !important;
+        }
+        .editorial-table td {
+          padding: 0.45rem 0.65rem !important;
+          font-size: 8.2pt !important;
+        }
+        .editorial-table tr {
+          break-inside: avoid !important;
+          page-break-inside: avoid !important;
+        }
+        .editorial-table tr.ds-row-highlight td {
+          background-color: #F4ECE0 !important;
+        }
+
+        /* Keep headings attached to their content; prevent splitting code blocks & compact cards */
+        h1, h2, h3, h4 {
+          break-after: avoid !important;
+          page-break-after: avoid !important;
+        }
+        .bg-stone-900,
+        .ds-note-box,
+        .ds-surface-item,
+        .print-keep-together {
+          break-inside: avoid !important;
+          page-break-inside: avoid !important;
+        }
+
+        /* Keep compact section headers attached to their first content block */
+        .ds-card > .flex:first-child {
+          break-after: avoid !important;
+          page-break-after: avoid !important;
+        }
+
+        /* Keep small/medium cards intact so headings or 4-item lists never orphan across pages */
+        #sec4 > div[data-presenter="heitor"],
+        #sec5 .lg\:col-span-6.ds-card,
+        #sec5 .lg\:col-span-6 > .ds-card {
+          break-inside: avoid !important;
+          page-break-inside: avoid !important;
+        }
+
+        /* Diagrams: start cleanly on its own page and ALWAYS show BOTH SVG diagrams stacked */
+        #diagramViewerCard {
+          break-before: page !important;
+          page-break-before: always !important;
+          break-inside: auto !important;
+          page-break-inside: auto !important;
+        }
+        .diag-tab-panel,
+        #diagTab-casos,
+        #diagTab-componentes {
+          display: block !important;
+          visibility: visible !important;
+          break-inside: avoid !important;
+          page-break-inside: avoid !important;
+        }
+        #diagTab-componentes {
+          margin-top: 1.25rem !important;
+          padding-top: 1.25rem !important;
+          border-top: 1px dashed #C2AEA3 !important;
+        }
+        #pumlSource-casos,
+        #pumlSource-componentes {
+          display: none !important;
+        }
+        .svg-viewer-container {
+          background: #FFFFFF !important;
+          border: 1px solid #DCCEC6 !important;
+          border-radius: 0.85rem !important;
+          padding: 0.75rem !important;
+          overflow: visible !important;
+          box-shadow: none !important;
+          break-inside: avoid !important;
+          page-break-inside: avoid !important;
+        }
+        .svg-viewer-container svg {
+          width: 100% !important;
+          max-width: 100% !important;
+          max-height: 195mm !important;
+          height: auto !important;
+        }
+
+        /* Strip link URL expansion if any browser tries to append (href) */
+        a[href]::after {
+          content: none !important;
         }
       }
     </style>
@@ -791,9 +1045,9 @@
           </div>
 
           <button
-            onclick="window.print()"
+            onclick="printManual()"
             class="px-3.5 py-2 rounded-full bg-[#030607] text-[#FCF9F8] text-xs font-display font-medium flex items-center gap-1.5 hover:bg-[#FF7020] hover:text-[#030607] transition-colors"
-            title="Imprimir / Exportar PDF do Manual Completo"
+            title="Imprimir / Exportar PDF do Manual Completo (todos os diagramas e cores originais)"
           >
             <iconify-icon icon="solar:printer-linear" width="15"></iconify-icon>
             <span class="hidden sm:inline">PDF</span>
@@ -871,7 +1125,7 @@
               Governança integral, processos de acordo, infraestrutura reativa, ciclo de vida híbrido, gerenciamento técnico, especificação formal de requisitos, arquitetura NoSQL e melhoria contínua de processos de software.
             </p>
 
-            <div class="flex flex-wrap items-center gap-4">
+            <div class="flex flex-wrap items-center gap-4 no-print">
               <a
                 href="#sec1"
                 class="btn-tangerina-primary"
@@ -1063,7 +1317,7 @@
                 </span>
                 <span class="font-mono text-[10px] opacity-70">~7 min</span>
               </div>
-              <span class="text-[11px] opacity-75 font-mono">3.4, 3.5, 3.6, 4.5, 5.4.3, Cap. 6</span>
+              <span class="text-[11px] opacity-75 font-mono">3.4–3.6, 4.5, 5.4.1–5.4.3, Cap. 6</span>
             </button>
           </div>
         </div>
@@ -1136,7 +1390,7 @@
               <tr>
                 <td class="text-center font-mono font-bold text-stone-800">7.0</td>
                 <td class="text-center font-mono text-stone-600">22/10/2026</td>
-                <td>Unificação das etapas prévias e realização da avaliação formal por pares com elaboração do plano CAPA v9.0.</td>
+                <td>Unificação das etapas prévias e realização da avaliação formal por pares com elaboração do plano CAPA.</td>
                 <td class="text-center"><span class="ds-mono-label">Etapa 6</span></td>
               </tr>
               <tr class="ds-row-highlight">
@@ -1606,7 +1860,7 @@
                 <iconify-icon icon="logos:firebase" width="28"></iconify-icon>
               </div>
               <strong class="block text-stone-900 mb-0.5 text-xs">Google Firebase</strong>
-              <span class="text-stone-500 text-[11px]">Firestore, Auth, FCM</span>
+              <span class="text-stone-500 text-[11px]">Firestore, Auth, FCM, Hosting</span>
             </div>
 
             <div class="p-4 bg-white rounded-xl border border-stone-200 text-center shadow-xs">
@@ -1712,45 +1966,55 @@
                   <thead>
                     <tr>
                       <th>Categoria</th>
-                      <th>Tecnologia Adotada</th>
+                      <th>Ferramenta</th>
+                      <th>Uso</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td class="font-semibold text-stone-900">Runtime & Build</td>
+                      <td class="font-semibold text-stone-900">Runtime / Build</td>
                       <td class="font-mono text-stone-700">Node.js 20 LTS, Vite 6</td>
+                      <td>Ambiente e empacotamento</td>
                     </tr>
                     <tr>
-                      <td class="font-semibold text-stone-900">Frontend & Estilos</td>
+                      <td class="font-semibold text-stone-900">Frontend</td>
                       <td class="font-mono text-stone-700">React 19, Tailwind CSS 4</td>
+                      <td>Interface reativa</td>
                     </tr>
                     <tr>
-                      <td class="font-semibold text-stone-900">Cartografia</td>
-                      <td class="font-mono text-stone-700">Leaflet 1.9, Mapbox API (Free Tier)</td>
+                      <td class="font-semibold text-stone-900">Mapas</td>
+                      <td class="font-mono text-stone-700">Leaflet 1.9 + React-Leaflet 5, Mapbox API (Free Tier)</td>
+                      <td>Renderização cartográfica vetorial leve</td>
                     </tr>
                     <tr>
-                      <td class="font-semibold text-stone-900">Backend Serverless</td>
+                      <td class="font-semibold text-stone-900">Dados</td>
                       <td class="font-mono text-stone-700">Cloud Firestore, Firebase Auth, FCM</td>
+                      <td>Backend serverless</td>
                     </tr>
                     <tr>
-                      <td class="font-semibold text-stone-900">Testes Automatizados</td>
-                      <td class="font-mono text-stone-700">Vitest, React Testing Library, Firebase Emulator</td>
+                      <td class="font-semibold text-stone-900">Testes local</td>
+                      <td class="font-mono text-stone-700">Firebase Emulator Suite, Vitest, React Testing Library</td>
+                      <td>Testes unitários e de integração</td>
                     </tr>
                     <tr>
-                      <td class="font-semibold text-stone-900">Linter & Qualidade</td>
-                      <td class="font-mono text-stone-700">ESLint, Oxlint (análise estática)</td>
+                      <td class="font-semibold text-stone-900">Qualidade</td>
+                      <td class="font-mono text-stone-700">ESLint, Oxlint</td>
+                      <td>Análise estática</td>
                     </tr>
                     <tr>
-                      <td class="font-semibold text-stone-900">CI/CD & Repositório</td>
+                      <td class="font-semibold text-stone-900">Versionamento / CI</td>
                       <td class="font-mono text-stone-700">Git, GitHub, GitHub Actions</td>
+                      <td>Controle e automação</td>
                     </tr>
                     <tr>
-                      <td class="font-semibold text-stone-900">Hospedagem & CDN</td>
+                      <td class="font-semibold text-stone-900">Hospedagem</td>
                       <td class="font-mono text-stone-700">Vercel (Primária), Firebase Hosting (Espelho)</td>
+                      <td>Entrega e CDN</td>
                     </tr>
                     <tr>
-                      <td class="font-semibold text-stone-900">Dispositivos Alvo</td>
+                      <td class="font-semibold text-stone-900">Dispositivos</td>
                       <td class="font-mono text-stone-700">Android 10+ (Chrome 110+), iOS 15+ (Safari 16.4+)</td>
+                      <td>Cliente PWA</td>
                     </tr>
                   </tbody>
                 </table>
@@ -2071,7 +2335,7 @@
             <div class="lg:col-span-5 ds-card p-8 md:p-10">
               <div class="flex items-center justify-between mb-4">
                 <h4 class="font-serif text-xl font-semibold text-stone-900">Cronograma de Sprints</h4>
-                <span class="ds-status ds-status--ok">100% Concluído</span>
+                <span class="ds-status ds-status--info">6 Sprints Planejadas</span>
               </div>
 
               <div class="overflow-x-auto shadow-xs rounded-xl border border-stone-200 bg-white">
@@ -2080,7 +2344,7 @@
                     <tr>
                       <th class="w-16 text-center">Sprint</th>
                       <th class="w-28 text-center">Período</th>
-                      <th>Pacotes Entregues</th>
+                      <th>Pacotes</th>
                       <th>Marco</th>
                     </tr>
                   </thead>
@@ -2119,13 +2383,15 @@
                       <td class="text-center font-mono font-bold text-emerald-900">S6</td>
                       <td class="text-center font-mono text-emerald-800">22/10–05/11</td>
                       <td>5.2</td>
-                      <td>Ensaio Rodoviário & Manual Final</td>
+                      <td>Validação em Campo &amp; Manual Consolidado</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <div class="mt-5 p-4 bg-stone-100 rounded-xl text-xs text-stone-700">
-                <strong>Entregas Finais:</strong> PWA em produção na Vercel, Manual de Processos v8.0 homologado e apresentação formal em 26/11/2026.
+              <div class="mt-5 p-4 bg-stone-100 rounded-xl text-xs text-stone-700 space-y-1.5">
+                <p><strong>Escopo:</strong> PWA Rhyme conforme delimitado na Seção 1.5.</p>
+                <p><strong>Recursos:</strong> 4 membros (Seção 3.4) e infraestrutura de ferramentas gratuitas (Seção 3.2).</p>
+                <p><strong>Entregas Previstas:</strong> PWA publicado (pós-implementação), Manual de Processos v8.0 e apresentação formal em 26/11/2026.</p>
               </div>
             </div>
           </div>
@@ -2235,80 +2501,52 @@
           </div>
         </div>
 
-        <!-- 4.3, 4.4 e 4.5: Configuração, ADRs e Métricas -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
-          <div class="lg:col-span-6 ds-card p-8 md:p-10" data-presenter="matheus">
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-              <div class="flex items-center gap-3">
-                <span class="ds-step-pill">4.3</span>
-                <h4 class="font-serif text-xl font-semibold text-stone-900">Gestão de Configuração & Git Flow</h4>
-              </div>
-              <span class="ds-presenter" title="Responsável pela apresentação: Matheus Marquez (Infra & DevOps)"><span class="ds-avatar ds-avatar--matheus">MM</span><span class="ds-presenter-name">Matheus Marquez</span></span>
+        <!-- 4.3: Gestão de Configuração & Git Flow -->
+        <div class="mb-12 ds-card p-8 md:p-10 print-keep-together" data-presenter="matheus">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+            <div class="flex items-center gap-3.5">
+              <span class="ds-step-pill">4.3</span>
+              <h3 class="font-serif text-2xl md:text-3xl text-stone-900">Plano de Gestão de Configuração &amp; Git Flow</h3>
             </div>
-
-            <div class="p-4 bg-stone-900 text-stone-100 rounded-2xl font-mono text-xs mb-4">
-              <div class="text-stone-400">// Política de Branches e Integração Contínua</div>
-              <div class="text-emerald-400 font-bold">main (branch protegida)</div>
-              <div class="text-stone-300">  ├── feature/* ──► PR (lint + build + 1 review) ──► Squash & Merge</div>
-              <div class="text-stone-300">  └── fix/*     ──► PR (testes Vitest + review)  ──► Squash & Merge</div>
-            </div>
-
-            <ul class="space-y-2 text-xs md:text-sm text-stone-700">
-              <li><strong>Sem Push Direto:</strong> <code>main</code> protegida por regras do repositório GitHub.</li>
-              <li><strong>Conventional Commits:</strong> Padronização obrigatória: <code>feat</code>, <code>fix</code>, <code>docs</code>, <code>test</code>, <code>refactor</code>.</li>
-              <li><strong>Pull Requests:</strong> Exigência de 1 revisor independente e esteira de CI sem quebras.</li>
-              <li><strong>Releases:</strong> Tags anotadas seguindo Semantic Versioning (ex.: <code>v8.0.0</code>).</li>
-            </ul>
+            <span class="ds-presenter" title="Responsável pela apresentação: Matheus Marquez (Infra & DevOps)"><span class="ds-avatar ds-avatar--matheus">MM</span><span class="ds-presenter-name">Matheus Marquez</span></span>
           </div>
 
-          <div class="lg:col-span-6 ds-card p-8 md:p-10" data-presenter="heitor">
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-              <div class="flex items-center gap-3">
-                <span class="ds-step-pill">4.5</span>
-                <h4 class="font-serif text-xl font-semibold text-stone-900">Métricas de Acompanhamento do Projeto</h4>
-              </div>
-              <span class="ds-presenter" title="Responsável pela apresentação: Heitor Gonçalves (Qualidade & V&V)"><span class="ds-avatar ds-avatar--heitor">HG</span><span class="ds-presenter-name">Heitor Gonçalves</span></span>
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <div class="lg:col-span-5 p-5 bg-stone-900 text-stone-100 rounded-2xl font-mono text-xs leading-relaxed">
+              <div class="text-stone-400 mb-1.5">// Política de Branches e Integração Contínua</div>
+              <div class="text-emerald-400 font-bold">main (branch protegida)</div>
+              <div class="text-stone-300">  ├── feature/* ──► PR (lint + build + 1 review) ──► Squash &amp; Merge</div>
+              <div class="text-stone-300">  └── fix/*     ──► PR (testes Vitest + review)  ──► Squash &amp; Merge</div>
             </div>
 
-            <div class="overflow-x-auto shadow-xs rounded-xl border border-stone-200 bg-white">
+            <div class="lg:col-span-7 overflow-x-auto shadow-xs rounded-xl border border-stone-200 bg-white">
               <table class="editorial-table text-xs md:text-sm">
                 <thead>
                   <tr>
-                    <th>Métrica de Controle</th>
-                    <th>Meta Estabelecida</th>
-                    <th>Fonte / Frequência</th>
+                    <th class="w-40">Item</th>
+                    <th>Regra Formal</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="font-semibold text-stone-900">Velocity da Equipe</td>
-                    <td>Estável entre sprints</td>
-                    <td>Quadro Kanban • Quinzenal</td>
+                    <td class="font-semibold text-stone-900">Branches</td>
+                    <td><code>main</code> apenas com código homologado; sem push direto (proteção no GitHub).</td>
                   </tr>
                   <tr>
-                    <td class="font-semibold text-stone-900">Entregas no Prazo</td>
-                    <td class="font-mono text-emerald-800 font-bold whitespace-nowrap">100% dos marcos</td>
-                    <td>Cronograma (4.1) • Por sprint</td>
+                    <td class="font-semibold text-stone-900">Commits</td>
+                    <td><em>Conventional Commits</em> obrigatórios: <code>feat</code>, <code>fix</code>, <code>docs</code>, <code>test</code>, <code>refactor</code>.</td>
                   </tr>
                   <tr>
-                    <td class="font-semibold text-stone-900">Cobertura de Testes (QM-04)</td>
-                    <td class="font-mono text-emerald-800 font-bold whitespace-nowrap">≥ 80% do código</td>
-                    <td>Vitest no CI • A cada PR</td>
+                    <td class="font-semibold text-stone-900">Pull Requests</td>
+                    <td>1 revisor independente; <code>npm run lint</code> e <code>npm run test</code> sem falhas na esteira CI.</td>
                   </tr>
                   <tr>
-                    <td class="font-semibold text-stone-900">Casos de Teste Aprovados</td>
-                    <td class="font-mono text-emerald-800 font-bold whitespace-nowrap">10 de 10 (100%)</td>
-                    <td>Relatório V&V • Por release</td>
+                    <td class="font-semibold text-stone-900">Merge</td>
+                    <td><em>Squash and Merge</em> obrigatório para manter histórico linear e auditável.</td>
                   </tr>
                   <tr>
-                    <td class="font-semibold text-stone-900">Riscos Críticos (Sev ≥ 15)</td>
-                    <td class="font-mono text-emerald-800 font-bold whitespace-nowrap">0 sem mitigação ativa</td>
-                    <td>Risk Register • Quinzenal</td>
-                  </tr>
-                  <tr>
-                    <td class="font-semibold text-stone-900">Cota Gratuita Firebase</td>
-                    <td class="font-mono text-emerald-800 font-bold whitespace-nowrap">&lt; 70% de consumo</td>
-                    <td>Console Firebase • Semanal</td>
+                    <td class="font-semibold text-stone-900">Releases</td>
+                    <td>Tags anotadas SemVer <code>vMAJOR.MINOR.PATCH</code> (ex.: <code>v1.0.0</code>).</td>
                   </tr>
                 </tbody>
               </table>
@@ -2317,7 +2555,7 @@
         </div>
 
         <!-- 4.4: Registro Formal de ADRs -->
-        <div data-presenter="carlos">
+        <div class="mb-12" data-presenter="carlos">
           <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
             <div class="flex items-center gap-3.5">
               <span class="ds-step-pill">4.4</span>
@@ -2326,13 +2564,13 @@
             <span class="ds-presenter" title="Responsável pela apresentação: Carlos Daniel (Arquitetura & Front)"><span class="ds-avatar ds-avatar--carlos">CD</span><span class="ds-presenter-name">Carlos Daniel</span></span>
           </div>
 
-          <div class="overflow-x-auto shadow-xs rounded-2xl border border-stone-800/10 bg-white">
+          <div class="overflow-x-auto shadow-xs rounded-2xl border border-stone-800/10 bg-white mb-4">
             <table class="editorial-table text-xs md:text-sm">
               <thead>
                 <tr>
                   <th class="w-24 text-center">ADR</th>
                   <th class="w-72">Decisão Estrutural</th>
-                  <th>Contexto & Justificativa</th>
+                  <th>Contexto &amp; Justificativa</th>
                   <th class="w-80">Alternativas Avaliadas (Nota)</th>
                   <th>Consequências Operacionais</th>
                 </tr>
@@ -2341,7 +2579,7 @@
                 <tr>
                   <td class="text-center font-mono font-bold text-stone-900">001</td>
                   <td class="font-semibold text-stone-900">Distribuir como Progressive Web App (PWA)</td>
-                  <td>Acesso imediato via escaneamento de QR Code na van, sem fricção de download ou aprovação em lojas.</td>
+                  <td>Acesso imediato via escaneamento de QR Code no ônibus, sem fricção de download ou aprovação em lojas.</td>
                   <td class="font-mono text-xs"><strong>PWA (4,8)</strong> vs. React Native (3,1) vs. Flutter (3,1)</td>
                   <td>Dispensa compilações nativas; suporte a Web Push no iOS depende de versão 16.4+.</td>
                 </tr>
@@ -2365,6 +2603,77 @@
                   <td>Rede de distribuição global (CDN) com nó de borda no Brasil (São Paulo) e integração com GitHub.</td>
                   <td class="font-mono text-xs"><strong>Vercel (5,0)</strong> vs. Firebase Hosting (4,4) vs. GitHub Pages (3,2)</td>
                   <td>Dois destinos sincronizados de deploy para assegurar redundância contra indisponibilidade.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="p-4 ds-note-box text-xs md:text-sm text-stone-700">
+            <strong class="text-stone-900">Critérios das matrizes de decisão:</strong> custo, tamanho de bundle, suporte offline, integração com React, CDN no Brasil e tempo de onboarding.
+          </div>
+        </div>
+
+        <!-- 4.5: Métricas de Acompanhamento do Projeto -->
+        <div class="ds-card p-8 md:p-10" data-presenter="heitor">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+            <div class="flex items-center gap-3.5">
+              <span class="ds-step-pill">4.5</span>
+              <h3 class="font-serif text-2xl md:text-3xl text-stone-900">Métricas de Acompanhamento do Projeto</h3>
+            </div>
+            <span class="ds-presenter" title="Responsável pela apresentação: Heitor Gonçalves (Qualidade & V&V)"><span class="ds-avatar ds-avatar--heitor">HG</span><span class="ds-presenter-name">Heitor Gonçalves</span></span>
+          </div>
+
+          <div class="overflow-x-auto shadow-xs rounded-xl border border-stone-200 bg-white">
+            <table class="editorial-table text-xs md:text-sm">
+              <thead>
+                <tr>
+                  <th>Métrica de Controle</th>
+                  <th>Meta Estabelecida</th>
+                  <th>Fonte</th>
+                  <th class="w-36 text-center">Frequência</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="font-semibold text-stone-900">Velocity (itens concluídos por sprint)</td>
+                  <td>Estável entre sprints</td>
+                  <td>Quadro Kanban</td>
+                  <td class="text-center">Quinzenal</td>
+                </tr>
+                <tr>
+                  <td class="font-semibold text-stone-900">Prazo: entregas no marco da sprint</td>
+                  <td class="font-mono text-emerald-800 font-bold whitespace-nowrap">100% dos marcos</td>
+                  <td>Cronograma (4.1)</td>
+                  <td class="text-center">Por sprint</td>
+                </tr>
+                <tr>
+                  <td class="font-semibold text-stone-900">Cobertura de testes (QM-04)</td>
+                  <td class="font-mono text-emerald-800 font-bold whitespace-nowrap">≥ 80% do código</td>
+                  <td>Vitest no CI</td>
+                  <td class="text-center">Por PR</td>
+                </tr>
+                <tr>
+                  <td class="font-semibold text-stone-900">Casos de teste aprovados</td>
+                  <td class="font-mono text-emerald-800 font-bold whitespace-nowrap">10 de 10 (100%)</td>
+                  <td>Relatório de V&amp;V</td>
+                  <td class="text-center">Por release</td>
+                </tr>
+                <tr>
+                  <td class="font-semibold text-stone-900">Riscos com severidade ≥ 15 abertos</td>
+                  <td class="font-mono text-emerald-800 font-bold whitespace-nowrap">0 sem plano ativo</td>
+                  <td>Risk Register</td>
+                  <td class="text-center">Quinzenal</td>
+                </tr>
+                <tr>
+                  <td class="font-semibold text-stone-900">Débitos técnicos listados na retrospectiva</td>
+                  <td>Tendência de queda</td>
+                  <td>Retrospectiva</td>
+                  <td class="text-center">Quinzenal</td>
+                </tr>
+                <tr>
+                  <td class="font-semibold text-stone-900">Consumo da cota do Firebase</td>
+                  <td class="font-mono text-emerald-800 font-bold whitespace-nowrap">&lt; 70% de consumo</td>
+                  <td>Console Firebase</td>
+                  <td class="text-center">Semanal</td>
                 </tr>
               </tbody>
             </table>
@@ -2514,6 +2823,9 @@
                 </tbody>
               </table>
             </div>
+            <div class="mt-4 p-4 ds-note-box text-xs md:text-sm text-stone-700">
+              <strong class="text-stone-900">Restrições do Sistema (5.1.1):</strong> operação restrita ao plano gratuito (Spark) do Firebase, uso de mapas abertos (Leaflet + Mapbox Free Tier), sem aplicativos nativos em lojas e sem cobrança ou bilhetagem.
+            </div>
           </div>
 
           <!-- 5.1.2: Rastreabilidade de Requisitos -->
@@ -2625,7 +2937,7 @@
               </div>
               <div class="pt-5 mt-5 border-t border-stone-200 flex items-center justify-between text-xs">
                 <span class="ds-mono-label">Vínculo Normativo</span>
-                <span class="ds-status ds-status--ok">10/10 Critérios Atingidos</span>
+                <span class="ds-status ds-status--info">10/10 Critérios Definidos</span>
               </div>
             </div>
 
@@ -2690,9 +3002,12 @@
                 <div class="text-blue-300">│  Firebase: Auth · Firestore (onSnapshot) · FCM Push   │</div>
                 <div class="text-stone-300">└────────────────────────────────────────────────────────┘</div>
               </div>
-              <p class="text-xs md:text-sm text-stone-700">
+              <p class="text-xs md:text-sm text-stone-700 mb-3">
                 <strong>Interfaces Principais:</strong> Firestore SDK (WebSockets / real-time listeners), FCM (Push Notifications nativas), HTML5 Geolocation API (<code>watchPosition</code>) e Mapbox Raster/Vector Tiles via HTTPS.
               </p>
+              <div class="p-3.5 ds-note-box text-xs text-stone-700">
+                <strong class="text-stone-900">Decisões Arquiteturais:</strong> fundamentadas nos registros <code>ADR-001</code> a <code>ADR-004</code> (Seção 4.4).
+              </div>
             </div>
 
             <!-- Modelo NoSQL Firestore -->
@@ -2703,7 +3018,7 @@
                   <thead>
                     <tr>
                       <th class="w-56">Coleção / Caminho</th>
-                      <th>Campos Principais & Tipos</th>
+                      <th>Campos Principais &amp; Tipos</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -2713,12 +3028,12 @@
                     </tr>
                     <tr>
                       <td class="font-mono font-bold text-stone-900">trips</td>
-                      <td><code>tripId, routeId, driverUid, status, startedAt, endedAt</code></td>
+                      <td><code>tripId, routeId, driverUid, status (scheduled/in_progress/completed), startedAt, endedAt</code></td>
                     </tr>
                     <tr class="ds-row-highlight">
                       <td class="font-mono font-bold text-stone-900">trips/{tripId}/students</td>
                       <td>
-                        <code>studentUid, name, faculty, status, updatedAt</code><br/>
+                        <code>studentUid, name, faculty, status (in_class/released/at_stop/boarded), updatedAt</code><br/>
                         <span class="text-[11px] text-[#FF7020] font-sans font-semibold">LGPD: Status operacional sem latitude/longitude privada do aluno.</span>
                       </td>
                     </tr>
@@ -2745,7 +3060,7 @@
               </div>
 
               <!-- Abas dos Diagramas SVG -->
-              <div class="flex flex-wrap gap-2 p-1.5 bg-stone-100 rounded-2xl border border-stone-200 text-xs font-medium">
+              <div class="flex flex-wrap gap-2 p-1.5 bg-stone-100 rounded-2xl border border-stone-200 text-xs font-medium no-print">
                 <button
                   onclick="selectDiagramTab('casos')"
                   id="tabBtn-casos"
@@ -2765,11 +3080,14 @@
 
             <!-- Painel 1: Casos de Uso (SVG) -->
             <div id="diagTab-casos" class="diag-tab-panel">
+              <div class="print-only mb-2">
+                <span class="ds-solid-badge ds-solid-badge--orange">Diagrama 1 de 2 · Casos de Uso (UC01 a UC10)</span>
+              </div>
               <div class="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-stone-600">
                 <p>
                   <strong>Casos de Uso:</strong> 10 Casos de Uso (UC01 a UC10) alinhados diretamente aos Requisitos Funcionais e diretrizes da LGPD.
                 </p>
-                <button onclick="togglePumlSource('casos')" class="text-stone-600 hover:text-stone-900 font-mono underline shrink-0">
+                <button onclick="togglePumlSource('casos')" class="text-stone-600 hover:text-stone-900 font-mono underline shrink-0 no-print">
                   Ver Código PlantUML
                 </button>
               </div>
@@ -3150,11 +3468,14 @@ UC10 --&gt; firebase : Registra presença na viagem
 
             <!-- Painel 2: Componentes (SVG) -->
             <div id="diagTab-componentes" class="diag-tab-panel hidden">
+              <div class="print-only mb-2">
+                <span class="ds-solid-badge ds-solid-badge--green">Diagrama 2 de 2 · Arquitetura de Componentes PWA</span>
+              </div>
               <div class="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-stone-600">
                 <p>
                   <strong>Arquitetura de Componentes:</strong> Cliente PWA (React 19 + Leaflet + Mapbox API Free Tier + Service Worker) e nuvem Firebase.
                 </p>
-                <button onclick="togglePumlSource('componentes')" class="text-stone-600 hover:text-stone-900 font-mono underline shrink-0">
+                <button onclick="togglePumlSource('componentes')" class="text-stone-600 hover:text-stone-900 font-mono underline shrink-0 no-print">
                   Ver Código PlantUML
                 </button>
               </div>
@@ -3264,6 +3585,47 @@ SW ..&gt; FCM : Recebe Push Notifications de Geofence
               </div>
             </div>
           </div>
+
+          <!-- 5.2.3: Justificativa das Escolhas Tecnológicas -->
+          <div class="ds-card p-8 md:p-10">
+            <h4 class="font-serif text-xl md:text-2xl font-semibold text-stone-900 mb-4">5.2.3 Justificativa das Escolhas Tecnológicas</h4>
+            <div class="overflow-x-auto shadow-xs rounded-xl border border-stone-200 bg-white">
+              <table class="editorial-table text-xs md:text-sm">
+                <thead>
+                  <tr>
+                    <th class="w-56">Tecnologia</th>
+                    <th>Justificativa Técnica e Alinhamento</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="font-semibold text-stone-900">React 19 + Vite</td>
+                    <td>Componentização reativa e Hot Module Replacement (HMR) rápido para iteração em sprints.</td>
+                  </tr>
+                  <tr>
+                    <td class="font-semibold text-stone-900">Tailwind CSS</td>
+                    <td>Tokens de alto contraste e ergonomia visual voltados ao uso noturno em cabine veicular.</td>
+                  </tr>
+                  <tr>
+                    <td class="font-semibold text-stone-900">Leaflet + Mapbox API</td>
+                    <td>Camada vetorial de alta resolução sob plano gratuito de 50 mil requisições/mês (<code>ADR-002</code>).</td>
+                  </tr>
+                  <tr>
+                    <td class="font-semibold text-stone-900">Firebase</td>
+                    <td>Sincronização em tempo real sem necessidade de manter servidor dedicado 24/7 (<code>ADR-003</code>).</td>
+                  </tr>
+                  <tr>
+                    <td class="font-semibold text-stone-900">PWA</td>
+                    <td>Elimina aprovação em lojas de aplicativos e permite acesso imediato por QR Code (<code>ADR-001</code>).</td>
+                  </tr>
+                  <tr>
+                    <td class="font-semibold text-stone-900">Vitest</td>
+                    <td>Integração nativa ao Vite com geração automática de relatórios de cobertura (meta <code>QM-04</code>).</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
 
         <!-- 5.3: Implementação e Integração -->
@@ -3340,11 +3702,14 @@ SW ..&gt; FCM : Recebe Push Notifications de Geofence
                   </tbody>
                 </table>
               </div>
+              <p class="mt-3 text-xs text-stone-600">
+                Cada integração entra obrigatoriamente pela esteira CI/CD (lint, testes e build) antes do deploy.
+              </p>
             </div>
           </div>
 
           <!-- 5.3.3: Plano e Registro de Testes Unitários e de Integração -->
-          <div class="ds-card p-8 md:p-10">
+          <div class="ds-card p-8 md:p-10 mb-8">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
               <h4 class="font-serif text-xl font-semibold text-stone-900">5.3.3 Plano e Registro de Testes Unitários e de Integração</h4>
               <span class="ds-status ds-status--warn">Meta de Cobertura: ≥ 80% (QM-04)</span>
@@ -3392,6 +3757,17 @@ SW ..&gt; FCM : Recebe Push Notifications de Geofence
                 </tbody>
               </table>
             </div>
+          </div>
+
+          <!-- 5.3.4: Rastreabilidade entre Código e Requisitos -->
+          <div class="ds-card p-6 md:p-8">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <h4 class="font-serif text-lg md:text-xl font-semibold text-stone-900">5.3.4 Rastreabilidade entre Código e Requisitos</h4>
+              <span class="ds-status ds-status--warn">Pós-Implementação (Ação 5 · Cap. 6)</span>
+            </div>
+            <p class="text-xs md:text-sm text-stone-700 leading-relaxed">
+              O mapeamento estrutural ponta a ponta (requisito → caso de uso → componente arquitetural → EAP → teste) está consolidado na tabela da <strong>Seção 5.1.2</strong>. O vínculo direto com os arquivos-fonte será auditado e preenchido após a codificação do sistema, conforme registrado na Ação 5 da Seção 6.4.
+            </p>
           </div>
         </div>
 
@@ -3605,6 +3981,9 @@ SW ..&gt; FCM : Recebe Push Notifications de Geofence
                   <strong>Fase 5:</strong> Handoff definitivo às prefeituras parceiras sob Termo de Cessão de Uso.
                 </li>
               </ol>
+              <div class="mt-4 p-3.5 ds-note-box text-xs text-stone-700">
+                <strong class="text-stone-900">Plano de Reversão (Rollback):</strong> reimplantar imediatamente a tag SemVer anterior pela plataforma Vercel em caso de falha crítica pós-deploy.
+              </div>
             </div>
           </div>
         </div>
@@ -3635,13 +4014,13 @@ SW ..&gt; FCM : Recebe Push Notifications de Geofence
                   <tbody>
                     <tr>
                       <td class="font-semibold text-stone-900">Disponibilidade (15h–23h30)</td>
-                      <td>Uptime bot e console Vercel</td>
+                      <td>Verificação de URL e console da hospedagem (Vercel)</td>
                       <td class="whitespace-nowrap">Indisponível &gt; 15 min (RTO)</td>
                     </tr>
                     <tr>
                       <td class="font-semibold text-stone-900">Latência Realtime (QM-01)</td>
                       <td>Delta de timestamps nos listeners</td>
-                      <td class="whitespace-nowrap">Latência &gt; 2.000 ms</td>
+                      <td class="whitespace-nowrap">Latência &gt; 2.000 ms (RT-04)</td>
                     </tr>
                     <tr>
                       <td class="font-semibold text-stone-900">Cota Diária Firebase</td>
@@ -3651,12 +4030,17 @@ SW ..&gt; FCM : Recebe Push Notifications de Geofence
                     <tr>
                       <td class="font-semibold text-stone-900">Ping do GPS Veicular</td>
                       <td>Campo <code>updatedAt</code> em <code>bus_location</code></td>
-                      <td class="whitespace-nowrap">Sem sinal por &gt; 3 min</td>
+                      <td class="whitespace-nowrap">Sem sinal por &gt; 3 min (RT-02)</td>
                     </tr>
                     <tr>
                       <td class="font-semibold text-stone-900">Disparo de Push FCM</td>
                       <td>Logs de envio do Firebase Messaging</td>
-                      <td class="whitespace-nowrap">Falhas consecutivas no lote</td>
+                      <td class="whitespace-nowrap">Falha repetida (RT-03)</td>
+                    </tr>
+                    <tr>
+                      <td class="font-semibold text-stone-900">Incidentes</td>
+                      <td>Registro formal e post-mortem sem culpa</td>
+                      <td class="whitespace-nowrap">Todo incidente em viagem</td>
                     </tr>
                   </tbody>
                 </table>
@@ -3668,10 +4052,10 @@ SW ..&gt; FCM : Recebe Push Notifications de Geofence
               <div class="ds-card p-8">
                 <h4 class="font-serif text-xl font-semibold text-stone-900 mb-3">5.5.2 Plano de Manutenção</h4>
                 <ul class="space-y-2 text-xs md:text-sm text-stone-700">
-                  <li>• <strong>Corretiva:</strong> Resolução de bugs e oscilações de telemetria (Crítico ≤ 2 h; Alto ≤ 24 h).</li>
-                  <li>• <strong>Preventiva:</strong> Auditoria <code>npm audit</code> e atualização quinzenal do Firebase SDK.</li>
-                  <li>• <strong>Adaptativa:</strong> Adequação a alterações no calendário acadêmico ou obras viárias.</li>
-                  <li>• <strong>Evolutiva:</strong> Implementação de otimização de consumo de bateria em viagens longas.</li>
+                  <li>• <strong>Corretiva:</strong> Resolução de bugs e desvios de telemetria (Crítico ≤ 2 h; Alto ≤ 24 h).</li>
+                  <li>• <strong>Preventiva:</strong> Auditoria <code>npm audit</code> e atualização do Firebase SDK (Quinzenal).</li>
+                  <li>• <strong>Adaptativa:</strong> Adequação a mudanças no calendário acadêmico, obras na rodovia piloto e novos navegadores (Sob demanda).</li>
+                  <li>• <strong>Evolutiva:</strong> Otimização de consumo de bateria e geração de relatórios municipais (Por backlog).</li>
                 </ul>
               </div>
 
@@ -3819,7 +4203,7 @@ SW ..&gt; FCM : Recebe Push Notifications de Geofence
 
         <!-- 6.3 e 6.4: Plano de Melhoria CAPA e Atualização Realizada -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
-          <div class="lg:col-span-6 ds-card p-8 md:p-10">
+          <div class="lg:col-span-5 ds-card p-8 md:p-10">
             <div class="flex items-center gap-3 mb-4">
               <span class="ds-step-pill">6.3</span>
               <h4 class="font-serif text-xl font-semibold text-stone-900">Plano de Melhoria CAPA (v8.0)</h4>
@@ -3858,10 +4242,10 @@ SW ..&gt; FCM : Recebe Push Notifications de Geofence
             </div>
           </div>
 
-          <div class="lg:col-span-6 ds-card p-8 md:p-10">
+          <div class="lg:col-span-7 ds-card p-8 md:p-10">
             <div class="flex items-center gap-3 mb-4">
               <span class="ds-step-pill">6.4</span>
-              <h4 class="font-serif text-xl font-semibold text-stone-900">Atualização & Verificação na Versão 8.0</h4>
+              <h4 class="font-serif text-xl font-semibold text-stone-900">Atualização &amp; Verificação na Versão 8.0</h4>
             </div>
 
             <div class="overflow-x-auto shadow-xs rounded-xl border border-stone-200 bg-white">
@@ -3870,33 +4254,39 @@ SW ..&gt; FCM : Recebe Push Notifications de Geofence
                   <tr>
                     <th class="w-10 text-center">#</th>
                     <th>Evidência (Antes → Depois na v8.0)</th>
-                    <th class="w-32 text-center">Resultado</th>
+                    <th class="w-44">Verificação</th>
+                    <th class="w-28 text-center">Resultado</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td class="text-center font-mono font-bold">1</td>
                     <td><strong>Antes:</strong> RFs divergiam entre <code>Requisitos.md</code> e o manual.<br/><strong>Depois:</strong> Manual declarado fonte única de RF01–RF10 (Seção 5.1.1).</td>
-                    <td class="text-center"><span class="ds-status ds-status--ok">Concluído</span></td>
+                    <td>Comparar RF do manual com <code>Requisitos.md</code></td>
+                    <td class="text-center"><span class="ds-status ds-status--ok">Feito</span></td>
                   </tr>
                   <tr>
                     <td class="text-center font-mono font-bold">2</td>
                     <td><strong>Antes:</strong> RF09 apontava para EAP 5.3.1 (inexistente) e sem vínculo a diagramas.<br/><strong>Depois:</strong> RF09 → EAP 3.2.2 e matriz 5.1.2 ligando RFs a UCs e Componentes.</td>
-                    <td class="text-center"><span class="ds-status ds-status--ok">Concluído</span></td>
+                    <td>Conferir EAP (4.1) e diagramas (5.2.2)</td>
+                    <td class="text-center"><span class="ds-status ds-status--ok">Feito</span></td>
                   </tr>
                   <tr>
                     <td class="text-center font-mono font-bold">3</td>
                     <td><strong>Antes:</strong> ADR-001 a ADR-004 citados sem registro formal.<br/><strong>Depois:</strong> Tabela estruturada com notas ponderadas registrada na Seção 4.4.</td>
-                    <td class="text-center"><span class="ds-status ds-status--ok">Concluído</span></td>
+                    <td>Auditar correspondência de cada ADR citado</td>
+                    <td class="text-center"><span class="ds-status ds-status--ok">Feito</span></td>
                   </tr>
                   <tr>
                     <td class="text-center font-mono font-bold">4</td>
                     <td><strong>Antes:</strong> Datas divergentes e papéis trocados entre documentos.<br/><strong>Depois:</strong> Contracapa, <code>historico-versoes.md</code> e RACI (por papéis) alinhados.</td>
-                    <td class="text-center"><span class="ds-status ds-status--ok">Concluído</span></td>
+                    <td>Comparar com <code>historico-versoes.md</code></td>
+                    <td class="text-center"><span class="ds-status ds-status--ok">Feito</span></td>
                   </tr>
                   <tr>
                     <td class="text-center font-mono font-bold">5</td>
                     <td><strong>Antes:</strong> Testes e ensaio em campo marcados como executados sem código.<br/><strong>Depois:</strong> Planejados (CT-01 a CT-10) para auditoria pós-implementação.</td>
+                    <td>Auditar após implementação do código-fonte</td>
                     <td class="text-center"><span class="ds-status ds-status--warn">Pendente</span></td>
                   </tr>
                 </tbody>
@@ -4094,6 +4484,22 @@ SW ..&gt; FCM : Recebe Push Notifications de Geofence
           label.textContent = `Foco: ${meta.name}`;
           bar.classList.remove('hidden');
         }
+      }
+
+      // Impressão / Exportação PDF limpa (preserva estado do filtro/tema e garante todos os diagramas)
+      function printManual() {
+        const prevFilter = document.body.getAttribute('data-filter-presenter');
+        const prevMode = document.documentElement.getAttribute('data-color-mode');
+        if (prevFilter) document.body.removeAttribute('data-filter-presenter');
+        if (prevMode === 'dark') document.documentElement.setAttribute('data-color-mode', 'light');
+
+        const restore = () => {
+          if (prevFilter) document.body.setAttribute('data-filter-presenter', prevFilter);
+          if (prevMode === 'dark') document.documentElement.setAttribute('data-color-mode', 'dark');
+          window.removeEventListener('afterprint', restore);
+        };
+        window.addEventListener('afterprint', restore);
+        window.print();
       }
 
       // Alternância de Modo Claro / Escuro (Tangerina Canonical Theme System)
